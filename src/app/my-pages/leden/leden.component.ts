@@ -148,7 +148,7 @@ export class LedenComponent extends ParentComponent implements OnInit {
 
 }
 
-
+// TODO: de boxen nieuwe leden, opgezegd en foto verbod moeten worden uitgelijnd
 
 // <div *ngFor="let step of item.testSteps; let last = last;let odd = odd;">
 //     <mat-list-item [ngClass]="{highlighted: odd}">
