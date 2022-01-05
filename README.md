@@ -25,3 +25,12 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+    "@angular/flex-layout": "^11.0.0-beta.33",
+    "@angular/localize": "^13.1.1",
+    "@angular/material-moment-adapter": "^13.1.1",
+    "@angular/platform-server": "^13.1.1",
+    "@auth0/angular-jwt": "^5.0.2",
+    "@ng-bootstrap/ng-bootstrap": "^9.1.3",
