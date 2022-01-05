@@ -201,9 +201,7 @@ export class CompAdminComponent extends ParentComponent implements OnInit {
   uploadFileName: string = '';
 
   onFileSelected($event: any): void {
-    // TODO: Hier klopt nog weinig van maar het compileert.
-    let fileList: FileList = $event as FileList;
-
+    let fileList: FileList = $event.target.files as FileList;
     this.selectedFile = fileList[0];
     this.uploadFileName = this.selectedFile.name;
   }

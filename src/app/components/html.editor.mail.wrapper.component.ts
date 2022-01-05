@@ -322,9 +322,7 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   fileToUpload: File | null = null;
 
   onFileSelected($event: any): void {
-    // TODO: Hier klopt nog weinig van maar het compileert.
-    let fileList: FileList = $event as FileList;
-
+    let fileList: FileList = $event.target.files as FileList;
     this.fileToUpload = fileList.item(0)
     this.attachmentFile.emit(fileList.item(0));
   }
