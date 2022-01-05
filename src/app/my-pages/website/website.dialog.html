@@ -2,8 +2,7 @@
 <mat-dialog-content [formGroup]="websiteItemForm" novalidate>
   <div>
     <mat-form-field style="width: 40%">
-      <input matInput placeholder="Kies de vanaf datum" [matDatepicker]="startpicker" formControlName="StartDate"
-        [formControl]="StartDate" required>
+      <input matInput placeholder="Kies de vanaf datum" [matDatepicker]="startpicker" formControlName="StartDate" required>
       <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
       <mat-datepicker #startpicker></mat-datepicker>
       <mat-error *ngIf="StartDate.hasError('required')">
@@ -26,7 +25,7 @@
     </mat-error>
   </mat-form-field>
   <br>
-  <app-html-editor-formcontrol [formControl]="HtmlContent"></app-html-editor-formcontrol>
+  <app-html-editor-formcontrol formControlName="HtmlContent"></app-html-editor-formcontrol>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" [disabled]='!websiteItemForm.valid' (click)="onSubmit()">Bewaar</button>

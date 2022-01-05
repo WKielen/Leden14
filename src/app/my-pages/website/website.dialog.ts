@@ -7,7 +7,7 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
 
 @Component({
   selector: 'app-website-dialog',
-  templateUrl: './website.dialog.html',
+  templateUrl:  './website.dialog.html',
 })
 export class WebsiteDialogComponent implements OnInit {
   websiteItemForm = new FormGroup({

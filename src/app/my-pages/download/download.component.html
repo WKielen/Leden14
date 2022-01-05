@@ -105,7 +105,7 @@
         <div>
           <button mat-raised-button color="primary" (click)="fileInput.click()" class='margin-right-20'>
             <span>Kies bestand</span>
-            <input #fileInput type="file" (change)="onFileSelected($event.target.files)" style="display:none;" />
+            <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
           </button>
           <input matInput readonly='true' style='margin: 10px 0px 0px 0px;' value={{uploadFileName}}>
         </div>

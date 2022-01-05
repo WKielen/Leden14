@@ -325,7 +325,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
 / Een tegel in de grid
 /***************************************************************************************************/
 class Tile {
-  constructor(public text: string, public color: string, public toolTip: string, private cols: number = 1) { }
+  constructor(public text: string, public color: string, public toolTip: string, public cols: number = 1) { }
 
   public static readonly GEEN_STATUS_COLOR = 'lightgrey';
   public static readonly AANWEZIG_COLOR = 'green';

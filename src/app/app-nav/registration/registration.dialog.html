@@ -3,19 +3,19 @@
 <small class="development" *ngIf="developmentMode">{{ me }}</small>
 <mat-dialog-content [formGroup]="actionItemForm" novalidate>
   <mat-form-field class="mat-form-max-width" *ngIf="data.method != 'Wijzigen'">
-    <input matInput placeholder="Userid" formControlName="userid" [formControl]="userid" required>
+    <input matInput placeholder="Userid" formControlName="userid" required>
     <mat-error *ngIf="userid.hasError('required')">
       Veld is verplicht
     </mat-error>
   </mat-form-field>
   <mat-form-field class="mat-form-max-width">
-    <input matInput placeholder="Voornaam" formControlName="firstname" [formControl]="firstname">
+    <input matInput placeholder="Voornaam" formControlName="firstname">
   </mat-form-field>
   <mat-form-field class="mat-form-max-width">
-    <input matInput placeholder="Achternaam" formControlName="lastname" [formControl]="lastname">
+    <input matInput placeholder="Achternaam" formControlName="lastname">
   </mat-form-field>
   <mat-form-field class="mat-form-max-width">
-    <input matInput placeholder="Email" formControlName="email" [formControl]="email"
+    <input matInput placeholder="Email" formControlName="email"
       pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
     <mat-error *ngIf="email.hasError('email')">
       Onjuist email adres
@@ -23,7 +23,7 @@
   </mat-form-field>
   <mat-form-field class="mat-form-max-width">
     <input matInput placeholder="Alleen invullen voor een nieuw password" formControlName="password"
-      [formControl]="password">
+    >
   </mat-form-field>
   <div fxLayout="row">
     <div>

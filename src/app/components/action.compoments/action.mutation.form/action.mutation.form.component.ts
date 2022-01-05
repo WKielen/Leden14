@@ -28,6 +28,8 @@ export class ActionMutationFormComponent extends BaseComponent implements OnInit
   @Input() amIBestuur: boolean = false;
   @Output() changedAction: EventEmitter<ActionItem> = new EventEmitter<ActionItem>();
 
+
+  // TODO: wat doen we nu met die bestuuronly flag????
   ngOnInit(): void {
     this.title.setValue(this.actionItem.Title);
     this.startdate.setValue(this.actionItem.StartDate);

@@ -1,30 +1,29 @@
 <small class="development" *ngIf="developmentMode">{{ me }}</small>
 <form [formGroup]="actionItemForm" novalidate (submit)="onSubmit()" (keyup.enter)="onSubmit()">
     <mat-form-field class="mat-form-max-width">
-      <input matInput placeholder="Actie" formControlName="title" [formControl]="title" required autofocus>
+      <input matInput placeholder="Actie" formControlName="title" required autofocus>
       <mat-error *ngIf="title.hasError('required')">
         Veld is verplicht
       </mat-error>
     </mat-form-field>
     <mat-form-field class="mat-form-max-width">
-      <input matInput placeholder="Actie Houder" formControlName="holdername" [formControl]="holdername">
+      <input matInput placeholder="Actie Houder" formControlName="holdername">
     </mat-form-field>
     <mat-form-field>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start datum" formControlName="startdate" [formControl]="startdate">
-        <input matEndDate placeholder="Uiterste Datum" formControlName="targetdate" [formControl]="targetdate">
+        <input matStartDate placeholder="Start datum" formControlName="startdate">
+        <input matEndDate placeholder="Uiterste Datum" formControlName="targetdate">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-    <div *ngIf="amIBestuur" >
-      <mat-checkbox name="BestuurOnly" formControlName='bestuuronly' color="primary"
-        [checked]="bestuuronly">
+    <!-- <div *ngIf="amIBestuur" >
+      <mat-checkbox formControlName='bestuuronly' color="primary" [checked]="bestuuronly">
         Alleen zichtbaar voor bestuursleden
       </mat-checkbox><br>
-    </div>
+    </div> -->
     <mat-form-field class="mat-form-max-width">
-      <textarea matInput type="text" placeholder="Toelichting" formControlName="description" [formControl]="description"
+      <textarea matInput type="text" placeholder="Toelichting" formControlName="description"
         matTextareaAutosize matAutosizeMinRows='5'></textarea>
     </mat-form-field>
     <button mat-raised-button type="submit" color="primary" [disabled]='!actionItemForm.valid'>Bewaar</button>

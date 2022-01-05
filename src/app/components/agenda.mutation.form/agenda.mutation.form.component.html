@@ -3,8 +3,7 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between start">
         <div fxFlex="15">
             <mat-form-field class="mat-form-max-width">
-                <input matInput placeholder="Kies een datum" [matDatepicker]="picker" formControlName="datum"
-                    [formControl]="datum" required>
+                <input matInput placeholder="Kies een datum" [matDatepicker]="picker" formControlName="datum" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="datum.hasError('required')">
@@ -12,7 +11,7 @@
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="mat-form-max-width">
-                <input matInput placeholder="Tijd" formControlName="tijd" [formControl]="tijd" required>
+                <input matInput placeholder="Tijd" formControlName="tijd" required>
                 <mat-error *ngIf="tijd.hasError('required')">
                     Veld is verplicht
                 </mat-error>
@@ -47,47 +46,41 @@
         </div>
         <div fxFlex="40">
             <mat-form-field class="mat-form-max-width">
-                <input matInput placeholder="Evenementnaam" formControlName="evenementnaam"
-                    [formControl]="evenementnaam" required>
+                <input matInput placeholder="Evenementnaam" formControlName="evenementnaam" required>
                 <mat-error *ngIf="evenementnaam.hasError('required')">
                     Veld is verplicht
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="mat-form-max-width">
-                <input matInput placeholder="Lokatie" formControlName="lokatie" [formControl]="lokatie" required>
+                <input matInput placeholder="Lokatie" formControlName="lokatie" required>
                 <mat-error *ngIf="lokatie.hasError('required')">
                     Veld is verplicht
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="mat-form-max-width">
-                <textarea matInput placeholder="Toelichting" formControlName="toelichting"
-                    [formControl]="toelichting"></textarea>
+                <textarea matInput placeholder="Toelichting" formControlName="toelichting"></textarea>
             </mat-form-field>
 
         </div>
-        <div fxFlex="30">
+        <div fxFlex=" 30">
             <mat-form-field class="mat-form-max-width">
-                <input matInput placeholder="Inschrijven" formControlName="inschrijven" [formControl]="inschrijven">
+                <input matInput placeholder="Inschrijven" formControlName="inschrijven">
             </mat-form-field>
             <mat-form-field class="mat-form-max-width">
-                <input matInput type="number" placeholder="Inschrijfgeld" formControlName="inschrijfgeld"
-                    [formControl]="inschrijfgeld">
+                <input matInput type="number" placeholder="Inschrijfgeld" formControlName="inschrijfgeld">
                 <span matPrefix>&euro;&nbsp;</span>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Betaalmethode" formControlName="betaalmethode"
-                    [formControl]="betaalmethode">
+                <input matInput placeholder="Betaalmethode" formControlName="betaalmethode">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Contactpersoon" formControlName="contactpersoon"
-                    [formControl]="contactpersoon">
+                <input matInput placeholder="Contactpersoon" formControlName="contactpersoon">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Vervoer" formControlName="vervoer" [formControl]="vervoer">
+                <input matInput placeholder="Vervoer" formControlName="vervoer">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Verzamelafspraak" formControlName="verzamelafspraak"
-                    [formControl]="verzamelafspraak">
+                <input matInput placeholder="Verzamelafspraak" formControlName="verzamelafspraak">
             </mat-form-field>
         </div>
     </div>

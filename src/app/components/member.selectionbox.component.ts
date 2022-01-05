@@ -29,7 +29,7 @@ import { BaseComponent } from '../shared/base.component';
             </div>
             <mat-form-field class="filter" floatLabel="never" style="width:60px">
               <mat-label>Zoek</mat-label>
-              <input matInput id="zoek2" [formControl]="ageFilter">
+              <input matInput id="zoek2" formControlName="ageFilter">
             </mat-form-field>
           </th>
           <td mat-cell *matCellDef="let element" class='lastcolumnshrink'><div [innerHTML]="InnerHtmlLabelLeeftijdsCategorie(element.LeeftijdCategorieBond)"></div></td>

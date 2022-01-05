@@ -10,7 +10,7 @@
             van <a href='http://www.Sepabestand.nl' target='_blank'>Sepabestand.nl</a>.<br><br>
             <mat-form-field class="mat-form-max-width">
                 <input matInput type="text" placeholder="Omschrijving op afschrift" formControlName="Omschrijving"
-                    [formControl]="Omschrijving" (blur)="onSaveChangedFields()">
+                     (blur)="onSaveChangedFields()">
                 <mat-error *ngIf="Omschrijving.hasError('required')">
                     Veld is verplicht
                 </mat-error>

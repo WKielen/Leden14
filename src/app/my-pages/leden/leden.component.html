@@ -14,7 +14,7 @@
             </div>
             <mat-form-field floatLabel="never" style="width:100px">
               <mat-label>Zoek</mat-label>
-              <input matInput id="zoek1" [formControl]="nameFilter" autocomplete="off">
+              <input matInput id="zoek1" formControlName="nameFilter" autocomplete="off">
             </mat-form-field>
           </th>
           <td mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Naam }} </td>
@@ -28,7 +28,7 @@
             </div>
             <mat-form-field class="filter" floatLabel="never" style="width:60px">
               <mat-label>Zoek</mat-label>
-              <input matInput id="zoek2" [formControl]="ageFilter">
+              <input matInput id="zoek2" formControlName="ageFilter">
             </mat-form-field>
           </th>
           <td mat-cell *matCellDef="let element" class='lastcolumnshrink'><div [innerHTML]="InnerHtmlLabelLeeftijdsCategorie(element.LeeftijdCategorieBond)"></div></td>

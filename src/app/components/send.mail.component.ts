@@ -21,11 +21,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
           <mat-card-title>Verstuur Mail</mat-card-title>
     </mat-card-header>
     <mat-card-content [formGroup]="extraMailForm" novalidate>
-      <mat-checkbox color="primary" formControlName="EigenMail" (change)='onEigenMailChange()' [formControl]="EigenMail">Stuur ook een mail naar mezelf</mat-checkbox>
+      <mat-checkbox color="primary" formControlName="EigenMail" (change)='onEigenMailChange()'>Stuur ook een mail naar mezelf</mat-checkbox>
       <br>
       <mat-form-field>
         <input matInput type="text" (ngModelChange)='onEigenMailChange()' placeholder="Eventeel extra email adres" formControlName="EmailExtra"
-            [formControl]="EmailExtra" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
         <mat-error *ngIf="EmailExtra.hasError('email')">
             Vul een geldig email adres in
         </mat-error>

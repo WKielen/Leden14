@@ -3,21 +3,21 @@
 <mat-dialog-content [formGroup]="registerForm" novalidate>
     <!-- 1 -->
     <mat-form-field>
-        <input matInput placeholder="Voornaam" formControlName="firstname" [formControl]="firstname">
+        <input matInput placeholder="Voornaam" formControlName="firstname">
         <mat-error *ngIf="firstname.hasError('required')">
             Naam is verplicht
         </mat-error>
     </mat-form-field>
     <!-- 2 -->
     <mat-form-field>
-      <input matInput placeholder="Achternaam" formControlName="lastname" [formControl]="lastname">
+      <input matInput placeholder="Achternaam" formControlName="lastname">
       <mat-error *ngIf="lastname.hasError('required')">
           Naam is verplicht
       </mat-error>
   </mat-form-field>
       <!-- 3 -->
     <mat-form-field>
-        <input matInput placeholder="Email" formControlName="email" [formControl]="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+        <input matInput placeholder="Email" formControlName="email" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
         <mat-error *ngIf="email.hasError('email')">
             Onjuist email adres
         </mat-error>
@@ -27,7 +27,7 @@
     </mat-form-field>
     <!-- 4 -->
     <mat-form-field>
-        <input matInput placeholder="Kies een gebruikersnaam" formControlName="userid" [formControl]="userid">
+        <input matInput placeholder="Kies een gebruikersnaam" formControlName="userid">
         <mat-error *ngIf="userid.hasError('required')">
             USerid is verplicht
         </mat-error>

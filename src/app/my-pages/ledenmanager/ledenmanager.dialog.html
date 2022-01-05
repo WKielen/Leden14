@@ -4,20 +4,18 @@
         <mat-tab label="Persoonlijk">
             <div id="tab">
                 <mat-form-field class="margin-right-20" style="width: 80px;">
-                    <input matInput placeholder="Voornaam" formControlName="voornaam" [formControl]="voornaam" required>
+                    <input matInput placeholder="Voornaam" formControlName="voornaam" required>
                     <mat-error *ngIf="voornaam.hasError('required')">
                         Veld is verplicht
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="width: 60px;">
-                    <input matInput placeholder="Tussenvoegsel" formControlName="tussenvoegsel"
-                        [formControl]="tussenvoegsel">
+                    <input matInput placeholder="Tussenvoegsel" formControlName="tussenvoegsel">
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="width: 150px;">
-                    <input matInput placeholder="Achternaam" formControlName="achternaam" [formControl]="achternaam"
-                        required>
+                    <input matInput placeholder="Achternaam" formControlName="achternaam" required>
                     <mat-error *ngIf="achternaam.hasError('required')">
                         Veld is verplicht
                     </mat-error>
@@ -26,22 +24,21 @@
                 <br>
 
                 <mat-form-field class="margin-right-20" style="width: 150px;">
-                    <input matInput placeholder="Adres" formControlName="adres" [formControl]="adres" required>
+                    <input matInput placeholder="Adres" formControlName="adres" required>
                     <mat-error *ngIf="adres.hasError('required')">
                         Veld is verplicht
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="width: 60px;">
-                    <input matInput placeholder="Postcode" formControlName="postcode" [formControl]="postcode" required>
+                    <input matInput placeholder="Postcode" formControlName="postcode" required>
                     <mat-error *ngIf="postcode.hasError('required')">
                         Veld is verplicht
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field style="width: 100px;">
-                    <input matInput placeholder="Woonplaats" formControlName="woonplaats" [formControl]="woonplaats"
-                        required>
+                    <input matInput placeholder="Woonplaats" formControlName="woonplaats" required>
                     <mat-error *ngIf="woonplaats.hasError('required')">
                         Veld is verplicht
                     </mat-error>
@@ -51,7 +48,7 @@
 
                 <mat-form-field class="margin-right-20" style="width: 110px">
                     <input matInput placeholder="Geboortedatum" [matDatepicker]="picker" formControlName="geboorteDatum"
-                        [formControl]="geboorteDatum" required>
+                        required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="geboorteDatum.hasError('required')">
@@ -59,41 +56,42 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-radio-group class="margin-right-20" placeholder="Geslacht" formControlName="geslacht"
-                    [formControl]="geslacht" required>
+                <mat-radio-group class="margin-right-20" placeholder="Geslacht" formControlName="geslacht" required>
                     <mat-radio-button color="primary" class="margin-right-20" value="M">Man
                     </mat-radio-button>
                     <mat-radio-button color="primary" value="V">Vrouw</mat-radio-button>
                 </mat-radio-group>
 
 
-                <mat-checkbox color="primary" formControlName="magnietopfoto" [formControl]="magnietopfoto">
+                <mat-checkbox color="primary" formControlName="magnietopfoto">
                     Mag niet op foto</mat-checkbox>
 
                 <br>
 
                 <mat-form-field class="margin-right-20" style="max-width: 150px;">
-                    <input matInput placeholder="Mobiel" formControlName="mobiel" [formControl]="mobiel">
+                    <input matInput placeholder="Mobiel" formControlName="mobiel">
                     <mat-error *ngIf="mobiel.hasError('tel')">
                         Onjuist telefoonnummer
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field style="max-width: 150px;">
-                    <input matInput placeholder="Telefoon" formControlName="telefoon" [formControl]="telefoon">
+                    <input matInput placeholder="Telefoon" formControlName="telefoon">
                 </mat-form-field>
 
                 <br>
 
                 <mat-form-field class="margin-right-20" style="width: 180;">
-                    <input matInput placeholder="Email 1" formControlName="email1" [formControl]="email1" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                    <input matInput placeholder="Email 1" formControlName="email1"
+                        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
                     <mat-error *ngIf="email1.hasError('email')">
                         Onjuist email adres
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field style="width: 180;">
-                    <input matInput placeholder="Email 2" formControlName="email2" [formControl]="email2" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                    <input matInput placeholder="Email 2" formControlName="email2"
+                        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
                     <mat-error *ngIf="email2.hasError('email')">
                         Onjuist email adres
                     </mat-error>
@@ -102,7 +100,7 @@
                 <br>
 
                 <mat-form-field style="width: 300px">
-                    <input matInput placeholder="Opmerking" formControlName="medisch" [formControl]="medisch">
+                    <input matInput placeholder="Opmerking" formControlName="medisch">
                 </mat-form-field>
             </div>
         </mat-tab>
@@ -121,7 +119,7 @@
 
                 <mat-form-field class="margin-right-20" style="width: 110px">
                     <input matInput placeholder="Lid vanaf" [matDatepicker]="picker2" formControlName="lidvanaf"
-                        [formControl]="lidvanaf" required>
+                        required>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                     <mat-error *ngIf="lidvanaf.hasError('required')">
@@ -130,8 +128,7 @@
                 </mat-form-field>
 
                 <mat-form-field style="width:60px">
-                    <input matInput type="number" placeholder="Lidnummer" formControlName="lidnr" [formControl]="lidnr"
-                        [readonly]='!newlid'>
+                    <input matInput type="number" placeholder="Lidnummer" formControlName="lidnr" [readonly]='!newlid'>
                 </mat-form-field>
 
                 <br>
@@ -147,15 +144,13 @@
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="width:150px">
-                    <input matInput type="number" placeholder="Vast bedrag" formControlName="vastbedrag"
-                        [formControl]="vastbedrag">
+                    <input matInput type="number" placeholder="Vast bedrag" formControlName="vastbedrag">
                     <mat-hint>Contributie is een vastbedrag</mat-hint>
                     <span matPrefix>&euro;&nbsp;</span>
                 </mat-form-field>
 
                 <mat-form-field style="width:150px">
-                    <input matInput type="number" placeholder="Korting" formControlName="korting"
-                        [formControl]="korting">
+                    <input matInput type="number" placeholder="Korting" formControlName="korting">
                     <mat-hint>Korting op de contributie</mat-hint>
                     <span matPrefix>&euro;&nbsp;</span>
                 </mat-form-field>
@@ -163,7 +158,7 @@
                 <br>
 
                 <mat-form-field class="margin-right-20" style="width: 180px;">
-                    <input matInput placeholder="IBAN" formControlName="iban" [formControl]="iban"
+                    <input matInput placeholder="IBAN" formControlName="iban"
                         oninput="this.value = this.value.toUpperCase()">
                     <mat-error *ngIf="iban.hasError('iban')">
                         IBAN onjuist
@@ -171,8 +166,7 @@
                 </mat-form-field>
 
                 <mat-form-field style="width: 120px;">
-                    <input matInput placeholder="NieuwegeinPas-nummer" formControlName="u_pasNr"
-                        [formControl]="u_pasNr">
+                    <input matInput placeholder="NieuwegeinPas-nummer" formControlName="u_pasNr">
                 </mat-form-field>
 
                 <br>
@@ -185,28 +179,27 @@
 
             <div id="tab">
                 <mat-form-field class="margin-right-20" style="width:100px">
-                    <input matInput type="number" placeholder="Bondsnr" formControlName="bondsnr"
-                        [formControl]="bondsnr">
+                    <input matInput type="number" placeholder="Bondsnr" formControlName="bondsnr">
                 </mat-form-field>
 
-                <mat-checkbox class="margin-right-20" color="primary" formControlName="lidbond" [formControl]="lidbond">
+                <mat-checkbox class="margin-right-20" color="primary" formControlName="lidbond">
                     Lid
                     bond</mat-checkbox>
-                <mat-checkbox class="margin-right-20" color="primary" formControlName="compgerechtigd"
-                    [formControl]="compgerechtigd">Comp.Gerechtigd</mat-checkbox>
+                <mat-checkbox class="margin-right-20" color="primary" formControlName="compgerechtigd">Comp.Gerechtigd
+                </mat-checkbox>
 
                 <br>
 
                 <mat-form-field class="margin-right-20" style="width:60px">
-                    <input matInput type="number" placeholder="Rating" formControlName="rating" [formControl]="rating">
+                    <input matInput type="number" placeholder="Rating" formControlName="rating">
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="width: 60px;">
-                    <input matInput placeholder="Lic.jun" formControlName="licentiejun" [formControl]="licentiejun">
+                    <input matInput placeholder="Lic.jun" formControlName="licentiejun">
                 </mat-form-field>
 
                 <mat-form-field style="width: 60px;">
-                    <input matInput placeholder="Lic.sen" formControlName="licentiesen" [formControl]="licentiesen">
+                    <input matInput placeholder="Lic.sen" formControlName="licentiesen">
                 </mat-form-field>
             </div>
 
@@ -214,20 +207,20 @@
         <mat-tab label="Ouders">
             <div id="tab">
                 <mat-form-field class="margin-right-20" style="max-width: 150px;">
-                    <input matInput placeholder="Naam" formControlName="ouder1_naam" [formControl]="ouder1_naam">
+                    <input matInput placeholder="Naam" formControlName="ouder1_naam">
                 </mat-form-field>
 
                 <br>
 
                 <mat-form-field class="margin-right-20" style="max-width: 150px;">
-                    <input matInput placeholder="Mobiel" formControlName="ouder1_mobiel" [formControl]="ouder1_mobiel">
+                    <input matInput placeholder="Mobiel" formControlName="ouder1_mobiel">
                     <mat-error *ngIf="ouder1_mobiel.hasError('tel')">
                         Onjuist telefoonnummer
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="margin-right-20" style="max-width: 150px;">
-                    <input matInput placeholder="Mobiel" formControlName="ouder1_mobiel2" [formControl]="ouder1_mobiel2">
+                    <input matInput placeholder="Mobiel" formControlName="ouder1_mobiel2">
                     <mat-error *ngIf="ouder1_mobiel.hasError('tel')">
                         Onjuist telefoonnummer
                     </mat-error>
@@ -235,8 +228,7 @@
 
                 <br>
                 <mat-form-field style="max-width: 150px;">
-                    <input matInput placeholder="Telefoon" formControlName="ouder1_telefoon"
-                        [formControl]="ouder1_telefoon">
+                    <input matInput placeholder="Telefoon" formControlName="ouder1_telefoon">
                     <mat-error *ngIf="ouder1_telefoon.hasError('tel')">
                         Onjuist telefoonnummer
                     </mat-error>
@@ -245,15 +237,17 @@
                 <br>
 
                 <mat-form-field class="margin-right-20" style="width: 180;">
-                    <input matInput placeholder="Email 1" formControlName="ouder1_email1" [formControl]="ouder1_email1">
-                    <mat-error *ngIf="ouder1_email1.hasError('email')" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                    <input matInput placeholder="Email 1" formControlName="ouder1_email1">
+                    <mat-error *ngIf="ouder1_email1.hasError('email')"
+                        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
                         Onjuist email adres
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field style="width: 180;">
-                    <input matInput placeholder="Email 2" formControlName="ouder1_email2" [formControl]="ouder1_email2">
-                    <mat-error *ngIf="ouder1_email2.hasError('email')" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                    <input matInput placeholder="Email 2" formControlName="ouder1_email2">
+                    <mat-error *ngIf="ouder1_email2.hasError('email')"
+                        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
                         Onjuist email adres
                     </mat-error>
                 </mat-form-field>

@@ -12,14 +12,14 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
       <div fxFlex="15" class="fields">
         <mat-form-field class="mat-form-max-width">
-          <input matInput placeholder="Jouw naam" formControlName="naam" [formControl]="naam" required>
+          <input matInput placeholder="Jouw naam" formControlName="naam" required>
           <mat-error *ngIf="naam.hasError('required')">
             Veld is verplicht
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="mat-form-max-width">
-          <input matInput placeholder="Optionele Email" formControlName="email" [formControl]="email"
+          <input matInput placeholder="Optionele Email" formControlName="email"
             pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
           <mat-error *ngIf="email.hasError('email')">
             Onjuist email adres
@@ -27,8 +27,7 @@
         </mat-form-field>
 
         <mat-form-field class="mat-form-max-width">
-          <textarea matInput placeholder="Extra informatie" formControlName="extrainformatie" rows='5'
-            [formControl]="extrainformatie"></textarea>
+          <textarea matInput placeholder="Extra informatie" formControlName="extrainformatie" rows='5'></textarea>
         </mat-form-field>
       </div>
     </div>
@@ -39,4 +38,3 @@
       (click)="onSubmit()">Ik schrijf me in</button>
   </mat-dialog-actions>
 </mat-card>
-

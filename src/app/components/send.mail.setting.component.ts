@@ -25,7 +25,7 @@ import { ParentComponent } from '../shared/parent.component';
 
         <mat-form-field>
             <input matInput type="text" placeholder="Email adres" formControlName="ElecPostAddress"
-                [formControl]="ElecPostAddress" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
             <mat-error *ngIf="ElecPostAddress.hasError('email') && !ElecPostAddress.hasError('required')">
                 Vul een geldig email adres in
             </mat-error>
@@ -35,7 +35,7 @@ import { ParentComponent } from '../shared/parent.component';
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord" [formControl]="EmailPassword"
+            <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord"
                 formControlName="EmailPassword">
             <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}
             </mat-icon>
@@ -45,7 +45,7 @@ import { ParentComponent } from '../shared/parent.component';
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Naam afzender" [formControl]="EmailSender" formControlName="EmailSender">
+            <input matInput placeholder="Naam afzender" formControlName="EmailSender">
         </mat-form-field>
         </form>
     <!-- </mat-card-content>

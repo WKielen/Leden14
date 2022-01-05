@@ -11,6 +11,7 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
   styleUrls: ['./decision.mutation.form.component.scss']
 })
 export class DecisionMutationFormComponent extends BaseComponent implements OnInit {
+  // TODO: wat doen we nu met die bestuuronly flag????
 
   actionItemForm = new FormGroup({
     title: new FormControl(

@@ -2,15 +2,14 @@
 <small class="development" *ngIf="developmentMode">{{ me }}</small>
 <mat-dialog-content [formGroup]="actionItemForm" novalidate>
   <mat-form-field class="mat-form-max-width">
-    <input matInput placeholder="Besluit" formControlName="title" [formControl]="title" required>
+    <input matInput placeholder="Besluit" formControlName="title" required>
     <mat-error *ngIf="title.hasError('required')">
       Veld is verplicht
     </mat-error>
   </mat-form-field>
 
   <mat-form-field style="width: 40%">
-    <input matInput placeholder="Kies besluitdatum" [matDatepicker]="picker" formControlName="startdate"
-      [formControl]="startdate" required>
+    <input matInput placeholder="Kies besluitdatum" [matDatepicker]="picker" formControlName="startdate" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     <mat-error *ngIf="startdate.hasError('required')">
@@ -23,7 +22,7 @@
     </mat-checkbox><br>
   </div>
   <mat-form-field class="mat-form-max-width">
-    <textarea matInput type="text" placeholder="Toelichting" formControlName="description" [formControl]="description"
+    <textarea matInput type="text" placeholder="Toelichting" formControlName="description" 
       matTextareaAutosize matAutosizeMinRows='5'></textarea>
   </mat-form-field>
 </mat-dialog-content>

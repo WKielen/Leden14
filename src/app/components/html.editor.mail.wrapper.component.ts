@@ -41,16 +41,14 @@ import { ParentComponent } from '../shared/parent.component';
               <div fxLayout="column">
 
                 <mat-form-field id="EmailName">
-                  <input matInput type="text" placeholder="Naam mail" formControlName="EmailName"
-                    [formControl]="EmailName">
+                  <input matInput type="text" placeholder="Naam mail" formControlName="EmailName">
                   <mat-error *ngIf="EmailName.hasError('required')">
                     Veld is verplicht
                   </mat-error>
                 </mat-form-field>
 
                 <mat-form-field id="EmailSubject">
-                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject"
-                    [formControl]="EmailSubject">
+                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject">
                   <mat-error *ngIf="EmailSubject.hasError('required')">
                     Veld is verplicht
                   </mat-error>
@@ -60,12 +58,12 @@ import { ParentComponent } from '../shared/parent.component';
             </div> <!-- end of fxflex -->
           </div>  <!-- end of fxlayout -->
 
-          <app-html-editor-formcontrol [formControl]="HtmlControl" (htmlContent)="onHtmlOutputChange($event)"></app-html-editor-formcontrol>
+          <app-html-editor-formcontrol formControlName="HtmlContent" (htmlContent)="onHtmlOutputChange($event)"></app-html-editor-formcontrol>
 
           <div class="attachmentbox">
             <button mat-raised-button color="primary" (click)="fileInput.click()" id="attachmentbutton">
               <span>Kies bijlage</span>
-              <input #fileInput type="file" (change)="onFileSelected($event.target.files)"
+              <input #fileInput type="file" (change)="onFileSelected($event)"
                 style="display:none; margin: 0px 15px 0px 0px;" />
             </button>
             {{ fileToUpload?.name }}
@@ -322,9 +320,13 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   * @param files
   */
   fileToUpload: File | null = null;
-  onFileSelected(files: FileList) {
-    this.fileToUpload = files.item(0)
-    this.attachmentFile.emit(files.item(0));
+
+  onFileSelected($event: any): void {
+    // TODO: Hier klopt nog weinig van maar het compileert.
+    let fileList: FileList = $event as FileList;
+
+    this.fileToUpload = fileList.item(0)
+    this.attachmentFile.emit(fileList.item(0));
   }
 
   /***************************************************************************************************
