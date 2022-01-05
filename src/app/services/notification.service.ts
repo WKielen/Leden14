@@ -217,7 +217,7 @@ export class NotificationService extends DataService {
 
     let sub = this.notification$(payload)
       .subscribe({
-        next: (data) => {
+        next: (data:any) => {
           if (data.hasOwnProperty('failed')) {
             let message: string = data['failed'];
             if (message.indexOf('401') !== -1) {
@@ -258,8 +258,8 @@ export class NotificationService extends DataService {
 / Record used for storing and reading the datbase
 /***************************************************************************************************/
 export class NotificationRecord {
-  Id: number;
-  UserId: string;
-  Token: string;
-  SendWithVapidAud: string;
+  Id!: number;
+  UserId!: string;
+  Token!: string;
+  SendWithVapidAud!: string;
 }

@@ -11,8 +11,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field style="width: 40%;margin-left: 40px;">
-      <input matInput placeholder="Kies de eind datum" [matDatepicker]="endpicker" formControlName="EndDate"
-        [formControl]="EndDate" required>
+      <input matInput placeholder="Kies de eind datum" [matDatepicker]="endpicker" formControlName="EndDate" required>
       <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
       <mat-datepicker #endpicker></mat-datepicker>
       <mat-error *ngIf="EndDate.hasError('required')">
@@ -21,7 +20,7 @@
     </mat-form-field>
   </div>
   <mat-form-field class="mat-form-max-width">
-    <input matInput placeholder="Onderwerp" formControlName="Header" [formControl]="Header" required>
+    <input matInput placeholder="Onderwerp" formControlName="Header" required>
     <mat-error *ngIf="Header.hasError('required')">
       Veld is verplicht
     </mat-error>

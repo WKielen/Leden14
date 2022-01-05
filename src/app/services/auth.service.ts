@@ -4,6 +4,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { Md5 } from 'ts-md5';
 import { ROLES } from './website.service';
+import { ICredentials, IJwtToken, IToken } from '../shared/classes/Credentials';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +22,15 @@ export class AuthService {
   jwtHelper: JwtHelperService = new JwtHelperService();
 
 // KeepSignIn wordt door het backend geregeld door een x tijd op te tellen bij de expdate
-
-  login$(credentials) {
+//TODO: Maak een class voor credentials
+  login$(credentials: ICredentials): Observable<boolean> {
     let localData;
     // return this.http.post<string>(environment.loginUrl, credentials)
     credentials.password = <string>Md5.hashStr(credentials.password);
-    return this.http.post<string>('https://www.ttvn.nl/api/signin', credentials)
+    return this.http.post('https://www.ttvn.nl/api/signin', credentials)
       .pipe(
         map(response => {
-          localData = response;
+          localData = response as IToken
           if (localData && localData.Token) {
 
             // We kunnen alleen inloggen als er een rol is. Ingebouwd omdat ik andere rollen wil gebruiken voor de jeugdapp.
@@ -47,68 +49,70 @@ export class AuthService {
         })
       );
   }
-
-  logOff() {
+  
+ 
+  logOff(): void {
     localStorage.removeItem('token');
   }
 
-  isLoggedIn() {
-    const token = localStorage.getItem('token');
+  isLoggedIn(): boolean {
+    const token:string = localStorage.getItem('token') ?? '';
     if (!token) {
       return false;
     }
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  get userId() {
-    const token = localStorage.getItem('token');
+  get userId():string {
+    const token:string = localStorage.getItem('token') ?? '';
     if (!this.token) {
-      return false;
+      return '';
     }
     const jsonToken = this.jwtHelper.decodeToken(token);
     return jsonToken.userid;
   }
 
-  get LidNr() {
-    const token = localStorage.getItem('token');
+  get LidNr(): number {
+    const token:string = localStorage.getItem('token') ?? '';
     if (!this.token) {
-      return false;
+      return 0;
     }
     const jsonToken = this.jwtHelper.decodeToken(token);
     return jsonToken.lidnr;
   }
 
-  get fullName() {
-    const token = localStorage.getItem('token');
+  get fullName(): string {
+    const token: string = localStorage.getItem('token') ?? '';
     if (!this.token) {
-      return false;
+      return '';
     }
-    const jsonToken = this.jwtHelper.decodeToken(token);
+    const jsonToken:IJwtToken = this.jwtHelper.decodeToken(token);
 
+    // TODO: prefix toevoegen aan het token als dat sowieso bestaat
     let name = jsonToken.firstname;
-    if (jsonToken.prefix) {
-      name += ' ' + jsonToken.prefix;
-    }
+    // if (jsonToken.prefix) {
+    //   name += ' ' + jsonToken.prefix;
+    // }
     name += ' ' + jsonToken.lastname;
     return name;
   }
 
-  get firstname() {
-    const token = localStorage.getItem('token');
+  get firstname(): string {
+    const token = localStorage.getItem('token')?? '';
     if (!this.token) {
-      return false;
+      return '';
     }
-    const jsonToken = this.jwtHelper.decodeToken(token);
+    const jsonToken:IJwtToken = this.jwtHelper.decodeToken(token);
     return jsonToken.firstname;
   }
 
   // property roles
-  get roles() {
-    const token = localStorage.getItem('token');
+  get roles(): string {
+    const token = localStorage.getItem('token')?? '';
     if (!this.token) {
       return '';
     }
-    const jsonToken = this.jwtHelper.decodeToken(token);
+    const jsonToken:IJwtToken = this.jwtHelper.decodeToken(token);
     return jsonToken.role;
   }
 
@@ -117,7 +121,7 @@ export class AuthService {
   }
 
 
-  get token() {
+  get token(): string {
     return localStorage.getItem('token');
   }
 
@@ -140,7 +144,7 @@ export class AuthService {
 
   promptIntercepted = false;
   isStandalone = false;
-  deferredPrompt;
+  deferredPrompt:any;
   userInstalled = false;
   whereIsShare = 'bottom';
 
@@ -220,7 +224,7 @@ export class AuthService {
 
     // Wait for the user to respond to the prompt
     this.deferredPrompt.userChoice
-      .then((choiceResult) => {
+      .then((choiceResult: any) => {
 
         if (choiceResult.outcome === 'accepted') {
             // no matter the outcome, the prompt cannot be reused ON MOBILE
@@ -272,16 +276,4 @@ export class AuthService {
       return 'red';
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }

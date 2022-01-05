@@ -217,6 +217,7 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
             break;
         case BetaalWijzeValues.UPAS:
             string += 'TTVN heft binnenkort de halfjaarlijkse contributie. TTVN zal onderstaand bedrag bij de Nieuwegein pas of U-Pas in rekening brengen.';
+            break;
         case BetaalWijzeValues.ZELFBETALER:
             string += 'Het is weer tijd voor de halfjaarlijkse contributie. Wil je onderstaand bedrag overmaken op de rekening van TTVN?';
             string += 'Het rekeningnummer van TTVN is NL 84 RABO 0331 0652 66.';

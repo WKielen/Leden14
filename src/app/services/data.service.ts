@@ -1,7 +1,7 @@
 import { AppError } from '../shared/error-handling/app-error';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError, retry } from 'rxjs/operators';
-import { throwError as observableThrowError, Subscription, of } from 'rxjs';
+import { throwError as observableThrowError, Subscription,  Observable } from 'rxjs';
 import { NotFoundError } from '../shared/error-handling/not-found-error';
 import { DuplicateKeyError } from '../shared/error-handling/duplicate-key-error';
 import { NoChangesMadeError } from '../shared/error-handling/no-changes-made-error';
@@ -11,7 +11,7 @@ import { Directive, OnDestroy } from '@angular/core';
 @Directive()  // Toegevoegd bij migratie naar 11
 export class DataService implements OnDestroy {
 
-  private observableSubscriptions = [];
+  private observableSubscriptions = new Array<Subscription>();
 
   constructor(protected url: string,
     protected http: HttpClient) { }
@@ -28,7 +28,7 @@ export class DataService implements OnDestroy {
       );
   }
 
-  update$(resource) {
+  update$(resource: any) {
     // console.log('received in update$', resource);
     return this.http.patch(this.url + '/Update', resource)
       .pipe(
@@ -41,7 +41,7 @@ export class DataService implements OnDestroy {
       );
   }
 
-  public create$(resource) {
+  public create$(resource: any) {
     return this.http.post(this.url + '/Insert', resource)
       .pipe(
         retry(3),
@@ -53,7 +53,7 @@ export class DataService implements OnDestroy {
       );
   }
 
-  delete$(id) {
+  delete$(id:string) {
     return this.http.delete(this.url + '/Delete?Id=' + '"' + id + '"')
       .pipe(
         retry(3),

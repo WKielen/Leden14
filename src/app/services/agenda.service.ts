@@ -19,24 +19,23 @@ export class AgendaService extends DataService {
   /***************************************************************************************************
   / Alle agenda items vanaf vandaag. Geeft alleen toernooien en competitie
   /***************************************************************************************************/
-  getAllFromNow$() : Observable<Array<AgendaItem>>{
+  getAllFromNow$(): Observable<Array<AgendaItem>> {
     return this.http.get(environment.baseUrl + '/agenda/getallfromnow')
       .pipe(
         retry(3),
-        tap( // Log the result or error
-          tap({ // Log the result or error
-            next: data => console.log('Received: ', data),
-            error: error => console.log('Oeps: ', error)
-          }),
-        ),
+        tap({ // Log the result or error
+          next: data => console.log('Received: ', data),
+          error: error => console.log('Oeps: ', error)
+        }),
         map(function (value) {
-          this.localdata = value;
-          this.localdata.forEach(element => {
+          let localdata = value as Array<any>
+          localdata.forEach(element => {
+            // TODO:  uit de PHP select halen. 
             delete element['ExtraA'];
             delete element['ExtraB'];
             delete element['DatumWijziging'];
           });
-          return this.localdata;
+          return localdata;
         })
       );
   }
@@ -58,7 +57,8 @@ export class AgendaService extends DataService {
   /***************************************************************************************************
     // De ExtraA en ExtraB moeten uit de SQL tabel zelf worden verwijderd. Zodra dit is gebeurd kan deze override worden verwijderd.
   /***************************************************************************************************/
-  update$(element): Observable<Object> {
+  update$(element: any): Observable<Object> {
+    // TODO:  uit de PHP select halen. en dan deze method verwijderen
     delete element['ExtraA'];
     delete element['ExtraB'];
     delete element['DatumWijziging'];
@@ -71,13 +71,13 @@ export class AgendaService extends DataService {
   /***************************************************************************************************/
   get$(Id: number): Observable<any> {
     return this.http.get(environment.baseUrl + '/agenda/get?Id=' + Id)
-    .pipe(
-      retry(3),
-      tap({ // Log the result or error
-        next: data => console.log('Received: ', data),
-        error: error => console.log('Oeps: ', error)
-      }))
-    }
+      .pipe(
+        retry(3),
+        tap({ // Log the result or error
+          next: data => console.log('Received: ', data),
+          error: error => console.log('Oeps: ', error)
+        }))
+  }
 
 }
 
@@ -106,8 +106,7 @@ export class AgendaItem {
 /***************************************************************************************************
 /
 /***************************************************************************************************/
-export class OrganisatieValues
- {
+export class OrganisatieValues {
   public static table: any[] = [
     { Value: '0', Label: 'NTTB' },
     { Value: '1', Label: 'Midden' },

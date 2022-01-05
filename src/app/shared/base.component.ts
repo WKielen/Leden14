@@ -11,7 +11,7 @@ export class BaseComponent {
   public developmentMode: boolean = false;
 
 
-  private observableSubscriptions = [];
+  private observableSubscriptions = new Array<Subscription>();
   constructor(
   ) {
     this.me = this.constructor.name;

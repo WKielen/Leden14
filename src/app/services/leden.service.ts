@@ -2,7 +2,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
-import { retry, tap, map, catchError } from 'rxjs/operators';
+import { retry, catchError, map, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/internal/Observable';
 import { MailItemTo } from './mail.service';
@@ -44,7 +44,7 @@ export class LedenService extends DataService {
         }),
         map(function (value: LedenItemExt[]) {
           let localdata = value;
-          localdata.forEach(element => {
+          localdata.forEach((element: LedenItemExt) => {
             element.Naam = LedenItem.getFullNameAkCt(element.Voornaam, element.Tussenvoegsel, element.Achternaam);
             element.VolledigeNaam = LedenItem.getFullNameVtA(element.Voornaam, element.Tussenvoegsel, element.Achternaam);
             element.LeeftijdCategorieBond = DateRoutines.LeeftijdCategorieBond(new Date(element.GeboorteDatum));
@@ -101,7 +101,7 @@ export class LedenService extends DataService {
    * @param element
    * @returns update$
    */
-  update$(element): Observable<Object> {
+  update$(element: any): Observable<Object> {
 
     // Ik heb attributen bij het inlezen toegevoegd. Voor de update moeten ze er af omdat het back-end
     // bji onbekende attributen de gehele call weigert
@@ -266,43 +266,43 @@ function isJeugdlidFilter() {
 export class LedenItem {
   // de properties moeten worden geinitaliseerd anders krijg je een fout bij het wegschrijven.
   LidNr: number = 0;
-  Voornaam?: string = '';
-  Achternaam?: string = '';
-  Tussenvoegsel?: string = '';
-  Adres?: string = '';
-  Woonplaats?: string = '';
-  Postcode?: string = '';
-  Mobiel?: string = '';
-  Telefoon?: string = '';
-  BondsNr?: string = '';
-  Geslacht?: string = '';
-  GeboorteDatum?: string = '';
-  Email1?: string = '';
-  Email2?: string = '';
-  IBAN?: string = '';
-  LidBond?: string = '';
-  CompGerechtigd?: string = '';
-  LidType?: string = '';
-  LidVanaf?: string = '';
-  Opgezegd?: string = '';
-  LidTot?: string = '';
-  Medisch?: string = '';
-  U_PasNr?: string = '';
-  PakketTot?: string = '';
-  BetaalWijze?: string = '';
+  Voornaam: string = '';
+  Achternaam: string = '';
+  Tussenvoegsel: string = '';
+  Adres: string = '';
+  Woonplaats: string = '';
+  Postcode: string = '';
+  Mobiel: string = '';
+  Telefoon: string = '';
+  BondsNr: string = '';
+  Geslacht: string = '';
+  GeboorteDatum: string = '';
+  Email1: string = '';
+  Email2: string = '';
+  IBAN: string = '';
+  LidBond: string = '';
+  CompGerechtigd: string = '';
+  LidType: string = '';
+  LidVanaf: string = '';
+  Opgezegd: string = '';
+  LidTot: string = '';
+  Medisch: string = '';
+  U_PasNr: string = '';
+  PakketTot: string = '';
+  BetaalWijze: string = '';
   VastBedrag: number = 0;
-  Ouder1_Naam?: string = '';
-  Ouder1_Email1?: string = '';
-  Ouder1_Email2?: string = '';
-  Ouder1_Mobiel?: string = '';
-  Ouder1_Telefoon?: string = '';
-  Ouder1_Mobiel2?: string = '';
-  LicentieSen?: string = '';
-  LicentieJun?: string = '';
-  TrainingsGroepen?: string = '';
-  Rol?: string = '';
-  Rating?: number = 0;
-  MagNietOpFoto?: string = '';
+  Ouder1_Naam: string = '';
+  Ouder1_Email1: string = '';
+  Ouder1_Email2: string = '';
+  Ouder1_Mobiel: string = '';
+  Ouder1_Telefoon: string = '';
+  Ouder1_Mobiel2: string = '';
+  LicentieSen: string = '';
+  LicentieJun: string = '';
+  TrainingsGroepen: string = '';
+  Rol: string = '';
+  Rating: number = 0;
+  MagNietOpFoto: string = '';
 
 
   /***************************************************************************************************
@@ -360,12 +360,12 @@ export class LedenItem {
 / Dit zijn de extra velden die bij het inlezen worden toegevoegd aan een liditem.
 /***************************************************************************************************/
 export class LedenItemExt extends LedenItem {
-  Naam?: string = '';
-  LeeftijdCategorieBond?: string = '';
-  LeeftijdCategorie?: string = '';
-  LeeftijdCategorieWithSex?: string = '';
-  Leeftijd?: number = 0;
-  VolledigeNaam?: string = '';
+  Naam: string = '';
+  LeeftijdCategorieBond: string = '';
+  LeeftijdCategorie: string = '';
+  LeeftijdCategorieWithSex: string = '';
+  Leeftijd: number = 0;
+  VolledigeNaam: string = '';
 
 }
 
@@ -519,6 +519,7 @@ export class DateRoutines {
     if (yearsOld > LidTypeValues.MAXYOUTHAGE && lid.Geslacht === LidTypeValues.FEMALE) {
       return LidTypeValues.ADULT + LidTypeValues.FEMALE;
     }
+    return LidTypeValues.ADULT + LidTypeValues.MALE; 
   }
 
   /***************************************************************************************************
@@ -589,6 +590,7 @@ export class DateRoutines {
       }
 
     }
+          return { 'BirthDay': new Date("1900-01-01"), 'Age': 0 }
   }
 
   private static CalculateAnniversary(memberSince: Date, years: number): Date {

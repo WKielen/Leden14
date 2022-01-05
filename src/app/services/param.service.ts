@@ -20,10 +20,10 @@ export class ParamService extends DataService {
   / Read the Parameter and CREATE one in the database if it doesn't exist. After this read only an
   / update statement is needed.
   /***************************************************************************************************/
-  readParamData$(Id: string, Default?: string, Description?: string): Observable<string> {
+  readParamData$(Id: string, Default: string, Description: string): Observable<string> {
     return this.http.get(environment.baseUrl + '/param/get?Id=' + Id)
       .pipe(
-        map(response => {
+        map((response:any) => {
           return atob((response as ParamItem).Value);      // atob  = decrypt
         }),
         tap({ // Log the result or error
@@ -69,7 +69,7 @@ export class ParamService extends DataService {
 / Record for the database
 /***************************************************************************************************/
 export class ParamItem {
-  Id?: string = '';
-  Value?: string = '';
-  Description?: string = '';
+  Id: string = '';
+  Value: string = '';
+  Description: string = '';
 }

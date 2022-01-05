@@ -83,16 +83,16 @@ Date.prototype.to_YYYY_MM_DD = function () {
 /***************************************************************************************************/
 declare global {
     interface Array<T> {
-        delayedForEach(callback, timeout, thisArg, done: T): Array<T>;
+        delayedForEach(callback:any, timeout:any, thisArg:any, done: T): Array<T>;
         timeOutPointer: number;
-        clearTimeout(timeoutPointer): void;
+        clearTimeout(timeoutPointer:any): void;
     }
 }
 
-Array.prototype.delayedForEach = function (callback, timeout, thisArg, done) {
+Array.prototype.delayedForEach = function (callback:any, timeout:any, thisArg:any, done:any) {
     var i = 0,
         l = this.length,
-        self = this;
+        self:any = this;
 
     var caller = function () {
         callback.call(thisArg || self, self[i], i, self);

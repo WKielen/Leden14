@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { SingleMail, SingleMailDialogComponent } from 'src/app/my-pages/mail/singlemail.dialog';
 import { AuthService } from 'src/app/services/auth.service';
-import { LedenItem } from 'src/app/services/leden.service';
+import { LedenItemExt } from 'src/app/services/leden.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ACTIVATIONSTATUS, UserItem, UserService } from 'src/app/services/user.service';
 import { IHoldableResponse } from 'src/app/shared/directives/holdable.directive';
@@ -147,7 +147,7 @@ export class RegistrationComponent extends ParentComponent implements OnInit {
   }
 
   onMail(toBEedited: UserItem): void {
-    let lid = new LedenItem();
+    let lid = new LedenItemExt();
     lid.Achternaam = toBEedited.LastName;
     lid.Voornaam = toBEedited.FirstName
     lid.Email1 = toBEedited.Email;

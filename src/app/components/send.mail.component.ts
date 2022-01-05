@@ -192,7 +192,7 @@ export class SendMailComponent extends ParentComponent implements OnInit, OnChan
     return result;
   }
 
-  addExtraEmailAddressToList(extraEmail: string, lid: LedenItem, extraText: string = ''): MailItem {
+  addExtraEmailAddressToList(extraEmail: string, lid: LedenItemExt, extraText: string = ''): MailItem {
 
     lid.Email1 = extraEmail;
     let extraMail = new MailItem();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LedenItemExt, LedenService } from 'src/app/services/leden.service';
+import { LedenItem, LedenItemExt, LedenService } from 'src/app/services/leden.service';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
@@ -53,7 +53,7 @@ export class MasterzComponent extends ParentComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.geslaagden = JSON.parse(data[1] as string);
-            this.dataSource.data = this.mergeLedenAndDiploma(data[0], this.geslaagden);
+            this.dataSource.data = this.mergeLedenAndDiploma(data[0] as Array<LedenItemExt>, this.geslaagden);
           },
           error: (error: AppError) => {
             console.error("EventSubscriptionsDialogComponent --> ngOnInit --> error", error);

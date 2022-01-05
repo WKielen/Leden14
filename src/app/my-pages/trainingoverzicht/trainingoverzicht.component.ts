@@ -317,6 +317,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
       }
       return string;
     }
+    return '';
   }
 }
 

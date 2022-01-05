@@ -33,8 +33,8 @@ export class RatingService extends DataService {
 }
 
 export class RatingItem {
-  bondsnr?: string = '';
-  rating?: string = '';
-  senlic?: string = '';
-  junlic?: string = '';
+  bondsnr: string = '';
+  rating: string = '';
+  senlic: string = '';
+  junlic: string = '';
 }

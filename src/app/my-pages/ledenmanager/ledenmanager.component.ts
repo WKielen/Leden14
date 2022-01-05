@@ -62,7 +62,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
       .then(response => response as string);
     // -------------------------------------------------------- :o)
 
-    const toBeAdded = new LedenItem();
+    const toBeAdded = new LedenItemExt();
     toBeAdded.LidVanaf = new Date().to_YYYY_MM_DD();
     toBeAdded.LidNr = Number(tmpJson['maxlidnr']) + 1;
     toBeAdded.LidType = 'N';  // default lidtype
@@ -213,7 +213,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
   / Na het toevoegen of verwijderen van een lid wordt de mail dialoog getoond zodat er een bevestiging
   / verstuurd kan worden.
   /***************************************************************************************************/
-  showMailDialog(lid: LedenItem, action: string): void {
+  showMailDialog(lid: LedenItemExt, action: string): void {
     let data = new SingleMail();
     switch (action) {
       case 'add':

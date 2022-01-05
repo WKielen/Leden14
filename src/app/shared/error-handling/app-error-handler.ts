@@ -2,7 +2,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
-    handleError(error) {
+    handleError(error: any) {
         console.log(error);
 
         if (error.originalError && error.originalError.StatusText) {

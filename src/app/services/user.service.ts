@@ -56,7 +56,7 @@ export class UserService extends DataService {
       );
   }
 
-  delete$(userid) {
+  delete$(userid: string) {
     return this.http.delete(this.url + '/Delete?Userid=' + '"' + userid + '"')
       .pipe(
         retry(3),
@@ -74,16 +74,16 @@ export class UserService extends DataService {
 /
 /***************************************************************************************************/
 export class UserItem {
-  Userid?: string = '';
-  Password?: string = '';
-  Email?: string = '';
-  FirstName?: string = '';
-  LastName?: string = '';
-  Role?: string = '';
-  ProposedPassword?: string = '';
-  ChangePasswordToken?: string = '';
-  Activated?: string = '';
-  LidNr?: string = '';
+  Userid: string = '';
+  Password: string = '';
+  Email: string = '';
+  FirstName: string = '';
+  LastName: string = '';
+  Role: string = '';
+  ProposedPassword: string = '';
+  ChangePasswordToken: string = '';
+  Activated: string = '';
+  LidNr: string = '';
 }
 
 export const ACTIVATIONSTATUS = {

@@ -28,9 +28,19 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 
-    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/localize": "^13.1.1",
     "@angular/material-moment-adapter": "^13.1.1",
     "@angular/platform-server": "^13.1.1",
-    "@auth0/angular-jwt": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.3",
+
+
+
+
+uit app.module.ts verwijderd
+
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },

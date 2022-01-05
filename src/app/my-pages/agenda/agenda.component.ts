@@ -16,7 +16,7 @@ import { addHolidaysToEvents, agendaToEvent, setEventProps } from "../agenda/eve
 import { ActionItem, ActionService, ACTIONSTATUS } from "src/app/services/action.service";
 import { catchError } from "rxjs/operators";
 import { Observable, forkJoin, of } from "rxjs";
-import { DateRoutines, IBirthDay, LedenItem, LedenItemExt, LedenService } from "src/app/services/leden.service";
+import { DateRoutines, IBirthDay, LedenItemExt, LedenService } from "src/app/services/leden.service";
 
 
 // TODO:Select Multiple dates into vakantie
@@ -82,7 +82,7 @@ export class AgendaComponent
           next: (data) => {
             this.fillEventsWithAgenda(data[0] as Array<AgendaItem>);
             this.fillEventsWithActions(data[1] as Array<ActionItem>);
-            this.fillEventsWithMembers(data[2] as Array<LedenItem>);
+            this.fillEventsWithMembers(data[2] as Array<LedenItemExt>);
 
             this.calendarOptions.events = this.events.concat(addHolidaysToEvents());
           },
