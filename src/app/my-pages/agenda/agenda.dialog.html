@@ -1,0 +1,5 @@
+<app-mat-dialog-header-detail title='{{data.method}}'></app-mat-dialog-header-detail>
+<mat-dialog-content>
+    <app-agenda-mutation-form [evenement]='data.data' (changedEvenement)="onChangedEvenement($event)">
+    </app-agenda-mutation-form>
+</mat-dialog-content>

@@ -1,0 +1,5 @@
+<app-mat-dialog-header-detail title='{{data.method}}'></app-mat-dialog-header-detail>
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-dialog-content>
+  <app-decision-mutation-form [actionItem]="data.data" [amIBestuur]='amIBestuur' (changedAction)="onChangedAction($event)"></app-decision-mutation-form>
+</mat-dialog-content>

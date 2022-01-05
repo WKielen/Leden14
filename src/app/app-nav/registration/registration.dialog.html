@@ -1,0 +1,48 @@
+<app-mat-dialog-header-detail title='{{data.method}}'></app-mat-dialog-header-detail>
+
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-dialog-content [formGroup]="actionItemForm" novalidate>
+  <mat-form-field class="mat-form-max-width" *ngIf="data.method != 'Wijzigen'">
+    <input matInput placeholder="Userid" formControlName="userid" [formControl]="userid" required>
+    <mat-error *ngIf="userid.hasError('required')">
+      Veld is verplicht
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Voornaam" formControlName="firstname" [formControl]="firstname">
+  </mat-form-field>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Achternaam" formControlName="lastname" [formControl]="lastname">
+  </mat-form-field>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Email" formControlName="email" [formControl]="email"
+      pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+    <mat-error *ngIf="email.hasError('email')">
+      Onjuist email adres
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Alleen invullen voor een nieuw password" formControlName="password"
+      [formControl]="password">
+  </mat-form-field>
+  <div fxLayout="row">
+    <div>
+      <strong color="#0d47a1">Rollen</strong>
+      <mat-checkbox-list [checkboxDictionary]="myCheckboxDictionairy" (click)="onRoleClicked($event)">
+      </mat-checkbox-list>
+    </div>
+    <div id="dropdown">
+      <strong color="#0d47a1">Koppel aan een lid</strong>
+      <app-select-lid-dropdown [leden-array]="ledenLijst" [default-value]="showLidOnDropDown"
+        (valueSelected)="onLidSelected($event)">
+      </app-select-lid-dropdown>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]='!actionItemForm.valid' (click)="onSubmit()">Bewaar</button>
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <button mat-raised-button color="accent" style="flex: 0 0 auto;" (click)="onShowRoles()">Info Rollen</button>
+  </div>
+
+</mat-dialog-actions>

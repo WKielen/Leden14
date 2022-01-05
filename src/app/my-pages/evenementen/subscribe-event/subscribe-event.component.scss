@@ -1,0 +1,31 @@
+@use "src/mixins.scss" as s;
+
+header {
+  text-align: center;
+  background-color: s.color(primary-yellow);
+}
+.logo {
+  width: 200px;
+  margin: 20px;
+}
+
+mat-card {
+  text-align: left;
+  margin: 20px;
+  @include s.desktop {
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+  }
+
+  .fields {
+    margin-top: 2rem;
+  }
+
+  button {
+    margin-left: 25px;
+  }
+
+}

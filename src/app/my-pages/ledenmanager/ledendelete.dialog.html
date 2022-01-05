@@ -1,0 +1,13 @@
+<app-mat-dialog-header-detail title='{{data.method}}'></app-mat-dialog-header-detail>
+
+<mat-dialog-content [formGroup]="ledenItemForm" novalidate>
+    <mat-form-field>
+        <input matInput placeholder="Opzegdatum" [matDatepicker]="picker" formControlName="opzegDatum"
+            [formControl]="opzegDatum" [readonly]="true" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]='!ledenItemForm.valid' (click)="onSubmit()">Bewaar</button>
+</mat-dialog-actions>

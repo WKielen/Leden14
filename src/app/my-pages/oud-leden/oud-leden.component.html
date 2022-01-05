@@ -1,0 +1,156 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Oud-Leden overzicht</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="ledenDataArray" multiTemplateDataRows>
+      <ng-container matColumnDef="Naam">
+        <th mat-header-cell *matHeaderCellDef class='firstcolumnshrink'> Naam </th>
+        <td mat-cell *matCellDef="let element" class='firstcolumnshrink'> {{ element.Naam }} </td>
+      </ng-container>
+      <ng-container matColumnDef="LidTot">
+        <th mat-header-cell *matHeaderCellDef class='lastcolumnshrink'> Lid geweest tot </th>
+        <td mat-cell *matCellDef="let element" class='lastcolumnshrink'> {{ element.LidTot }} </td>
+      </ng-container>
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+
+          <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <table>
+              <tr>
+                <td width="30%"></td>
+                <td width="70%"></td>
+              </tr>
+              <!-- <tr>    TODO:     has to be sanatized -> uitzoeken hoe! 
+                      <td class='cell'>
+                        <img src='data:image/JPEG;base64,{{element.image}}' height='50px' style='margin:10px;'>
+                      </td>
+                    </tr> -->
+              <tr *ngIf='element.LidNr'>
+                <td class='cell'>LidNr:</td>
+                <td class='cell'>{{ element.LidNr }}</td>
+              </tr>
+              <tr *ngIf='element.Mobiel'>
+                <td class='cell'>Mobiel:</td>
+                <td class='cell'>{{ element.Mobiel }}</td>
+              </tr>
+              <tr *ngIf='element.Telefoon'>
+                <td class='cell'>Telefoon:</td>
+                <td class='cell'>{{ element.Telefoon }}</td>
+              </tr>
+              <tr *ngIf='element.GeboorteDatum'>
+                <td class='cell'>Geboortedatum:</td>
+                <td class='cell'>{{ element.GeboorteDatum }}</td>
+              </tr>
+              <tr *ngIf='element.Leeftijd'>
+                <td class='cell'>Leeftijd:</td>
+                <td class='cell'>{{ element.Leeftijd }}</td>
+              </tr>
+              <tr *ngIf='element.Email1'>
+                <td class='cell'>Email 1 :</td>
+                <td class='cell'>{{ element.Email1 }}</td>
+              </tr>
+              <tr *ngIf='element.Email2'>
+                <td class='cell'>Email 2 :</td>
+                <td class='cell'>{{ element.Email2 }}</td>
+              </tr>
+              <tr *ngIf='element.BondsNr'>
+                <td class='cell'>BondsNr:</td>
+                <td class='cell'>{{ element.BondsNr }}</td>
+              </tr>
+              <tr *ngIf='element.LeeftijdCategorieBond'>
+                <td class='cell'>Categorie:</td>
+                <td class='cell'>{{ element.LeeftijdCategorieBond }}</td>
+              </tr>
+              <tr *ngIf='element.LidBond'>
+                <td class='cell'>Lid NTTB:</td>
+                <td class='cell'>{{ element.LidBond.toDutchTextString() }}</td>
+              </tr>
+              <tr *ngIf='element.CompGerechtigd'>
+                <td class='cell'>Competitie:</td>
+                <td class='cell'>{{ element.CompGerechtigd.toDutchTextString() }}</td>
+              </tr>
+              <tr *ngIf='element.Adres'>
+                <td class='cell'>Adres:</td>
+                <td class='cell'>{{ element.Adres }}</td>
+              </tr>
+              <tr *ngIf='element.Woonplaats'>
+                <td class='cell'>Woonplaats:</td>
+                <td class='cell'>{{ element.Woonplaats }}</td>
+              </tr>
+              <tr *ngIf='element.Postcode'>
+                <td class='cell'>Postcode:</td>
+                <td class='cell'>{{ element.Postcode }}</td>
+              </tr>
+
+              <tr *ngIf='element.Geslacht'>
+                <td class='cell'>Geslacht:</td>
+                <td class='cell'>{{ element.Geslacht }}</td>
+              </tr>
+              <tr *ngIf='element.LidType'>
+                <td class='cell'>Lidtype:</td>
+                <td class='cell'>{{ getLidType(element.LidType) }}</td>
+              </tr>
+              <tr *ngIf='element.LidVanaf'>
+                <td class='cell'>Lid vanaf:</td>
+                <td class='cell'>{{ element.LidVanaf }}</td>
+              </tr>
+              <tr *ngIf='element.Ouder1_Naam'>
+                <td class='cell'>Ouder Naam :</td>
+                <td class='cell'>{{ element.Ouder1_Naam }}</td>
+              </tr>
+              <tr *ngIf='element.Ouder1_Email1'>
+                <td class='cell'>Ouder Email 1:</td>
+                <td class='cell'>{{ element. Ouder1_Email1 }}</td>
+              </tr>
+              <tr *ngIf='element.Ouder1_Email2'>
+                <td class='cell'>Ouder Email 2:</td>
+                <td class='cell'>{{ element. Ouder1_Email2 }}</td>
+              </tr>
+              <tr *ngIf='element.Ouder1_Mobiel'>
+                <td class='cell'>Ouder mobiel:</td>
+                <td class='cell'>{{ element. Ouder1_Mobiel }}</td>
+              </tr>
+              <tr *ngIf='element.Ouder1_Telefoon'>
+                <td class='cell'>Ouder telefoon :</td>
+                <td class='cell'>{{ element.Ouder1_Telefoon }}</td>
+              </tr>
+              <tr *ngIf='element.Medisch'>
+                <td class='cell'>Medisch:</td>
+                <td class='cell'>{{ element.Medisch }}</td>
+              </tr>
+              <tr *ngIf='element.VrijwillgersVasteTaak'>
+                <td class='cell'>Vaste Taak :</td>
+                <td class='cell'>{{ element.VrijwillgersVasteTaak.toDutchTextString() }}</td>
+              </tr>
+              <tr *ngIf='element.VrijwillgersToelichting'>
+                <td class='cell'>Toel. Vrijw. :</td>
+                <td class='cell'>{{ element.VrijwillgersToelichting }}</td>
+              </tr>
+              <tr *ngIf='element.Rating > 0'>
+                <td class='cell'>Rating :</td>
+                <td class='cell'>{{ element.Rating }}</td>
+              </tr>
+              <tr *ngIf='element.LicentieJun'>
+                <td class='cell'>Licentie Jun :</td>
+                <td class='cell'>{{ element.LicentieJun }}</td>
+              </tr>
+              <tr *ngIf='element.LicentieSen'>
+                <td class='cell'>Licentie Sen :</td>
+                <td class='cell'>{{ element.LicentieSen }}</td>
+              </tr>
+            </table>
+
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+        [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,118 @@
+<div class="flexcontainer">
+  <div style="flex-basis: 30%;">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Download Ledenlijst</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <label id="ledenlijst-label">Kies type lijst</label>
+        <mat-radio-group aria-labelledby="ledenlijst-label" class="radio-group" [(ngModel)]="ledenLijstKeuze">
+          <mat-radio-button class="radio-button" *ngFor="let ledenLijstKeuzeValue of ledenLijstKeuzes" color="primary"
+            [value]="ledenLijstKeuzeValue">
+            {{ledenLijstKeuzeValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <label id="ledenselectie-label">Kies type selectie</label>
+        <mat-radio-group aria-labelledby="ledenselectie-label" class="radio-group" [(ngModel)]="ledenSelectieKeuze">
+          <mat-radio-button class="radio-button" *ngFor="let ledenSelectieKeuzeValue of ledenSelectieKeuzes"
+            color="primary" [value]="ledenSelectieKeuzeValue">
+            {{ledenSelectieKeuzeValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickLedenLijst()">Download</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Grijze Leden</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Lijst van leden die geen lid zijn van de bond
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onGrijzeLeden()">Download</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Aanmaken Vcard</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelected($event)">
+        </app-select-lid-dropdown>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onCreateVcard()">Maak
+          Vcard</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+  <div style="flex-basis: 30%;">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Download Actielijst</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Met onderstaande knoppen kan je de actie en besluitenlijst downloaden. In de download zijn de velden gescheiden
+        door een
+        punt-komma.
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickActionList()">Download</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Ratings</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Met onderstaande knop kan je de ratings en licenties updaten in de database. De gegevens worden van de NTTB website gehaald.
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickUpdateRatings()">Update ratings in Database</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div style="flex-basis: 30%;">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Download Agenda</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Met onderstaande knoppen kan je de agenda downloaden. In de download zijn de velden gescheiden door een
+        punt-komma.
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickAgendaLijst()">Download</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Upload Agenda</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Met onderstaande knoppen kan je een agenda uploaden. Bij het uploaden worden de agenda regels toegevoegd aan de
+        agenda. Er wordt dus niets vervangen. Het formaat van de upload moet gelijk zijn aan die van de download. Dus om
+        een upload
+        bestand te maken, is het handig om eerst een download te doen en vervolgens dat formaat aanhouden.
+        <br><br>
+        <div>
+          <button mat-raised-button color="primary" (click)="fileInput.click()" class='margin-right-20'>
+            <span>Kies bestand</span>
+            <input #fileInput type="file" (change)="onFileSelected($event.target.files)" style="display:none;" />
+          </button>
+          <input matInput readonly='true' style='margin: 10px 0px 0px 0px;' value={{uploadFileName}}>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickAgendaImport()">Uploaden</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

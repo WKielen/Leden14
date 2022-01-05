@@ -1,0 +1,29 @@
+
+/***************************************************************************************************
+/ De h4 wordt gebuikt voor de kopjes (datums en namen)
+/***************************************************************************************************/
+h4 {
+  font-size: 8px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  white-space: nowrap;
+  word-break: keep-all;
+  text-transform: uppercase;
+}
+
+/***************************************************************************************************
+/ Transform de column headers 
+/***************************************************************************************************/
+.transformcolumnheader h4 {
+  position: relative;
+  transform: rotate(90deg);
+}
+
+/***************************************************************************************************
+/ Transform de row headers 
+/***************************************************************************************************/
+.transformrowheader h4 {
+  position: absolute;
+  left: 5px;
+  top: -3px;
+}

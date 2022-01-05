@@ -1,0 +1,50 @@
+
+<small class="development" *ngIf="developmentMode">{{ me }}</small><div>
+  <h4>Window Size</h4>
+  <ul style="list-style: none;">
+  
+    <li>innerWidth: {{ myWindow.innerWidth }}</li>
+    <li>innerHeight: {{ myWindow.innerHeight }}</li>
+  
+  </ul>
+  </div>
+
+<div [style.display]="authService.showHide(authService.isStandalone)">
+  <strong>Standalone - Show User Nothing</strong>
+</div>
+
+<br>
+<div class="debugSection" [style.display]="authService.showHide(authService.promptSaved)">
+  <h4>Debug<br>--Mobile Chrome & Edge Only<br>--Desktop Chrome</h4>
+  <ul style="list-style: none;">
+    <li>Prompt Intercepted: <span [style.color]="authService.trueOrFalse(authService.promptIntercepted)">{{ authService.promptIntercepted }}</span></li>
+
+    <li>Deferred Prompt Saved: <span [style.color]="authService.trueOrFalse(authService.promptSaved)">{{ authService.promptSaved }}</span></li>
+    <li>Custom Button Clicked: <span [style.color]="authService.trueOrFalse(authService.customButtonClicked)">{{ authService.customButtonClicked }}</span></li>
+    <li>Deferred Prompt Shown: <span [style.color]="authService.trueOrFalse(authService.deferredPromptShown)">{{ authService.deferredPromptShown }}</span></li>
+    <li>Deferred Prompt Rejected: <span [style.color]="authService.trueOrFalse(authService.deferredPromptRejected)">{{ authService.deferredPromptRejected }}</span></li>
+    <li>App or Shortcut Added: <span [style.color]="authService.trueOrFalse(authService.userInstalled)">{{ authService.userInstalled }}</span></li>
+  </ul>
+</div>
+<br>
+<div>
+  <h4>Debug<br>--UserAgent</h4>
+  <ul style="list-style: none;">
+
+    <li>isStandalone: <span [style.color]="authService.trueOrFalse(authService.isStandalone)">{{authService.isStandalone}}</span></li>
+    <li>isChrome: <span [style.color]="authService.trueOrFalse(authService.isChrome)">{{authService.isChrome}}</span></li>
+    <li>isExplorer: <span [style.color]="authService.trueOrFalse(authService.isExplorer)">{{authService.isExplorer}}</span></li>
+    <li>isExplorer_11: <span [style.color]="authService.trueOrFalse(authService.isExplorer_11)">{{authService.isExplorer_11}}</span></li>
+    <li>isFirefox: <span [style.color]="authService.trueOrFalse(authService.isFirefox)">{{authService.isFirefox}}</span></li>
+    <li>isSafari: <span [style.color]="authService.trueOrFalse(authService.isSafari)">{{authService.isSafari}}</span></li>
+    <li>isOpera: <span [style.color]="authService.trueOrFalse(authService.isOpera)">{{authService.isOpera}}</span></li>
+    <li>isEdgeDesktop: <span [style.color]="authService.trueOrFalse(authService.isEdgeDesktop)">{{authService.isEdgeDesktop}}</span></li>
+    <li>isEdgeiOS: <span [style.color]="authService.trueOrFalse(authService.isEdgeiOS)">{{authService.isEdgeiOS}}</span></li>
+    <li>isEdgeAndroid: <span [style.color]="authService.trueOrFalse(authService.isEdgeAndroid)">{{authService.isEdgeAndroid}}</span></li>
+
+    <li>isIOS: <span [style.color]="authService.trueOrFalse(authService.isIOS)">{{authService.isIOS}}</span></li>
+    <li>isMobile: <span [style.color]="authService.trueOrFalse(authService.isMobile)">{{authService.isMobile}}</span></li>
+
+  </ul>
+</div>
+{{authService.userAgent}}

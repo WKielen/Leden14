@@ -1,0 +1,28 @@
+@use "src/mixins.scss" as s;
+
+mat-card {
+    text-align: center;
+    @include s.desktop {
+        width: 70%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
+
+.mat-column-StartDate {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 80px !important;
+    width: 80px!important;
+}
+
+.mat-column-EndDate {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 80px !important;
+    width: 80px!important;
+}
+
+.mat-column-Header{
+    @include s.mat-text-column-wrap-stuff;
+}

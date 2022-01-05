@@ -1,0 +1,20 @@
+<div class="flexcontainer">
+  <div style="flex-basis: 65%;">
+    <app-html-editor-mail-wrapper [htmlOutput]='HtmlContent' [subject]='EmailSubject'
+      (htmlContent)='onHtmlContentChanged($event)' (emailSubject)='onEmailSubjectChanged($event)'
+      (attachmentFile)='onAttachmentFileChanged($event)'>
+    </app-html-editor-mail-wrapper>
+
+    <div class="flexcontainer" style="justify-content: space-between;">
+      <div style="flex-basis: 48%;">
+        <app-send-mail [itemsToMail]='itemsToMail' [htmlContent]='HtmlContent' [emailSubject]='EmailSubject'
+          [attachmentFile]='fileToUpload' [replaceLinkCallback]="theBoundCallback"></app-send-mail>
+      </div>
+    </div>
+  </div>
+
+  <mat-card style="flex-basis: 30%;">
+    <app-member-selection-box-wrapper (selectedMemberList)="onSelectionChanged($event)">
+    </app-member-selection-box-wrapper>
+  </mat-card>
+</div>

@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-header-spinner title="Website mededelingen" [progress]="progress"></mat-card-header-spinner>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource" class="mat-cell">
+
+      <ng-container matColumnDef="StartDate">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Vanaf</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.StartDate }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="EndDate">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile ">Tot en met</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="hideonmobile">{{ element.EndDate }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Header">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Onderwerp</mat-header-cell>
+        <mat-cell *matCellDef="let element" class='firstcolumnshrink'>{{ element.Header }}</mat-cell>
+      </ng-container>
+
+      <!-- actions -->
+      <ng-container matColumnDef="actions2">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="onAdd()">
+            <mat-icon aria-label="Add icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="primary" (click)="onEdit(i)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <mat-waiting-button icon="delete" color="warn" (holdTime)="onDelete($event, i)" [myCallback]="theBoundCallback"></mat-waiting-button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; index as i; columns: columnsToDisplay;" (dblclick)="onDblclick($event, i)">
+      </mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

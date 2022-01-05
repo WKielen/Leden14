@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Inloggen</h2>
+<mat-dialog-content [formGroup]="loginForm" novalidate>
+
+    <mat-form-field>
+        <!-- hieronder de formControlName zoals in de formgroup is beschreven -->
+        <input matInput placeholder="Userid" formControlName="userid" [formControl]="userid">
+        <!-- <mat-error *ngIf="userid.hasError('minlength') || userid.hasError('maxlength')">
+            Bondsnummer exact 7 numeriek zijn
+        </mat-error> -->
+        <mat-error *ngIf="userid.hasError('required')">
+            Userid is verplicht
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [type]="showPw ? 'text' : 'password'" placeholder="Wachtwoord" formControlName='password'>
+        <mat-icon matSuffix (click)="showPw = !showPw">{{showPw ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+            Het wachtwoord moet minimaal {{
+            password.errors.minlength.requiredLength }} lang zijn
+        </mat-error>
+        <mat-error *ngIf="password.hasError('required')">
+            Wachtwoord is verplicht
+        </mat-error>
+    </mat-form-field>
+    <mat-checkbox name="keepSignedIn" formControlName='keepSignedIn'>
+        Hou me ingelogd (max 30 dagen)
+    </mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-message-box [message]="responseText"></mat-dialog-message-box>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]='!loginForm.valid' (click)="onSubmit()">Login</button>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+        <a mat-button (click)="onRegister()" color="primary">Registreer</a>
+        <a mat-button (click)="onResetPassword()" color="primary">Reset password</a>
+    </div>
+</mat-dialog-actions>

@@ -1,0 +1,22 @@
+<mat-grid-list [cols]="columns.length + NAME_COL_SIZE" rowHeight="70px">
+  <mat-grid-tile *ngFor="let tile of headerTiles" [colspan]="tile.cols" rowspan="1" [style.background]="tile.color"
+    matTooltip="{{ tile.toolTip }}">
+    <div class='transformcolumnheader h4'>
+      <h4>{{tile.text}}</h4>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list [cols]="columns.length + NAME_COL_SIZE" rowHeight="20px">
+  <mat-grid-tile *ngFor="let tile of deelNameTiles" [colspan]="tile.cols" rowspan="1" [style.background]="tile.color"
+    matTooltip="{{ tile.toolTip }}">
+    <div class='transformrowheader h4'>
+      <h4>{{tile.text}}</h4>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<div class="fab-container">
+  <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
+    color="primary" class="fab-secondary">
+    <i class="material-icons">{{ btn.icon }}</i>
+  </button>
+</div>

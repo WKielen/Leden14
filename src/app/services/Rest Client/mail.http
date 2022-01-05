@@ -1,0 +1,19 @@
+POST https://www.ttvn.nl/api/mail/sendmail HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjYyNzA4MTEsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYyNjM1NzIxMSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.AfvoZPLNx-JrPjjGwizs-Ss3pBnIB_5d62zOCE5UD-Q
+
+{
+  "UserId": "secretaris@ttvn.nl",
+  "Password": "TTVN4all!",
+  "From": "secretaris@ttvn.nl",
+  "FromName": "Secretaris TTVN",
+  "MailItems": [
+    {
+      "To": "Piet<wim.kielen@gmail.com>",
+      "Message": "Beste TTVN-er",
+      "Subject": "Donderdagtraining gaat door",
+      "ToName": "Wim"
+    }
+  ]
+}

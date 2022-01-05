@@ -1,0 +1,16 @@
+@use "src/mixins.scss" as s;
+
+.element-row td {
+    border-bottom-width: 0;
+  }
+
+.mat-column-Naam {
+    @include s.mat-text-column-wrap-stuff;
+    flex: 0 0 40% !important;
+    width:40% !important;
+}
+
+.mat-column-Verschil {
+    @include s.mat-text-column-wrap-stuff;
+}
+

@@ -1,0 +1,42 @@
+<header>
+  <div class="row">
+    <div class="logo-row">
+      <img src="assets/images/Logo-TTVN.png" alt="TTVN logo" class="logo">
+    </div>
+  </div>
+</header>
+<mat-card>
+  <mat-card-header-spinner title="Inschrijven evenement"></mat-card-header-spinner>
+  <mat-card-content [formGroup]="subscribeForm" novalidate>
+    <app-display-agenda-details [agendaItem]='agendaItem'></app-display-agenda-details>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly start">
+      <div fxFlex="15" class="fields">
+        <mat-form-field class="mat-form-max-width">
+          <input matInput placeholder="Jouw naam" formControlName="naam" [formControl]="naam" required>
+          <mat-error *ngIf="naam.hasError('required')">
+            Veld is verplicht
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mat-form-max-width">
+          <input matInput placeholder="Optionele Email" formControlName="email" [formControl]="email"
+            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+          <mat-error *ngIf="email.hasError('email')">
+            Onjuist email adres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mat-form-max-width">
+          <textarea matInput placeholder="Extra informatie" formControlName="extrainformatie" rows='5'
+            [formControl]="extrainformatie"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-dialog-message-box [error]="responseError" [message]="responseText"></mat-dialog-message-box>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [style.display]="showSubmitButton" [disabled]='!subscribeForm.valid'
+      (click)="onSubmit()">Ik schrijf me in</button>
+  </mat-dialog-actions>
+</mat-card>
+

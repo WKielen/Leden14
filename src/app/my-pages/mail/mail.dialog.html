@@ -1,0 +1,14 @@
+<app-mat-dialog-header-detail title='Mail versturen'></app-mat-dialog-header-detail>
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-dialog-content>
+    Je staat op het punt om {{ MailItems.length }} personen te mailen.<br><br>
+    <mat-progress-bar [value]="percentageComplete" color="primary" mode="determinate">
+    </mat-progress-bar>
+    <br>
+    <mat-checkbox [(ngModel)]="ckbTest" [ngModelOptions]="{standalone: true}" color='primary'>
+        Naar bestand ipv Verzenden</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSendMail()" [disabled]='percentageComplete > 0'>Verzend
+        mail</button>
+</mat-dialog-actions>

@@ -1,0 +1,16 @@
+GET https://www.ttvn.nl/api/user/register HTTP/1.1
+content-type: application/json
+
+###
+POST https://www.ttvn.nl/api/user/register HTTP/1.1
+content-type: application/json
+Accept: application/json
+Database: ttest
+
+{
+    "Userid": "Kielen1",
+    "Password": "3e84930f9e2769d6d71df43be7923c20",
+    "Email": "wim_kielen@hotmail.com",
+    "FirstName": "Wim",
+    "LastName": "Kielen"
+}

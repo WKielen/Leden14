@@ -1,0 +1,44 @@
+@use "src/mixins.scss" as s;
+
+mat-card {
+    text-align: center;
+    @include s.desktop {
+        width: 40%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
+
+.cell-padding {
+    padding: 0px 20px 0px;
+}
+
+h2 {
+  margin: 5px 0px 10px 0px;
+  display: flex;
+  justify-content: center;
+}
+small {
+  margin: 5px 0px 10px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#group {
+  margin: 0px 0px 25px 0px;
+}
+
+
+
+.internalcard {
+  // color: green !important;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 2px 5px 5px lightgrey;
+  margin-bottom: 15px;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 10px 10px 20px;
+}
+

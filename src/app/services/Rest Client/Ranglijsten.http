@@ -1,0 +1,9 @@
+
+GET http://www.nttb-ranglijsten.nl/ranking.php?Heren=M&Dames=V&Jongens=J&Meisjes=G&club=1520 HTTP/1.1
+content-type: application/json
+Accept: application/json
+###
+GET https://www.ttvn.nl/api/nas/getrating HTTP/1.1
+content-type: application/json
+Accept: application/json
+

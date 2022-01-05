@@ -1,0 +1,22 @@
+<app-mat-dialog-header-detail title='Uitnodiging versturen'></app-mat-dialog-header-detail>
+<mat-dialog-content>
+
+  <ng-template #extrabuttons>
+    <button mat-raised-button color="primary" (click)='onCreateLink()'>Maak link inschrijfpagina</button>
+  </ng-template>
+
+  <div class="flexcontainer">
+    <div style="flex-basis: 65%;">
+      <app-html-editor-mail-wrapper [htmlOutput]='htmlContent' [subject]='emailSubject'
+        (htmlContent)='onHtmlContentChanged($event)' (emailSubject)='onEmailSubjectChanged($event)'
+        (attachmentFile)='onAttachmentFileChanged($event)' [extraButtonsTemplate]='extrabuttons'>
+      </app-html-editor-mail-wrapper>
+      <app-send-mail [itemsToMail]='itemsToMail' [htmlContent]='htmlContent' [emailSubject]='emailSubject'
+        [attachmentFile]='attachmentFile' [replaceLinkCallback]="theBoundCallback"></app-send-mail>
+    </div>
+    <div style="flex-basis: 30%;">
+      <app-member-selection-box-wrapper (selectedMemberList)="onSelectionChanged($event)">
+      </app-member-selection-box-wrapper>
+    </div>
+  </div>
+</mat-dialog-content>

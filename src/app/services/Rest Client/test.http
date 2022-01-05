@@ -1,0 +1,4 @@
+GET https://www.ttvn.nl/api/action/test HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA2MjM1MTcsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYxMDcwOTkxNywidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.EpsGC5FRTwIiTIKdRS1jwfepMgFZMKCnBTpkweD-v7M

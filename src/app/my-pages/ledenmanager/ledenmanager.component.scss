@@ -1,0 +1,21 @@
+@use "src/mixins.scss" as s;
+
+mat-card {
+  text-align: center;
+  @include s.desktop {
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+  }
+}
+.mat-column-Naam {
+  @include s.mat-text-column-wrap-stuff;
+}
+
+.mat-column-Leeftijd {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 20% !important;
+  width: 20% !important;
+}

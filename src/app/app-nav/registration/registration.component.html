@@ -1,0 +1,103 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-card>
+  <mat-card-header-spinner title="Nieuwe aanmeldingen" [progress]="newRegistrationSpinner">
+  </mat-card-header-spinner>
+  <mat-card-content>
+    <mat-table #tableOpenRegisters [dataSource]="dataSourceNewRegistrations" class="mat-cell">
+
+      <ng-container matColumnDef="FirstName">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Voornaam</mat-header-cell>
+        <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.FirstName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="LastName">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Achternaam</mat-header-cell>
+        <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.LastName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Userid">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Userid</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="hideonmobile">{{ row.Userid }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Email</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="hideonmobile">{{ row.Email }}</mat-cell>
+      </ng-container>
+
+      <!-- actions -->
+      <ng-container matColumnDef="actions3">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="onAddRegistration()">
+            <mat-icon aria-label="Add icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row; let i=index;">
+          <mat-waiting-button icon="done" (holdTime)="onDoneNewRegistration($event, i)" [myCallback]="theBoundCallback">
+          </mat-waiting-button>
+          <button mat-icon-button color="primary" (click)="onEditNewRegistation(i)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <mat-waiting-button icon="delete" color="warn" (holdTime)="onDeleteNewRegistation($event, i)"
+            [myCallback]="theBoundCallback"></mat-waiting-button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsNewToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; index as i; columns: columnsNewToDisplay;"
+        (dblclick)="onDblclickNewRegistration($event, i)">
+      </mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header-spinner title="Actieve gebruikers" [progress]="existingRegistrationSpinner">
+  </mat-card-header-spinner>
+  <mat-card-content>
+    <mat-table #tableOpenRegisters [dataSource]="dataSourceExistingRegistrations" class="mat-cell">
+
+      <ng-container matColumnDef="FirstName">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Voornaam</mat-header-cell>
+        <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.FirstName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="LastName">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Achternaam</mat-header-cell>
+        <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.LastName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Userid">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Userid</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="hideonmobile">{{ row.Userid }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Email</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="hideonmobile">{{ row.Email }}</mat-cell>
+      </ng-container>
+
+      <!-- actions -->
+      <ng-container matColumnDef="actions2">
+        <mat-header-cell *matHeaderCellDef>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="primary" (click)="onEditExistingRegistration(i)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <mat-waiting-button icon="delete" color="warn" (holdTime)="onDeleteExistingRegistation($event, i)"
+            [myCallback]="theBoundCallback"></mat-waiting-button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsExistingToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; index as i; columns: columnsExistingToDisplay;"
+        (dblclick)="onDblclickExistingRegistration($event, i)">
+      </mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

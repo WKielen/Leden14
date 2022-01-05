@@ -1,0 +1,95 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<form [formGroup]="agendaItemForm" novalidate>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between start">
+        <div fxFlex="15">
+            <mat-form-field class="mat-form-max-width">
+                <input matInput placeholder="Kies een datum" [matDatepicker]="picker" formControlName="datum"
+                    [formControl]="datum" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="datum.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput placeholder="Tijd" formControlName="tijd" [formControl]="tijd" required>
+                <mat-error *ngIf="tijd.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <mat-select placeholder="Soort" formControlName="type" required>
+                    <mat-option *ngFor="let item of typeValues" [value]="item.Value">{{item.Label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="type.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <mat-select placeholder="Doelgroep" formControlName="doelgroep" required>
+                    <mat-option *ngFor="let item of doelgroepValues" [value]="item.Value">{{item.Label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="doelgroep.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <mat-select placeholder="Organisatie" formControlName="organisatie" required>
+                    <mat-option *ngFor="let item of OrganisatieValues" [value]="item.Value">{{item.Label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="organisatie.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="40">
+            <mat-form-field class="mat-form-max-width">
+                <input matInput placeholder="Evenementnaam" formControlName="evenementnaam"
+                    [formControl]="evenementnaam" required>
+                <mat-error *ngIf="evenementnaam.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput placeholder="Lokatie" formControlName="lokatie" [formControl]="lokatie" required>
+                <mat-error *ngIf="lokatie.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <textarea matInput placeholder="Toelichting" formControlName="toelichting"
+                    [formControl]="toelichting"></textarea>
+            </mat-form-field>
+
+        </div>
+        <div fxFlex="30">
+            <mat-form-field class="mat-form-max-width">
+                <input matInput placeholder="Inschrijven" formControlName="inschrijven" [formControl]="inschrijven">
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="Inschrijfgeld" formControlName="inschrijfgeld"
+                    [formControl]="inschrijfgeld">
+                <span matPrefix>&euro;&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Betaalmethode" formControlName="betaalmethode"
+                    [formControl]="betaalmethode">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Contactpersoon" formControlName="contactpersoon"
+                    [formControl]="contactpersoon">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Vervoer" formControlName="vervoer" [formControl]="vervoer">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Verzamelafspraak" formControlName="verzamelafspraak"
+                    [formControl]="verzamelafspraak">
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+<button mat-raised-button color="primary" [disabled]='!agendaItemForm.valid' (click)="onSubmit()">Bewaar</button>

@@ -1,0 +1,66 @@
+<div class="flexcontainer">
+  <mat-card style="flex-basis: 30%;">
+    <mat-card-header>
+      <mat-card-title>Upload TXT met bondsnummers</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      Deze functie is om te controleren welke verschillen er zijn in onze eigen ledenadministratie en de uitslagen NAS.
+      Dit
+      is vooral nuttig om te controleren we geen onnodige competitie bijdrage betalen.<br>
+      Met onderstaande knoppen kan je een bestand uploaden. Dit tekst bestand moet op iedere regel beginnen met een
+      bondsnummer (+ spatie) van een speler
+      die in de uitslagen voorkomt.
+      <br><br>
+      <div>
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+          <span>Kies bestand</span>
+          <input #fileInput type="file" (change)="onFileSelected($event.target.files)"
+            style="display:none; margin: 0px 15px 0px 0px;" />
+        </button>
+        <br><br>
+        <input matInput readonly='true' value={{uploadFileName}}>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onClickLedenLijstImport()">Uploaden</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card style="flex-basis: 50%;">
+    <mat-card-header>
+      <mat-card-title>Verschillen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table #table [dataSource]="dataSource" class="mat-cell">
+
+        <ng-container matColumnDef="Naam">
+          <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Naam</mat-header-cell>
+          <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{row.naam}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Verschil">
+          <mat-header-cell *matHeaderCellDef>Verschil</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.verschil}}</mat-cell>
+        </ng-container>
+
+
+        <!-- actions -->
+        <ng-container matColumnDef="actions1">
+          <mat-header-cell *matHeaderCellDef class='lastcolumnshrink'></mat-header-cell>
+
+          <mat-cell *matCellDef="let row; let i=index;" class='lastcolumnshrink'>
+            <button mat-icon-button color="primary" (click)="onEdit(i)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+</div>

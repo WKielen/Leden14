@@ -1,0 +1,46 @@
+<div class="alternative-theme">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button mat-icon-button (click)="toggleSideBar()">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <img src="assets/images/Logo-TTVN.png" alt="TTVN logo">
+
+            <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+                <ul fxLayout="row" fxLayoutGap="20px">
+                    <li>
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <mat-icon>person</mat-icon>
+                            <span style="font-size: 11pt">{{logonData.Name}}</span>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onConfig()">
+                                <mat-icon>settings</mat-icon>
+                                Settings
+                            </button>
+                            <button mat-menu-item *ngIf="!authService.isSafari" (click)="onNotification()">
+                                <mat-icon>notifications</mat-icon>
+                                Meldingen
+                            </button>
+                            <button mat-menu-item [style.display]="authService.browserPromptBtn()"
+                                (click)="authService.addToHomeScreen()">
+                                <mat-icon>add_to_home_screen</mat-icon>
+                                Chrome install
+                            </button>
+                            <button mat-menu-item [style.display]="authService.iOSSafariHow2()" (click)="onIos()">
+                                <mat-icon>notifications</mat-icon>
+                                IOS install
+                            </button>
+                            <button mat-menu-item (click)="onSignOff()">
+                                <mat-icon>exit_to_app</mat-icon>
+                                Uitloggen
+                            </button>
+                            <small class="development" style="margin-left: 30px;">Version: {{ version }}</small>
+                          </mat-menu>
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>

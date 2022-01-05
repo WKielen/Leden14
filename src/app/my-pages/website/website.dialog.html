@@ -1,0 +1,34 @@
+<app-mat-dialog-header-detail title='{{data.method}}'></app-mat-dialog-header-detail>
+<mat-dialog-content [formGroup]="websiteItemForm" novalidate>
+  <div>
+    <mat-form-field style="width: 40%">
+      <input matInput placeholder="Kies de vanaf datum" [matDatepicker]="startpicker" formControlName="StartDate"
+        [formControl]="StartDate" required>
+      <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+      <mat-datepicker #startpicker></mat-datepicker>
+      <mat-error *ngIf="StartDate.hasError('required')">
+        Veld is verplicht
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 40%;margin-left: 40px;">
+      <input matInput placeholder="Kies de eind datum" [matDatepicker]="endpicker" formControlName="EndDate"
+        [formControl]="EndDate" required>
+      <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+      <mat-datepicker #endpicker></mat-datepicker>
+      <mat-error *ngIf="EndDate.hasError('required')">
+        Veld is verplicht
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Onderwerp" formControlName="Header" [formControl]="Header" required>
+    <mat-error *ngIf="Header.hasError('required')">
+      Veld is verplicht
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <app-html-editor-formcontrol [formControl]="HtmlContent"></app-html-editor-formcontrol>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]='!websiteItemForm.valid' (click)="onSubmit()">Bewaar</button>
+</mat-dialog-actions>

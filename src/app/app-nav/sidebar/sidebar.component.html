@@ -1,0 +1,7 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<h2>{{name}}</h2>
+<img src="assets/images/Logo-TTVN.png" alt="TTVN logo">
+<mat-divider></mat-divider>
+<mat-nav-list>
+  <a mat-list-item *ngFor="let page of pagesToShow" (click)="route(page.Url)">{{ page.MenuDisplayValue }}</a>
+</mat-nav-list>

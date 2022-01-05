@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:4.0
+N:%naam%;;;;
+FN:%volledigenaam%
+ORG:TTVN
+TEL;TYPE=cell:%mobiel%
+EMAIL:%email1%
+END:VCARD

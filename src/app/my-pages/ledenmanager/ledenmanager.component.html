@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-header-spinner title="Muteren Leden" [progress]="progress"></mat-card-header-spinner>
+  <mat-card-content>
+
+    <mat-table #table [dataSource]="dataSource" class="mat-cell">
+
+      <ng-container matColumnDef="Naam">
+        <mat-header-cell *matHeaderCellDef class='firstcolumnshrink'>Naam</mat-header-cell>
+        <mat-cell *matCellDef="let row" class='firstcolumnshrink'>{{ row.Naam }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Leeftijd">
+        <mat-header-cell *matHeaderCellDef class="hideonmobile">Leeftijd</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="hideonmobile"><div [innerHTML]="InnerHtmlLabelLeeftijdsCategorie(row.LeeftijdCategorieBond)"></div></mat-cell>
+      </ng-container>
+
+
+      <!-- actions -->
+      <ng-container matColumnDef="actions2">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="onAdd()">
+            <mat-icon aria-label="Add icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="primary" (click)="onEdit(i)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <mat-waiting-button icon="delete" color="warn" (holdTime)="onDelete($event, i)" [myCallback]="theBoundCallback"></mat-waiting-button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; index as i; columns: columnsToDisplay;" (dblclick)="onDblclick($event, i)">
+      </mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

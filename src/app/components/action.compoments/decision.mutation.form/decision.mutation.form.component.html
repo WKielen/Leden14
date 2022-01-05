@@ -1,0 +1,30 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+
+<form [formGroup]="actionItemForm" novalidate (submit)="onSubmit()" (keyup.enter)="onSubmit()">
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Besluit" formControlName="title" [formControl]="title" required autofocus>
+    <mat-error *ngIf="title.hasError('required')">
+      Veld is verplicht
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field style="width: 40%">
+    <input matInput placeholder="Kies besluitdatum" [matDatepicker]="picker" formControlName="startdate"
+      [formControl]="startdate" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="startdate.hasError('required')">
+      Veld is verplicht
+    </mat-error>
+  </mat-form-field>
+  <div *ngIf="amIBestuur">
+    <mat-checkbox name="BestuurOnly" formControlName='bestuuronly' color="primary" [checked]="bestuuronly">
+      Alleen zichtbaar voor bestuursleden
+    </mat-checkbox><br>
+  </div>
+  <mat-form-field class="mat-form-max-width">
+    <textarea matInput type="text" placeholder="Toelichting" formControlName="description" [formControl]="description"
+      matTextareaAutosize matAutosizeMinRows='5'></textarea>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary" [disabled]='!actionItemForm.valid'>Bewaar</button>
+</form>

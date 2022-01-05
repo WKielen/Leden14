@@ -1,0 +1,25 @@
+<app-mat-dialog-header-detail title='Details'></app-mat-dialog-header-detail>
+
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+
+<mat-dialog-content>
+  <h2>{{data.data.Userid}}</h2>
+  <table id="table">
+    <tr>
+      <td width="25%"></td>
+      <td width="75%"></td>
+    </tr>
+    <tr>
+      <td>Userid:</td>
+      <td>{{ data.data.Userid }}</td>
+    </tr>
+    <tr *ngIf="data.data.Name">
+      <td>Naam:</td>
+      <td>{{ data.data.Name }}</td>
+    </tr>
+    <tr *ngIf="data.data.Email">
+      <td>Email:</td>
+      <td>{{ data.data.Email }}</td>
+    </tr>
+  </table>
+</mat-dialog-content>

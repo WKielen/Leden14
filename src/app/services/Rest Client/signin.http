@@ -1,0 +1,14 @@
+
+POST https://www.ttvn.nl/api/signin.php HTTP/1.1
+content-type: application/json
+Accept: application/json
+Database: ttest
+
+{
+  "database": "ttest",
+  "keepsignedin": "false",
+  "password": "3e84930f9e2769d6d71df43be7923c20",
+  "userid": "admin"
+}
+
+

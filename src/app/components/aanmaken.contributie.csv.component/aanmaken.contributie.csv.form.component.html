@@ -1,0 +1,39 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-card>
+    <form [formGroup]="incassoForm" novalidate>
+        <mat-card-header>
+            <mat-card-title>Aanmaken Incasso CSV</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            Deze functie maakt een CSV bestand met incasso's. De CSV dient als input voor de incasso Excel
+            van <a href='http://www.Sepabestand.nl' target='_blank'>Sepabestand.nl</a>.<br><br>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="text" placeholder="Omschrijving op afschrift" formControlName="Omschrijving"
+                    [formControl]="Omschrijving" (blur)="onSaveChangedFields()">
+                <mat-error *ngIf="Omschrijving.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Verwachte incasso datum</mat-label>
+                <input matInput [matDatepicker]="picker" (dateChange)="onSaveChangedDate($event)"
+                    formControlName="RequestedDirectDebitDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class='flexcontainer' style="justify-content: space-between">
+                <button mat-raised-button color="primary" (click)="onIncassoBestand()"
+                    [disabled]='!incassoForm.valid'>Maak Incasso bestand</button>
+                <button mat-raised-button color="primary" (click)='onRekeningBestand()'
+                    [disabled]='!incassoForm.valid'>Maak Rekening bestand</button>
+                <button mat-raised-button color="primary" (click)='onAndersBetalenden()'
+                    [disabled]='!incassoForm.valid'>Maak Overigen bestand</button>
+                <button mat-raised-button color="secondary" (click)="onBerekeningOverzicht()"
+                    [disabled]='!incassoForm.valid'>Maak berekening overzicht</button>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>

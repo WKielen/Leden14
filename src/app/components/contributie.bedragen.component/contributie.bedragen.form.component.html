@@ -1,0 +1,69 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Contributie instellingen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="contributieForm" novalidate>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="Halfjaar Volwassenen (incl BB)" formControlName="HalfjaarVolwassenen"
+                    [formControl]="HalfjaarVolwassenen">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="HalfjaarVolwassenen.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="CompetitieBijdrage Volwassenen"
+                    formControlName="CompetitieBijdrageVolwassenen" [formControl]="CompetitieBijdrageVolwassenen">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="CompetitieBijdrageVolwassenen.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="Halfjaar Jeugd (incl BB)" formControlName="HalfjaarJeugd"
+                    [formControl]="HalfjaarJeugd">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="HalfjaarJeugd.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="CompetitieBijdrage Jeugd"
+                    formControlName="CompetitieBijdrageJeugd" [formControl]="CompetitieBijdrageJeugd">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="CompetitieBijdrageJeugd.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="ZwerflidPercentage" formControlName="ZwerflidPercentage"
+                    [formControl]="ZwerflidPercentage">
+                <span matPrefix>%&nbsp;</span>
+                <mat-error *ngIf="ZwerflidPercentage.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="Donateur" formControlName="Donateur"
+                    [formControl]="Donateur">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="Donateur.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-form-max-width">
+                <input matInput type="number" placeholder="Jeugd Tablestars Pakket" formControlName="Pakket"
+                    [formControl]="Pakket">
+                <span matPrefix>&euro;&nbsp;</span>
+                <mat-error *ngIf="Donateur.hasError('required')">
+                    Veld is verplicht
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]='!contributieForm.valid' (click)="onSubmit()">Bewaar</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,63 @@
+<div hidden>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" (dateChange)="onChangeDate($event)">
+    <mat-datepicker #picker touchUi="true"></mat-datepicker> <!-- touchui places it in center-->
+  </mat-form-field>
+</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{trainingDag.Datum | date: 'EEEE d MMM yyyy' : 'nl'}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="groepenVanGekozenDatum.length == 0">
+      <h2 class="primary-color">Vandaag geen groepen.</h2>
+    </div>
+    <div *ngFor="let group of groepenVanGekozenDatum; index as j" #fabs id='group'>
+      <h2 class="primary-color"> {{ groepenVanGekozenDatum[j].Name }} </h2>
+
+      <small class="primary-color">
+        Aanwezig: {{this.groepenVanGekozenDatum[j].Present }} / Afgemeld: {{this.groepenVanGekozenDatum[j].SignOff }} /
+        Afwezig: {{this.groepenVanGekozenDatum[j].Absent }}
+      </small>
+      <mat-divider [inset]="true"></mat-divider>
+      <table mat-table class="trainings-theme" #table [dataSource]="dataSource[j]">
+
+        <ng-container matColumnDef="Naam">
+          <th mat-header-cell *matHeaderCellDef> Naam </th>
+          <td mat-cell *matCellDef="let element"> {{ element.Naam }} </td>
+        </ng-container>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="actions1">
+          <th mat-header-cell *matHeaderCellDef class="cell-padding">Aanwezig</th>
+          <td mat-cell *matCellDef="let element" class="cell-padding">
+
+            <mat-checkbox [ngModel]="element.Checked" [indeterminate]="element.Indeterminate"
+              [color]="element.Checked === false ? 'accent' : 'primary'">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)='onRowClick(row)'>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="afmeldingen.length > 0">
+      <h2 class="primary-color"> Afmeldingen </h2>
+      <div class="internalcard" *ngFor="let afmelding of afmeldingen; index as i" id='id{{i}}'>
+        <div class="primary-color">{{ afmelding.Naam }}</div>
+        <div style="margin-top: 5px;">{{ afmelding.Reden }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="fab-container">
+  <div>
+    <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
+      color="primary" class="fab-secondary">
+      <i class="material-icons">{{ btn.icon }}</i>
+    </button>
+  </div>
+</div>

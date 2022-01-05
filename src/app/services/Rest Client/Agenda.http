@@ -1,0 +1,5 @@
+GET https://www.ttvn.nl/api/agenda/get?Id=67 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Database: ttest
+###

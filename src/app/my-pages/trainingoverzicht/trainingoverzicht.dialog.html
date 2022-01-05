@@ -1,0 +1,29 @@
+<app-mat-dialog-header-detail title='Parameters'></app-mat-dialog-header-detail>
+
+<mat-dialog-content>
+    <mat-card-subtitle>Dagen in overzicht</mat-card-subtitle>
+    <section>
+        <mat-checkbox color="primary" [(ngModel)]="cb_maandag">M</mat-checkbox>
+        <mat-checkbox color="primary" class="checkbox-margin" [(ngModel)]="cb_dinsdag">D</mat-checkbox>
+        <mat-checkbox color="primary" class="checkbox-margin" [(ngModel)]="cb_woensdag">W</mat-checkbox>
+        <mat-checkbox color="primary" class="checkbox-margin" [(ngModel)]="cb_donderdag">D</mat-checkbox>
+        <mat-checkbox color="primary" class="checkbox-margin" [(ngModel)]="cb_vrijdag">V</mat-checkbox>
+    </section>
+    <br>
+    <mat-card-subtitle>Andere instellingen</mat-card-subtitle>
+    <section>
+        <mat-checkbox color="primary" [(ngModel)]="cb_emptylines">Laat lege regels zien</mat-checkbox>
+    </section>
+    <br>
+    <section>
+        <mat-card-subtitle>Dagen afwezigheid alarm</mat-card-subtitle>
+    </section>
+    <mat-slider thumbLabel color="primary" [(ngModel)]="data.alertAfterNumberOfDays" [displayWith]="formatSliderLabel"
+        tickInterval="1" min="1" max="31"></mat-slider>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)='onExit()'>Akkoord</button>
+    <button mat-raised-button color="primary" (click)="onDownloadOverzicht()"
+        matTooltip="Download in CSV van huidige!!! scherm">Download</button>
+</mat-dialog-actions>

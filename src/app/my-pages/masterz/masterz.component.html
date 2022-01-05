@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Masterz spelregelbewijs</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div id='headertext'>
+      Het spelregelbewijs is verplicht voor alle competitie-spelers van 13 t/m 19 jaar.
+    </div>
+    <app-member-checkbox-table [dataSource]='dataSource' checkboxHeader="Gehaald" [columns]="columns"></app-member-checkbox-table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)='onSave()'>Bewaar</button>
+  </mat-card-actions>
+</mat-card> 
+

@@ -1,0 +1,16 @@
+<div class="flexcontainer">
+  <div style="flex-basis: 30%;">
+    <app-contributie-bedragen-form *ngIf="contributieBedragen" [contributieBedragen]="contributieBedragen"
+      (changedAmounts)="onContributieAmounts($event)"></app-contributie-bedragen-form>
+  </div>
+  <div style="flex-basis: 60%; flex-direction: column;">
+    <app-aanmaken-contributie-csv-form *ngIf="contributieBedragen && ledenArray"
+      [contributieBedragen]="contributieBedragen" [ledenArray]="ledenArray" [tekstOpAfschrift]="tekstOpAfschrift"
+      [datumIncasso]="datumIncasso" (changedDatumIncasso)="datumIncasso" (changedTekstOpAfschrift)="tekstOpAfschrift">
+    </app-aanmaken-contributie-csv-form>
+    <app-send-controbutie-mail 
+    *ngIf="contributieBedragen && ledenArray && tekstOpAfschrift && datumIncasso"
+      [contributieBedragen]="contributieBedragen" [ledenArray]="ledenArray" [tekstOpAfschrift]="tekstOpAfschrift"
+      [datumIncasso]="datumIncasso" [extraMailText]="extraMailText"></app-send-controbutie-mail>
+  </div>
+</div>

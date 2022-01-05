@@ -1,0 +1,15 @@
+<app-mat-dialog-header-detail title='Mail'></app-mat-dialog-header-detail>
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-dialog-content [formGroup]="websiteItemForm" novalidate>
+  <mat-form-field class="mat-form-max-width">
+    <input matInput placeholder="Onderwerp" formControlName="Subject" [formControl]="Subject" required>
+    <mat-error *ngIf="Subject.hasError('required')">
+      Veld is verplicht
+    </mat-error>
+  </mat-form-field>
+  <app-html-editor-formcontrol [formControl]="HtmlControl"></app-html-editor-formcontrol>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]='!websiteItemForm.valid' (click)="onSendMail($event)">Verzend
+    mail</button>
+</mat-dialog-actions>

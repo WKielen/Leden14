@@ -1,0 +1,27 @@
+post https://www.ttvn.nl/api/training/signoff HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTE4MjUwMDYsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYxMTkxMTQwNiwidXNlcmlkIjoiamV1Z2QiLCJkYXRhYmFzZSI6InR0ZXN0Iiwicm9sZSI6IkpFIiwiZmlyc3RuYW1lIjoiamV1Z2QiLCJsYXN0bmFtZSI6ImxpZCIsImxpZG5yIjoiNDgyIn0.H-XqmfrmpGnux4MbG4ZDGIwMKnyOedxA1xS6oIB8dqE
+
+{ "Date": "2021-01-28", "Reason": "Ik ben ziek32" }
+
+###
+
+GET https://www.ttvn.nl/api/training/getall HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTE3NzAwNTEsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY0MzMwNjA1MSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.cXRi_cL5N2frwXQPwKZW8JNU_8OlHfayejWd1e0rdqQ
+
+###
+
+GET https://www.ttvn.nl/api/training/get?Datum=2020-01-10 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTE3NzAwNTEsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY0MzMwNjA1MSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.cXRi_cL5N2frwXQPwKZW8JNU_8OlHfayejWd1e0rdqQ
+
+###
+
+GET https://www.ttvn.nl/api/training/getfromdate?Datum=2020-01-01 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTE3NzAwNTEsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY0MzMwNjA1MSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.cXRi_cL5N2frwXQPwKZW8JNU_8OlHfayejWd1e0rdqQ

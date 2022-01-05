@@ -1,0 +1,21 @@
+ul li {
+  list-style: none;
+}
+
+mat-toolbar {
+  margin-top: -10px;
+  margin-bottom: -10px;
+  vertical-align: middle;
+}
+
+img {
+  width: 100px;
+  height: 40px;
+  object-fit: cover;
+  margin-left: 20px;
+}
+
+mat-icon {
+  padding: 0 14px;
+  font-size: 24px;
+}

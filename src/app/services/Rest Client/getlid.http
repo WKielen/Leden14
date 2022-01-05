@@ -1,0 +1,4 @@
+GET https://www.ttvn.nl/api/action/getall HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzQ3NDUsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYxMDU2MTE0NSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.5QehXnPq8PW4bmD-b-yj1_Y9SWQJxMSiWcgQPxvJPgk

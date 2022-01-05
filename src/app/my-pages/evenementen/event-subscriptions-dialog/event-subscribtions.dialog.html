@@ -1,0 +1,7 @@
+<app-mat-dialog-header-detail title='Ingeschreven leden'></app-mat-dialog-header-detail>
+<mat-dialog-content>
+  <app-display-subscriptions-details [inschrijvingsList]="subscriptions" ></app-display-subscriptions-details>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onClickDownload()">Download inschrijvingen</button>
+</mat-dialog-actions>

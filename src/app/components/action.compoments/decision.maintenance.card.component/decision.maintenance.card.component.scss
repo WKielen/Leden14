@@ -1,0 +1,37 @@
+@use "src/mixins.scss" as s;
+
+mat-card {
+  text-align: center;
+  @include s.desktop {
+      width: 90%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+  }
+}
+
+.mat-column-Id {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
+
+.mat-column-Title {
+  @include s.mat-text-column-wrap-stuff;
+}
+
+.mat-column-HolderName {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 15% !important;
+  width: 15% !important;
+}
+
+.mat-column-StartDate {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 10% !important;
+  width: 10% !important;
+}
+
+mat-slide-toggle { margin-top: 8px; margin-right: 10px; }
+.toggleTitle { color: white; }
