@@ -1,0 +1,40 @@
+@use "src/variables.scss" as v;
+
+// Hiermee kunnen we in SASS bepalen of we een mobile
+// het gebruik is nu in het component.
+// Meestal om een MAT-CARD om te laten springen naar een 100%
+// breedte als het een mobiel betreft.
+// Wordt nu alleen gebruikt als er geen sprake is van een flex container
+
+@mixin desktop {
+  @media (min-width: #{v.$desktop}) {
+      @content;
+  }
+}
+
+@mixin mat-text-column-wrap-stuff {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+// Voorbeeld van functies in SASS. Voor kleuren buiten het material theme om.
+// Hieronder wordt gebruikt in de login pagina
+$colors: (
+  primary-dark: darken(#005dff, 40%),
+  primary-yellow: #fbc02d,
+  primary-blue: #0d47a1,
+  primary-blue-light: lighten(#0d47a1, 40%),
+  primary-yellow-dark: darken(#fbc02d, 10%),
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+

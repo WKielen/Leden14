@@ -1,19 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Leden14</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="mat-typography">
-  <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
-</body>
+
+  <head>
+    <title>TTVN</title>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="TTVN Nieuwegein, Tafeltennis, Wim Kielen, Nieuwegein">
+    <meta name="theme-color" content="#FBC02D">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FBC02D">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="apple-touch-icon" href="assets/icons/app-logo-512x512.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+
+  <body style="background-color: white">
+    <app-root>
+      <style>
+        .loading-message {
+          text-align: center;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          margin-top: -10em;
+          /*set to a negative number 1/2 of your height*/
+          margin-left: -7em;
+          /*set to a negative number 1/2 of your width*/
+        }
+      </style>
+      <div class="loading-message">
+        <img src="./assets/images/loading.jpg" alt="Loading JPG" width="200" height="200">
+        <br>
+        <br>
+        <p style="color: #FBC02D; font-family: Helvetica; margin: 2rem;">
+          Loading the TTVN App...
+        </p>
+      </div>
+
+    </app-root>
+    <noscript>
+      <h3 style="color: #673ab7; font-family: Helvetica; margin: 2rem;">
+        Sorry, but app is not available without javascript
+      </h3>
+    </noscript>
+  </body>
+
 </html>
