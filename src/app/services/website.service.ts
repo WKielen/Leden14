@@ -43,8 +43,8 @@ export class WebsiteService extends DataService {
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Oud Leden', 'DisplayOnRoles': PAGEROLES.oudledenPageRoles.join(), 'Url': ROUTE.oudledenPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Gebruikersbeheer', 'DisplayOnRoles': PAGEROLES.registrationPageRoles.join(), 'Url': ROUTE.registrationPageRoute});
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Sync NTTB', 'DisplayOnRoles': PAGEROLES.syncnttbPageRoles.join(), 'Url': ROUTE.syncnttbPageRoute });
-    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Deelname training', 'DisplayOnRoles': PAGEROLES.trainingdeelnamePageRoles.join(), 'Url': ROUTE.trainingdeelnamePageRoute });
-    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Training overzicht', 'DisplayOnRoles': PAGEROLES.trainingdeelnamePageRoles.join(), 'Url': ROUTE.trainingoverzichtPageRoute });
+    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Presentielijst jeugd', 'DisplayOnRoles': PAGEROLES.trainingdeelnamePageRoles.join(), 'Url': ROUTE.trainingdeelnamePageRoute });
+    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Overzicht aanw jeugd', 'DisplayOnRoles': PAGEROLES.trainingdeelnamePageRoles.join(), 'Url': ROUTE.trainingoverzichtPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Trainingsgroepen', 'DisplayOnRoles': PAGEROLES.traininggroupsPageRoles.join(), 'Url': ROUTE.traininggroupPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Masterz spelregels', 'DisplayOnRoles': PAGEROLES.masterzPageRoles.join(), 'Url': ROUTE.masterzPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Test', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.testPageRoute });
