@@ -58,7 +58,7 @@ import { ParentComponent } from '../shared/parent.component';
             </div> <!-- end of fxflex -->
           </div>  <!-- end of fxlayout -->
 
-          <app-html-editor-formcontrol formControlName="HtmlContent" (htmlContent)="onHtmlOutputChange($event)"></app-html-editor-formcontrol>
+          <app-html-editor-formcontrol formControlName="HtmlControl" (htmlContent)="onHtmlOutputChange($event)"></app-html-editor-formcontrol>
 
           <div class="attachmentbox">
             <button mat-raised-button color="primary" (click)="fileInput.click()" id="attachmentbutton">

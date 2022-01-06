@@ -28,6 +28,7 @@ import { ParentComponent } from './shared/parent.component';
 import { AppNavModule } from './app-nav/app-nav.module';
 import { MyPagesModule } from './my-pages/my-pages.module';
 import localeNl from '@angular/common/locales/nl';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 registerLocaleData(localeNl);
 @NgModule({
@@ -84,9 +85,13 @@ registerLocaleData(localeNl);
       provide: LOCALE_ID,
       useValue: 'nl'
     },
-    // Material Date Locale hieronder toegevoegd voor Angular 9 conversie
     { provide: MAT_DATE_LOCALE, useValue: 'nl-NL' },
-
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
   bootstrap: [AppComponent]
 })

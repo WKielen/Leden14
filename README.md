@@ -28,7 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 
-    "@angular/localize": "^13.1.1",
     "@angular/material-moment-adapter": "^13.1.1",
     "@angular/platform-server": "^13.1.1",
     "@ng-bootstrap/ng-bootstrap": "^9.1.3",

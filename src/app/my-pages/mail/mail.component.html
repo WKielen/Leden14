@@ -1,5 +1,6 @@
 <div class="flexcontainer">
   <div style="flex-basis: 65%;">
+    
     <app-html-editor-mail-wrapper [htmlOutput]='HtmlContent' [subject]='EmailSubject'
       (htmlContent)='onHtmlContentChanged($event)' (emailSubject)='onEmailSubjectChanged($event)'
       (attachmentFile)='onAttachmentFileChanged($event)'>
