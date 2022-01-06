@@ -46,7 +46,7 @@ export class DialogHeaderComponent extends BaseComponent {
 
   @Input() title: string;
   @Input() showButtons: boolean = false;
-  @Input() extraButtonsTemplate: TemplateRef<any>;
+  @Input() extraButtonsTemplate!: TemplateRef<any>;
 
   @Output('onClickModify') modify = new EventEmitter();
   @Output('onClickCopy') createcopy = new EventEmitter();

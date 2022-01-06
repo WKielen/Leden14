@@ -22,24 +22,9 @@ import { BaseComponent } from '../shared/base.component';
 export class CardHeaderSpinnerComponent extends BaseComponent {
   @Input('progress') progress: number;
   @Input('title') title: string;
-  // @Input('toggleChecked') checked: boolean = true;
-  // @Input('toggleTitle') toggleTitle: string;
-  // @Output('onSliderChanged') slided = new EventEmitter();
-
-  // @Input('title2') title2: string;
-  // @Input('toggleChecked2') checked2: boolean = true;
-  // @Input('toggleTitle2') toggleTitle2: string;
-  // @Output('onSliderChanged2') slided2 = new EventEmitter();
-  @Input() extraButtonsTemplate: TemplateRef<any>;
+  @Input() extraButtonsTemplate!: TemplateRef<any>;
 
   get Value() {
     return (this.progress / 10) * 1.4;
   }
-
-  // onToggleClicked($event) {
-  //   this.slided.emit($event);
-  // }
-  // onToggleClicked2($event) {
-  //   this.slided2.emit($event);
-  // }
 }

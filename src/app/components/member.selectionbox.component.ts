@@ -74,7 +74,7 @@ export class MemberSelectionBoxComponent extends BaseComponent implements OnInit
   ledenLijst: Array<LedenItemExt> = [];
 
   @Input()
-  selectionTemplate: TemplateRef<any>;
+  selectionTemplate!: TemplateRef<any>;
 
   @Output()
   selectedMemberList = new EventEmitter<Event>();
@@ -146,11 +146,9 @@ export class MemberSelectionBoxComponent extends BaseComponent implements OnInit
   /***************************************************************************************************
   / Een checkbox van de ledenlijst is gewijzigd.
   /***************************************************************************************************/
-  onCheckboxChange($event, row): void {
+  onCheckboxChange($event: any, row:any): void {
     if ($event) {
       this.selection.toggle(row);
-    } else {
-      return null;
     }
     this.emitSelected();
   }
@@ -171,7 +169,7 @@ export class MemberSelectionBoxComponent extends BaseComponent implements OnInit
   /  Deze filter wordt bij initialisatie geinitieerd
   /***************************************************************************************************/
   private createFilter(): (data: any, filter: string) => boolean {
-    let filterFunction = function (data, filter): boolean {
+    let filterFunction = function (data: any, filter: any): boolean {
       let searchTerms = JSON.parse(filter);
       return data.LeeftijdCategorieBond.toString().toLowerCase().indexOf(searchTerms.Leeftijd.toLowerCase()) !== -1
     }

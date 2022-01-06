@@ -80,7 +80,7 @@ export class MyTelInput
     return this.focused || !this.empty;
   }
 
-  @Input('aria-describedby') userAriaDescribedBy: string;
+  @Input('aria-describedby') userAriaDescribedBy: string = '';
 
   @Input()
   get placeholder(): string {
@@ -90,7 +90,7 @@ export class MyTelInput
     this._placeholder = value;
     this.stateChanges.next();
   }
-  private _placeholder: string;
+  private _placeholder: string = '';
 
   @Input()
   get required(): boolean {

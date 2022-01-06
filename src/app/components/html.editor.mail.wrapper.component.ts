@@ -96,7 +96,7 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   subject: string = 'mijn onderwerp';
 
   @Input()
-  extraButtonsTemplate: TemplateRef<any>;
+  extraButtonsTemplate!: TemplateRef<any>;
 
   @Output()
   htmlContent = new EventEmitter<string>();
