@@ -5,7 +5,7 @@ import { MatGridList } from '@angular/material/grid-list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import { Observable, forkJoin, lastValueFrom } from 'rxjs';
-import { TrainingService, TrainingItem } from 'src/app/services/training.service';
+import { TrainingService, TrainingItem, TrainingDag, DateAndStateOfLid } from 'src/app/services/training.service';
 import { calcBetweenDates } from 'src/app/shared/modules/DateRoutines';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import { ParamService } from 'src/app/services/param.service';
@@ -22,17 +22,17 @@ import { ParentComponent } from 'src/app/shared/parent.component';
 })
 export class TrainingOverzichtComponent extends ParentComponent implements OnInit {
 
-  @ViewChild(MatGridList, {static: false}) table: MatGridList;
+  @ViewChild(MatGridList, { static: false }) table!: MatGridList;
   public NAME_COL_SIZE: number = 3;
 
-  public columns: Array<Date> = [];   // De kolommen waar de datums in staan
-  public headerTiles: Array<Tile> = [];
-  public deelNameTiles: Array<Tile> = [];
-  private ledenList: Array<LedenItemExt> = [];
+  public columns = new Array<Date>();   // De kolommen waar de datums in staan
+  public headerTiles = new Array<Tile>();
+  public deelNameTiles = new Array<Tile>();
+  private ledenArray = new Array<LedenItemExt>();
   private databaseRecord = new DatabaseRecord();
   private aanwezigheidsList = new Dictionary([]);  // lijst key is lidnr, value is datumlijst met status
 
-  fabButtons = [];  // dit zijn de buttons op het scherm
+  fabButtons = new Array<any>();  // dit zijn de buttons op het scherm
   fabIcons = [{ icon: 'menu' }];
 
   constructor(
@@ -42,7 +42,6 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
     protected authService: AuthService,
     protected dialog: MatDialog,
     protected snackBar: MatSnackBar,
-
   ) {
     super(snackBar)
   }
@@ -55,22 +54,28 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   / Als je denkt dat dit anders en netter kan dan hoor ik het graag.
   /***************************************************************************************************/
   ngOnInit() {
+    // Het database record wordt gelezen. Dit bevat de parameters
     this.readOrCreateParamRecord();  // zie tekst in kop
-    let sub = this.requestDataFromMultipleSources()
-    .subscribe({
-      next: (data) => {
-        this.ledenList = data[0];
-        this.aanwezigheidsList = this.ReorganisePresenceArray(data[1]);
+    
+    // ForkJoin 
+    // 1. Jeugdleden
+    // 2. trainingsdeelname = Datum + Array<TrainingDag>  [{"LidNr":"482","State":2,"Reason":"ds"}]  
+    // TODO: waarom hebben we een array van trainingsdagen?? Kan het voorkomen dat we meerdere records hebben voor 1 dag??
+    this.registerSubscription(
+      this.requestDataFromMultipleSources()
+        .subscribe({
+          next: (data) => {
+            this.ledenArray = data[0];
+            this.aanwezigheidsList = this.ReorganisePresenceArray(data[1] as Array<TrainingDag>);
 
-        this.FillFirstRow();
-        this.FillLedenRows(this.aanwezigheidsList);
-      },
-      error: (error: AppError) => {
-        this.showSnackBar('Er zijn nog geen gegevens voor deze periode', '');
-      }
-    })
-
-    this.registerSubscription(sub);
+            this.FillFirstRow();
+            this.FillLedenRows(this.aanwezigheidsList);
+          },
+          error: (error: AppError) => {
+            this.showSnackBar('Er zijn nog geen gegevens voor deze periode', '');
+          }
+        })
+    );
     this.fabButtons = this.fabIcons;  // plaats add button op scherm
   }
 
@@ -113,20 +118,20 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
    /***************************************************************************************************/
   private SaveChangedParamFields(param: DatabaseRecord): void {
     let sub = this.paramService.saveParamData$("PresenceOverviewParams" + this.authService.userId, JSON.stringify(param), 'Parameters deelname training overzicht')
-    .subscribe({
-      next: (data) => {
-      },
-      error: (error: AppError) => {
-        console.log("error", error);
-      }
-    })
+      .subscribe({
+        next: (data) => {
+        },
+        error: (error: AppError) => {
+          console.log("error", error);
+        }
+      })
     this.registerSubscription(sub);
   }
 
   /***************************************************************************************************
   / Fill the leden rows
   /***************************************************************************************************/
-  private FillLedenRows(aanwezigheidsList): void {
+  private FillLedenRows(aanwezigheidsList: Dictionary): void {
 
     // We maken de naam van spelers rood als ze een aantal dagen niet op de club zijn geweest.
     // dit is de uiterste datum waarop ze aanwezig geweest zouden moeten zijn.
@@ -139,9 +144,9 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
     //     Loop door de (header) colommen
     //        Loop door de data waarop het lid aanwezig is geweest.
 
-    this.deelNameTiles = [];
-    for (let ledenListCounter = 0; ledenListCounter < this.ledenList.length; ledenListCounter++) {
-      let lid = this.ledenList[ledenListCounter];
+    this.deelNameTiles = new Array<Tile>();
+    for (let ledenListCounter = 0; ledenListCounter < this.ledenArray.length; ledenListCounter++) {
+      let lid = this.ledenArray[ledenListCounter];
 
       let datumsPerLid = aanwezigheidsList.get(lid.LidNr.toString());  // lijst met datums uit de dictionary
       if ((!datumsPerLid || datumsPerLid.length == 0) && this.databaseRecord.showEmptyLines == false) {
@@ -151,8 +156,8 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
       // In deze sectie controleer ik of het lid afgelopen periode aanwezig is geweest
       let isLidRecentAanwezigGeweest = false;
       if (datumsPerLid && datumsPerLid.length > 0) {
-        datumsPerLid.forEach(element => {
-          if (new Date(element.Date) > alarmBeginDate &&
+        datumsPerLid.forEach((element: DateAndStateOfLid) => {
+          if (new Date(element.Datum) > alarmBeginDate &&
             (element.State == TrainingItem.AANWEZIG || element.State == TrainingItem.AFGEMELD)) {
             isLidRecentAanwezigGeweest = true;
           }
@@ -160,7 +165,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
       }
 
       // Create the first tile of the row with the name of the member
-      let tile = new Tile(this.ledenList[ledenListCounter].VolledigeNaam, '#babdbe', '', this.NAME_COL_SIZE);
+      let tile = new Tile(this.ledenArray[ledenListCounter].VolledigeNaam, '#babdbe', '', this.NAME_COL_SIZE);
       if (!isLidRecentAanwezigGeweest) {
         tile.color = 'red';
         tile.toolTip = 'Lange tijd afwezig';
@@ -204,8 +209,8 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
     let numberOfDays = calcBetweenDates(new Date(), beginOfSeasonDate).days + 1; // aantal dagen
 
     let tile = new Tile('', '#babdbe', '', this.NAME_COL_SIZE);
-    this.headerTiles = [];
-    this.columns = [];
+    // this.headerTiles = [];
+    // this.columns = [];
     this.headerTiles.push(tile);
 
     for (let i = 0; i < numberOfDays; i++) {
@@ -242,16 +247,18 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   / De input bevat Lidnr en status per datum
   / De output bevat een Dictorary met Datum en status per lid.
   /***************************************************************************************************/
-  private ReorganisePresenceArray(PresenceList: Array<any>): Dictionary {
+  private ReorganisePresenceArray(PresenceList: Array<TrainingDag>): Dictionary {
     let list: Dictionary = new Dictionary([]);
     // PresenceList: De lijst met ingevulde aanwezigheid. komt rechtstreek uit api call database
     // Deze lijst komt gesorteerd op datum binnen. De dictioray is dus per lid gesorteerd op datum.
-    PresenceList.forEach(dag => {
-      JSON.parse(dag.Value).forEach(lid => {  // De waarde bevat lidnrs en de status
+    PresenceList.forEach((dag: TrainingDag) => {
+      JSON.parse(dag.Value).forEach((lid: TrainingItem) => {  // De waarde bevat lidnrs en de status
+        let dateAndStateOfLid = new DateAndStateOfLid(dag.Datum, lid.State);
+
         if (list.containsKey(lid.LidNr.toString())) {
-          list.get(lid.LidNr.toString()).push({ 'Date': dag.Datum, 'State': lid.State });
+          list.get(lid.LidNr.toString()).push(dateAndStateOfLid);
         } else {
-          list.add(lid.LidNr.toString(), [{ 'Date': dag.Datum, 'State': lid.State }]);
+          list.add(lid.LidNr.toString(), [dateAndStateOfLid]);
         }
       });
     });
@@ -261,7 +268,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
   /***************************************************************************************************
   / Een van de buttons is geclicked
   /***************************************************************************************************/
-  onFabClick(event, buttonNbr): void {
+  onFabClick($event: Event, buttonNbr: number): void {
     let dialogRecord = new DialogRecord();
     dialogRecord.displayDaysOfWeek = this.databaseRecord.displayDaysOfWeek;
     dialogRecord.downloadList = this.createDownloadList();
@@ -289,7 +296,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
             this.FillLedenRows(this.aanwezigheidsList);
 
           }
-          },
+        },
         error: (error: AppError) => {
           console.log("error", error);
         }
@@ -307,7 +314,7 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
     });
     string += '\n';
 
-    for (let i = 0; i < this.ledenList.length; i++) {
+    for (let i = 0; i < this.ledenArray.length; i++) {
       for (let i = 0; i < (this.deelNameTiles.length / this.headerTiles.length); i++) {
         string += this.deelNameTiles[(i * this.headerTiles.length)].text;
         for (let j = 1; j < this.headerTiles.length; j++) {
@@ -337,9 +344,8 @@ class Tile {
         return 'Aanwezig';
       case Tile.AFGEMELD_COLOR:
         return 'Afgemeld';
-      default:
-        return '';
     }
+    return '';
   }
 }
 
@@ -348,7 +354,8 @@ class Tile {
 /***************************************************************************************************/
 export class DatabaseRecord {
   constructor(
-    public displayDaysOfWeek: Array<number> = []) { }
+  ) { }
   public showEmptyLines: boolean = false;
+  public displayDaysOfWeek = new Array<number>();
   public alertAfterNumberOfDays: number = 0;
 }

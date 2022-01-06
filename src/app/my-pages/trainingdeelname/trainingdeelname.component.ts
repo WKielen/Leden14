@@ -29,8 +29,8 @@ import { Dictionary } from 'src/app/shared/modules/Dictionary';
 })
 export class TrainingDeelnameComponent extends ParentComponent implements OnInit {
 
-  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-  @ViewChild('picker', { static: false }) picker: MatDatepicker<any>;
+  @ViewChild(MatTable, { static: false }) table!: MatTable<any>;
+  @ViewChild('picker', { static: false }) picker!: MatDatepicker<any>;
 
   constructor(
     protected ledenService: LedenService,
@@ -52,17 +52,17 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
 
 
   // subscriptions
-  private subTrainingsTijden: Observable<Object>;
-  private subLeden: Observable<Object>;
-  private subTrainingDays: Observable<Object>;
+  private subTrainingsTijden = new Observable<Object>();
+  private subLeden = new Observable<Object>();
+  private subTrainingDays = new  Observable<Object>();
 
 
 
   public displayedColumns: string[] = ['actions1', 'Naam'];
-  public dataSource = [];
-  public afmeldingen = [];
-  public fabButtons = [];  // dit zijn de buttons op het scherm
-  public fabIcons = [{ icon: 'save' }, { icon: 'event' }];
+  public dataSource = new Array<any>();
+  public afmeldingen = new Array<NaamRedenRecord>();
+  public fabButtons = new Array<IconRecord>();  // dit zijn de buttons op het scherm
+  public fabIcons = [new IconRecord('save'), new IconRecord('event')];
   // When I change the date, the ledenlist will not be refreshed. It is read just once at page load.
   public ledenList: Array<LedenItemExt> = [];
   public trainingDag = new TrainingDag();  // contains the Date and a array of players who where present
@@ -137,7 +137,7 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
             lidvaneengroep.Reason = trainingsItem.Reason;
 
             if (trainingsItem.Reason) {
-              this.afmeldingen.push({ "Naam": lidvaneengroep.Naam, "Reden": trainingsItem.Reason })
+              this.afmeldingen.push( new NaamRedenRecord(lidvaneengroep.Naam, trainingsItem.Reason));
             }
 
             switch (trainingsItem.State) { // huidige status
@@ -204,13 +204,13 @@ export class TrainingDeelnameComponent extends ParentComponent implements OnInit
   / Is triggered when datapicker changed the date.
   /***************************************************************************************************/
   onChangeDate(event: MatDatepickerInputEvent<Moment>) {
-    this.loadData(event.value.toDate());
+    this.loadData(event.value!.toDate());
   }
 
   /***************************************************************************************************
   / A Floating Action Button has been pressed.
   /***************************************************************************************************/
-  onFabClick(event, buttonNbr): void {
+  onFabClick($event: Event, buttonNbr: number): void {
     switch (buttonNbr) {
       case 0:
         this.savePresence();
@@ -366,10 +366,26 @@ class LedenItemTableRow {
 
   Naam: string;
   LidNr: number;
-  Group: number;
+  Group: number = 0;
   Dirty: boolean;
   Checked: any;
   Indeterminate: boolean;;
   State: number;
-  Reason: string;
+  Reason: string = '';
+}
+
+class IconRecord {
+  constructor( icon: string) {
+    this.Icon = icon;
+  }
+  Icon: string = '';
+}
+
+class NaamRedenRecord {
+  constructor( naam: string, reason: string) {
+    this.Naam = naam;
+    this.Reden = reason;
+  }
+  Naam: string = '';
+  Reden: string = '';
 }

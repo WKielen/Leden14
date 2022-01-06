@@ -36,7 +36,7 @@ import { ComponentsModule } from 'src/app/components/component.module';
   exports: [
     TestComponent,
     FormFieldCustomControlExample,
-    MyTelInput,
+    // MyTelInput,
   ],
   providers: [
     {

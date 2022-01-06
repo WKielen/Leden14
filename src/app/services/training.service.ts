@@ -93,10 +93,18 @@ export class TrainingItem {
   public static readonly AFGEMELD = 2;
 
   LidNr: number = 0;
-  State?: number = 0;
-  Reason?: string = '';
+  State: number = 0;
+  Reason: string = '';
 
   constructor(){
     this.State = TrainingItem.AFWEZIG;
   }
+}
+export class DateAndStateOfLid {
+  constructor (date: string, state: number) {
+    this.Datum = date;
+    this.State = state;
+  }
+  Datum: string = '';
+  State: number = 0;
 }
