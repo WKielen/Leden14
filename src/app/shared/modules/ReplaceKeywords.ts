@@ -43,23 +43,22 @@ export function ReplaceKeywords(lid: LedenItemExt, body: string): string {
 }
 
 
-export function Replace(body: string, re, to): string {
-  // console.log('Replace', re, to);
+export function Replace(body: string, regex: RegExp, replacementText: any): string {
 
-  if (body === null || re === null || to === null) return '';
+  if (body === null || regex === null || replacementText === null) return '';
   let tostring = '';
-  if (typeof to === 'string') {
-    tostring = to;
+  if (typeof replacementText === 'string') {
+    tostring = replacementText;
   }
-  if (typeof to === 'number') {
-    tostring = to.toString();
+  if (typeof replacementText === 'number') {
+    tostring = replacementText.toString();
   }
-  if (to instanceof Date) {
-    tostring = to.toString();
+  if (replacementText instanceof Date) {
+    tostring = replacementText.toString();
   }
-  if (to instanceof Boolean) {
-    tostring = to.toDutchTextString();
+  if (replacementText instanceof Boolean) {
+    tostring = replacementText.toDutchTextString();
   }
 
-  return body.split(re).join(tostring);
+  return body.split(regex).join(tostring);
 }

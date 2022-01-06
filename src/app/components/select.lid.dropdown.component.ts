@@ -23,7 +23,7 @@ export class SelectLidDropdownComponent extends BaseComponent {
   @Input('default-value') lidNr;
   @Output('valueSelected') valueSelected = new EventEmitter();
 
-  onChanged($event) {
+  onChanged($event): void {
     this.valueSelected.emit($event.value);;
   }
 }

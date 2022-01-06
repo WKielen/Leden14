@@ -71,7 +71,7 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
   /***************************************************************************************************
   / 
   /***************************************************************************************************/
-  readContributieBedragen() {
+  readContributieBedragen(): void {
     this.registerSubscription(
       this.paramService.readParamData$("ContributieBedragen", JSON.stringify(new ContributieBedragen()), 'Contributie bedragen')
         .subscribe({
@@ -154,7 +154,7 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
 /***************************************************************************************************
 / 
 /***************************************************************************************************/
-  onSendMail() {
+  onSendMail(): void {
     let mailItems = new Array<MailItem>();
 
     let date = new Date(this.datumIncasso);

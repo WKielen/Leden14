@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActionItem } from 'src/app/services/action.service';
 import { ROLES } from 'src/app/services/website.service';
 import { BaseComponent } from 'src/app/shared/base.component';
@@ -54,16 +54,16 @@ export class DecisionMutationFormComponent extends BaseComponent implements OnIn
   /***************************************************************************************************
   / Properties
   /***************************************************************************************************/
-  get title() {
+  get title(): AbstractControl {
     return this.actionItemForm.get('title');
   }
-  get startdate() {
+  get startdate(): AbstractControl {
     return this.actionItemForm.get('startdate');
   }
-  get description() {
+  get description(): AbstractControl {
     return this.actionItemForm.get('description');
   }
-  get bestuuronly() {
+  get bestuuronly(): AbstractControl {
     return this.actionItemForm.get('bestuuronly');
   }
 }

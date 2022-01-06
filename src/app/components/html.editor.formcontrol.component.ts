@@ -44,7 +44,7 @@ export class HtmlEditorFormControlComponent extends BaseComponent implements OnI
   /***************************************************************************************************
   / de inhoud van de HTML is gewijzigd
   /***************************************************************************************************/
-  onHtmlChanged ($event) {
+  onHtmlChanged($event: any) {
     if ($event == '') {
       this.thisControl.control?.setErrors({});  // we maken de control invalid
     }

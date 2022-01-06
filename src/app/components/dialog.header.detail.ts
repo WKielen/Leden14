@@ -52,13 +52,13 @@ export class DialogHeaderComponent extends BaseComponent {
   @Output('onClickCopy') createcopy = new EventEmitter();
   @Output('onClickDelete') delete = new EventEmitter();
 
-  onClickModify($event) {
+  onClickModify($event): void {
     this.modify.emit($event);
   }
-  onClickCopy($event) {
+  onClickCopy($event): void {
     this.createcopy.emit($event);
   }
-  onClickDelete($event) {
+  onClickDelete($event): void {
     this.delete.emit($event);
   }
 }

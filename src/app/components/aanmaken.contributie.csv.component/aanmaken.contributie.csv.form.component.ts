@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParamService } from 'src/app/services/param.service';
 import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen';
@@ -137,7 +137,7 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   /***************************************************************************************************
   / 
   /***************************************************************************************************/
-  readContributieBedragen() {
+  readContributieBedragen(): void {
     this.registerSubscription(
       this.paramService.readParamData$("ContributieBedragen", JSON.stringify(new ContributieBedragen()), 'Contributie bedragen')
         .subscribe({
@@ -226,10 +226,10 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   /***************************************************************************************************
   / Properties
   /***************************************************************************************************/
-  get Omschrijving() {
+  get Omschrijving(): AbstractControl {
     return this.incassoForm.get('Omschrijving');
   }
-  get RequestedDirectDebitDate() {
+  get RequestedDirectDebitDate(): AbstractControl {
     return this.incassoForm.get('RequestedDirectDebitDate');
   }
 

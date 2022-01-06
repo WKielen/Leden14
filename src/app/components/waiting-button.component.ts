@@ -9,7 +9,6 @@ Use as:
   */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { fakeAsync } from '@angular/core/testing';
 import { BaseComponent } from '../shared/base.component';
 import { IHoldableResponse } from '../shared/directives/holdable.directive';
 

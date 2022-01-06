@@ -22,7 +22,7 @@ import { BaseComponent } from '../shared/base.component';
 
 export class DialogMessageBoxComponent extends BaseComponent {
 
-  @Input() message: string;
+  @Input() message: string = '';
   @Input() error: boolean = true;
 
 }

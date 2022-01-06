@@ -20,11 +20,12 @@ import { BaseComponent } from '../shared/base.component';
 })
 
 export class CardHeaderSpinnerComponent extends BaseComponent {
+
   @Input('progress') progress: number;
   @Input('title') title: string;
   @Input() extraButtonsTemplate!: TemplateRef<any>;
 
-  get Value() {
+  get Value(): number {
     return (this.progress / 10) * 1.4;
   }
 }

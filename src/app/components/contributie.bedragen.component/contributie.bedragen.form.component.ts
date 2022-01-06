@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParamService } from 'src/app/services/param.service';
 import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen';
@@ -54,11 +54,9 @@ export class ContributieBedragenFormComponent extends ParentComponent implements
     super(snackBar)
   }
 
-  @Input()
-  contributieBedragen: ContributieBedragen = null;
+  @Input() public contributieBedragen: ContributieBedragen = null;
 
-  @Output()
-  changedAmounts: EventEmitter<ContributieBedragen> = new EventEmitter<ContributieBedragen>();
+  @Output() public changedAmounts: EventEmitter<ContributieBedragen> = new EventEmitter<ContributieBedragen>();
   
 /***************************************************************************************************
 / Lees de bedragen in via input param en als die is null dan lees ze zelf
@@ -130,28 +128,28 @@ export class ContributieBedragenFormComponent extends ParentComponent implements
   /***************************************************************************************************
   / Properties
   /***************************************************************************************************/
-  get HalfjaarVolwassenen() {
+  get HalfjaarVolwassenen(): AbstractControl {
     return this.contributieForm.get('HalfjaarVolwassenen');
   }
-  get HalfjaarJeugd() {
+  get HalfjaarJeugd(): AbstractControl {
     return this.contributieForm.get('HalfjaarJeugd');
   }
-  get CompetitieBijdrageVolwassenen() {
+  get CompetitieBijdrageVolwassenen(): AbstractControl {
     return this.contributieForm.get('CompetitieBijdrageVolwassenen');
   }
-  get CompetitieBijdrageJeugd() {
+  get CompetitieBijdrageJeugd(): AbstractControl {
     return this.contributieForm.get('CompetitieBijdrageJeugd');
   }
-  get HalfjaarBondBijdrage() {
+  get HalfjaarBondBijdrage(): AbstractControl {
     return this.contributieForm.get('HalfjaarBondBijdrage');
   }
-  get ZwerflidPercentage() {
+  get ZwerflidPercentage(): AbstractControl {
     return this.contributieForm.get('ZwerflidPercentage');
   }
-  get Donateur() {
+  get Donateur(): AbstractControl {
     return this.contributieForm.get('Donateur');
   }
-  get Pakket() {
+  get Pakket(): AbstractControl {
     return this.contributieForm.get('Pakket');
   }
 }

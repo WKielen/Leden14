@@ -10,25 +10,19 @@ import { BaseComponent } from 'src/app/shared/base.component';
 })
 export class MemberCheckboxTableComponent extends BaseComponent implements OnInit {
 
-  @Input()
-  public dataSource = new MatTableDataSource<LedenItemExt>();
-
-  @Input()
-  public checkboxHeader: string = 'Selecteer';
-
-  @Input()
-  public columns: Array<string> = ['Naam', 'Leeftijd'];
+  @Input() public dataSource = new MatTableDataSource<LedenItemExt>();
+  @Input() public checkboxHeader: string = 'Selecteer';
+  @Input() public columns: Array<string> = ['Naam', 'Leeftijd'];
+    
+  @Output() public memberChecked: EventEmitter<LedenItemTableRow> = new EventEmitter();
   
   public displayedColumns: string[];
-
-  @Output()
-  memberChecked: EventEmitter<LedenItemTableRow> = new EventEmitter();
-
+  
   ngOnInit(): void {
     this.displayedColumns = [...this.columns, 'actions1'];
   }
 
-  onRowClick(row): void {
+  onRowClick(row: any): void {
     row.Checked = !row.Checked;
     this.memberChecked.emit(row);
   }

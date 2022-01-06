@@ -69,8 +69,7 @@ import { AgendaItem, DoelgroepValues, OrganisatieValues, TypeValues } from "src/
 
 export class DisplayAgendaDetailsComponent extends BaseComponent implements OnChanges {
 
-  @Input()
-  agendaItem: AgendaItem = new AgendaItem();
+  @Input() agendaItem: AgendaItem = new AgendaItem();
 
   public organisatie: string = '';
   public doelGroep: string = '';

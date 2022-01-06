@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MailNameList, MailSaveItem } from "src/app/my-pages/mail/MailBoxParamClasses";
 import { AuthService } from 'src/app/services/auth.service';
@@ -146,7 +146,7 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   /***************************************************************************************************
   / de inhoud van de HTML is gewijzigd
   /***************************************************************************************************/
-  onHtmlOutputChange($event) {
+  onHtmlOutputChange($event: any) {
     this.htmlOutput = $event
     this.htmlContent.emit(this.htmlOutput);
   }
@@ -331,16 +331,16 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   / Properties
   /***************************************************************************************************/
 
-  get EmailName() {
+  get EmailName(): AbstractControl {
     return this.mailForm.get('EmailName');
   }
-  get EmailSubject() {
+  get EmailSubject(): AbstractControl {
     return this.mailForm.get('EmailSubject');
   }
-  get SavedMails() {
+  get SavedMails(): AbstractControl {
     return this.mailForm.get('SavedMails');
   }
-  get HtmlControl() {
+  get HtmlControl(): AbstractControl {
     return this.mailForm.get('HtmlControl');
   }
 }

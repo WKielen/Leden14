@@ -5,7 +5,6 @@ import { BaseComponent } from '../shared/base.component';
 @Component({
   selector: 'app-display-subscriptions-details',
   template: `
-  <!-- <div style='width:600px!important;'> -->
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
   <table mat-table [dataSource]="inschrijvingsList">
     <ng-container matColumnDef="Naam">
@@ -41,14 +40,12 @@ styles:[
     @include s.mat-text-column-wrap-stuff;
     flex: 0 0 40% !important;
     width: 40% !important;
-  }`
-]
+  }`]
 })
 
 export class DisplaySubscriptionsAgendaDetailsComponent extends BaseComponent {
 
-  @Input()
-  inschrijvingsList: InschrijvingItem[] = new Array<InschrijvingItem>();
+  @Input() inschrijvingsList: InschrijvingItem[] = new Array<InschrijvingItem>();
 
   displayedColumns: string[] = ['Naam', 'Email', 'Toelichting'];
 

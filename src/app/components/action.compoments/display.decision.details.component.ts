@@ -44,8 +44,8 @@ import { ActionItem } from '../../services/action.service';
 
 export class DisplayDecisionDetailsComponent extends BaseComponent implements OnInit {
 
-  @Input()
-  actionItem: ActionItem = new ActionItem();
+  @Input() public actionItem: ActionItem = new ActionItem();
+  
   toelichting: string = '';
 
   ngOnInit(): void {

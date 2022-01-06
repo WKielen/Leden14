@@ -73,14 +73,14 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
   /***************************************************************************************************
   / The selection has changed in the child component. We pass it through to the parent component
   /***************************************************************************************************/
-  onSelectionChanged($event) {
+  onSelectionChanged($event: any) {
     this.selectedMemberList.emit($event);
   }
 
   /***************************************************************************************************
   / De senioren zijn verwijderd uit de selectie omdat xxxxxxx geen categorie is
   /***************************************************************************************************/
-  onChangeckbVolwassenen($event): void {
+  onChangeckbVolwassenen($event: any): void {
     this.filterValues.LeeftijdCategorieV = $event.checked ? 'volwassenen' : 'xxxxxxxxxxxxyz';
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
@@ -88,7 +88,7 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
   /***************************************************************************************************
   / De jeugd is verwijderd uit de selectie omdat xxxxxxx geen jeugdcategorie is
   /***************************************************************************************************/
-  onChangeckbJeugd($event): void {
+  onChangeckbJeugd($event: any): void {
     this.filterValues.LeeftijdCategorieJ = $event.checked ? 'jeugd' : 'xxxxxxxxxxxxxxyz';
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }

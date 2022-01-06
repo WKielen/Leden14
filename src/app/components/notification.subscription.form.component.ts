@@ -81,7 +81,7 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
   / Op de tabel in MySQL zit een index op het Token veld die aangeeft dat de waarde uniek moet zijn.
   / Als er 2x wordt geregistreerd, komt er een duplicate key error.
   /***************************************************************************************************/
-  onSubscribe() {
+  onSubscribe(): void {
     this.swPush.requestSubscription({           // geeft een promise terug en geen obserable. Kan dus niet registereren
       // serverPublicKey: this.VAPID_PUBLIC_KEY
       serverPublicKey: 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw'
@@ -138,7 +138,4 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
       })
     this.registerSubscription(sub);
   }
-
-
-
 }

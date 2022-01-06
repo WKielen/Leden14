@@ -15,10 +15,11 @@ import { BaseComponent } from '../shared/base.component';
   styles: []
 })
 export class CheckboxListComponent extends BaseComponent {
+  
   @Input('checkboxDictionary') myDictionary: ICheckboxDictionaryItem[];
   @Output('click') clicked = new EventEmitter<Event>();
 
-  onCheckBoxChanged($event) {
+  onCheckBoxChanged($event: any) {
     const tmp: any = { RowNr: $event.source.id, Value: $event.checked };
     this.clicked.emit(tmp);
   }

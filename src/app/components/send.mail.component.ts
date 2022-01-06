@@ -10,7 +10,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { AppError } from '../shared/error-handling/app-error';
 import { AuthService } from 'src/app/services/auth.service';
 import { ParamService } from 'src/app/services/param.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-send-mail',
@@ -102,7 +102,7 @@ export class SendMailComponent extends ParentComponent implements OnInit, OnChan
   /***************************************************************************************************
   / Verstuur de email
   /***************************************************************************************************/
-  async onSendMail($event): Promise<void> {
+  async onSendMail($event: Event): Promise<void> {
 
     let mailItems =  new Array<MailItem>();
 
@@ -211,12 +211,12 @@ export class SendMailComponent extends ParentComponent implements OnInit, OnChan
     return extraMail;
   }
 
-  onEigenMailChange() {
+  onEigenMailChange(): void {
     this.setNbrOfPersonsToMail();
   }
 
   public nbrOfPersonsToMail = 0;
-  setNbrOfPersonsToMail() {
+  setNbrOfPersonsToMail(): void {
     this.nbrOfPersonsToMail = this.itemsToMail.length;
     if (this.EmailExtra.value != '') {
       this.nbrOfPersonsToMail++;
@@ -227,10 +227,10 @@ export class SendMailComponent extends ParentComponent implements OnInit, OnChan
     }
   }
 
-  get EmailExtra() {
+  get EmailExtra(): AbstractControl {
     return this.extraMailForm.get('EmailExtra');
   }
-  get EigenMail() {
+  get EigenMail(): AbstractControl {
     return this.extraMailForm.get('EigenMail');
   }
 }

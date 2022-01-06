@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { TypeValues, OrganisatieValues, DoelgroepValues, AgendaItem } from 'src/app/services/agenda.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
@@ -53,11 +53,9 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
   OrganisatieValues = OrganisatieValues.table;
   doelgroepValues = DoelgroepValues.table;
 
-  @Input()
-  evenement: AgendaItem = {};
+  @Input() public evenement: AgendaItem = {};
 
-  @Output()
-  changedEvenement: EventEmitter<AgendaItem> = new EventEmitter<AgendaItem>();
+  @Output() public changedEvenement: EventEmitter<AgendaItem> = new EventEmitter<AgendaItem>();
 
   ngOnInit(): void {
     this.datum.setValue(this.evenement.Datum);
@@ -96,7 +94,6 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
     this.evenement.VerzamelAfspraak = this.verzamelafspraak.value;
     this.evenement.Extra1 = this.organisatie.value;
     this.changedEvenement.emit(this.evenement);
-    console.log("AgendaMutationFormComponent --> onSubmit --> this.evenement", this.evenement);
   }
 
 
@@ -104,46 +101,46 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
   / Properties
   /***************************************************************************************************/
 
-  get datum() {
+  get datum(): AbstractControl {
     return this.agendaItemForm.get('datum');
   }
-  get tijd() {
+  get tijd(): AbstractControl {
     return this.agendaItemForm.get('tijd');
   }
-  get evenementnaam() {
+  get evenementnaam(): AbstractControl {
     return this.agendaItemForm.get('evenementnaam');
   }
-  get lokatie() {
+  get lokatie(): AbstractControl {
     return this.agendaItemForm.get('lokatie');
   }
-  get type() {
+  get type(): AbstractControl {
     return this.agendaItemForm.get('type');
   }
-  get doelgroep() {
+  get doelgroep(): AbstractControl {
     return this.agendaItemForm.get('doelgroep');
   }
-  get toelichting() {
+  get toelichting(): AbstractControl {
     return this.agendaItemForm.get('toelichting');
   }
-  get inschrijven() {
+  get inschrijven(): AbstractControl {
     return this.agendaItemForm.get('inschrijven');
   }
-  get inschrijfgeld() {
+  get inschrijfgeld(): AbstractControl {
     return this.agendaItemForm.get('inschrijfgeld');
   }
-  get betaalmethode() {
+  get betaalmethode(): AbstractControl {
     return this.agendaItemForm.get('betaalmethode');
   }
-  get contactpersoon() {
+  get contactpersoon(): AbstractControl {
     return this.agendaItemForm.get('contactpersoon');
   }
-  get vervoer() {
+  get vervoer(): AbstractControl {
     return this.agendaItemForm.get('vervoer');
   }
-  get verzamelafspraak() {
+  get verzamelafspraak(): AbstractControl {
     return this.agendaItemForm.get('verzamelafspraak');
   }
-  get organisatie() {
+  get organisatie(): AbstractControl {
     return this.agendaItemForm.get('organisatie');
   }
 
