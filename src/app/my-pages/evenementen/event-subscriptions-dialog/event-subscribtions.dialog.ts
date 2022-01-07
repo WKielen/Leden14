@@ -7,7 +7,7 @@ import { AppError } from 'src/app/shared/error-handling/app-error';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { AgendaItem } from 'src/app/services/agenda.service';
 import { catchError, forkJoin, of } from 'rxjs';
-import { ExportRatingFile } from 'src/app/shared/modules/ExportRatingFile';
+import { ExportRatingFile, ExportRatingFileRecord } from 'src/app/shared/modules/ExportRatingFile';
 
 @Component({
   selector: 'app-event-subscribtions-dialog',
@@ -21,13 +21,13 @@ export class EventSubscriptionsDialogComponent extends ParentComponent implement
     private inschrijvingService: InschrijvingService,
     protected ledenService: LedenService,
     public dialogRef: MatDialogRef<EventSubscriptionsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     super(snackBar)
   }
 
   public subscriptions: Array<InschrijvingItem> = [];
-  public reportList: Array<LedenItemExt> = [];
+  public reportList: Array<ExportRatingFileRecord> = [];
   public event: AgendaItem = this.data.data as AgendaItem;
 
   ngOnInit(): void {
@@ -43,14 +43,14 @@ export class EventSubscriptionsDialogComponent extends ParentComponent implement
       );
 
     this.registerSubscription(
-      forkJoin([subInschrijvingen, subLeden,])
+      forkJoin([subInschrijvingen, subLeden])
         .subscribe({
           next: (data) => {
             this.subscriptions = data[0];
             let ledenLijst = data[1];
 
             this.subscriptions.forEach((inschrijving: InschrijvingItem) => {
-              // let reportItem = new ReportItem();
+
               let lid: LedenItemExt = new LedenItemExt();
 
               let index = ledenLijst.findIndex((lid: LedenItemExt) => (lid.LidNr == inschrijving.LidNr));
@@ -59,13 +59,14 @@ export class EventSubscriptionsDialogComponent extends ParentComponent implement
                 lid = ledenLijst[index];
               }
 
-              lid['OpgegevenNaam'] = inschrijving.Naam;
-              lid['Email'] = inschrijving.Email;
-              lid['ExtraInformatie'] = inschrijving.ExtraInformatie;
+              let reportLine = new ExportRatingFileRecord();
+              reportLine.Lid = lid;
+              reportLine.Naam = inschrijving.Naam;
+              reportLine.Email = inschrijving.Email;
+              reportLine.ExtraInformatie = inschrijving.ExtraInformatie;
 
-              this.reportList.push(lid);
+              this.reportList.push(reportLine);
             });
-            // this.list = localList;
 
           },
           error: (error: AppError) => {

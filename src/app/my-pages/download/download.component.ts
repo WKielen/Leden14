@@ -19,7 +19,7 @@ import { MailItemTo } from 'src/app/services/mail.service';
 import { RatingItem, RatingService } from 'src/app/services/rating.service';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
-import { ExportRatingFile } from 'src/app/shared/modules/ExportRatingFile';
+import { ExportRatingFile, ExportRatingFileRecord } from 'src/app/shared/modules/ExportRatingFile';
 @Component({
   selector: 'app-download-page',
   templateUrl: './download.component.html',
@@ -48,8 +48,8 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   ledenLijstKeuze: string = this.ledenLijstKeuzes[0];
   ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd'];
   ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
-  ledenArray: LedenItemExt[] = [];
-  selectedLid: LedenItemExt;
+  ledenArray = new Array<LedenItemExt>();
+  selectedLid = new LedenItemExt();
   vcard: string = '';
 
   constructor(private ledenService: LedenService,
@@ -146,13 +146,18 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   / Create list with ratings
   /***************************************************************************************************/
   async createRatingLijst(type: string): Promise<void> {
-    let localList: Array<any> = [];
+    let localList: Array<ExportRatingFileRecord> = [];
     let getLedenSelectie = this.selectLeden();  // * Geeft array terug
 
 
     getLedenSelectie[0].forEach((lid: LedenItemExt) => {
       if (lid.Rating == undefined || lid.Rating == 0) return;
-      localList.push(lid);
+      let record = new ExportRatingFileRecord();
+      record.Lid = lid;
+      record.Naam = '';
+      record.Email = '';
+      record.ExtraInformatie = '';
+      localList.push(record);
     })
 
     this.csvOptions.filename = type + ' ' + getLedenSelectie[1] + ' ' + new Date().to_YYYY_MM_DD();
@@ -223,7 +228,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     return result;
   }
 
-  selectedFile: File = null;
+  selectedFile: File | null = null;
   uploadFileName: string = '';
 
   /***************************************************************************************************
@@ -290,7 +295,7 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
     doc.setFontSize(linesize);
     currentposition = topborder + 2;
 
-    let data = [];
+    let data = new Array<any>();
     actionArray.forEach(actionItem => {
       if (actionItem.Status == ACTIONSTATUS.OPEN) {
         let line: Array<string> =
@@ -321,7 +326,7 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
     currentposition = topborder + 2;
 
     data = [];
-    actionArray.forEach(actionItem => {
+    actionArray.forEach((actionItem: ActionItem) => {
       if (actionItem.Status == ACTIONSTATUS.REPEATING) {
         let line: Array<string> =
           [actionItem.Id,

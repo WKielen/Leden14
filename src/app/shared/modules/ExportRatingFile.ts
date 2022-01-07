@@ -1,7 +1,7 @@
 import { LedenItemExt } from "src/app/services/leden.service";
 import { ExportToCsv } from 'export-to-csv';
 
-export function ExportRatingFile(LedenLijst: Array<any>, filename: string): void {
+export function ExportRatingFile(LedenLijst: Array<ExportRatingFileRecord>, filename: string): void {
 
   let csvOptions = {
     fieldSeparator: ';',
@@ -20,45 +20,37 @@ export function ExportRatingFile(LedenLijst: Array<any>, filename: string): void
   let localList: ReportItem[] = [];
   csvOptions.filename = filename;
 
-  LedenLijst.forEach((lid: any) => {
+  LedenLijst.forEach((lid: ExportRatingFileRecord) => {
     let reportItem = new ReportItem();
-    if (!lid.hasOwnProperty('OpgegevenNaam'))
-      delete reportItem['OpgegevenNaam'];
-    else
-      reportItem.OpgegevenNaam = lid.OpgegevenNaam;
-    if (!lid.hasOwnProperty('Email'))
-      delete reportItem['Email'];
-    else
-      reportItem.Email = lid.Email;
-    if (!lid.hasOwnProperty('ExtraInformatie'))
-      delete reportItem['ExtraInformatie'];
-    else
-      reportItem.ExtraInformatie = lid.ExtraInformatie;
-
-    reportItem.NaamLedenLijst = lid.VolledigeNaam;
-    reportItem.LeeftijdCategorieBond = lid.LeeftijdCategorieBond
-    reportItem.Voornaam = lid.Voornaam;
-    reportItem.Achternaam = lid.Achternaam;
-    reportItem.Tussenvoegsel = lid.Tussenvoegsel;
-    reportItem.BondsNr = lid.BondsNr
-    reportItem.Geslacht = lid.Geslacht
-    reportItem.GeboorteDatum = lid.GeboorteDatum;
-    reportItem.Rating = (lid.Rating !== 0 ? lid.Rating.toString() : '');
-    reportItem.Licentie_Jun = lid.LicentieJun != undefined ? lid.LicentieJun : '';
-    reportItem.Licentie_Sen = lid.LicentieSen != undefined ? lid.LicentieSen : '';
+    // todo kijk of je lege velden uit de lijst kan halen als die vanuit download wordt aangeroepen
+    reportItem.OpgegevenNaam = lid.Lid.VolledigeNaam;
+    reportItem.Email = lid.Email;
+    reportItem.ExtraInformatie = lid.ExtraInformatie;
+    reportItem.NaamLedenLijst = lid.Lid.VolledigeNaam;
+    reportItem.LeeftijdCategorieBond = lid.Lid.LeeftijdCategorieBond
+    reportItem.Voornaam = lid.Lid.Voornaam;
+    reportItem.Achternaam = lid.Lid.Achternaam;
+    reportItem.Tussenvoegsel = lid.Lid.Tussenvoegsel;
+    reportItem.BondsNr = lid.Lid.BondsNr
+    reportItem.Geslacht = lid.Lid.Geslacht
+    reportItem.GeboorteDatum = lid.Lid.GeboorteDatum;
+    reportItem.Rating = (lid.Lid.Rating !== 0 ? lid.Lid.Rating.toString() : '');
+    reportItem.Licentie_Jun = lid.Lid.LicentieJun != undefined ? lid.Lid.LicentieJun : '';
+    reportItem.Licentie_Sen = lid.Lid.LicentieSen != undefined ? lid.Lid.LicentieSen : '';
 
     localList.push(reportItem);
   });
 
   let csvExporter = new ExportToCsv(csvOptions);
   csvExporter.generateCsv(localList);
+  console.log("ExportRatingFile --> localList", localList);
 }
 
 export class ReportItem {
 
-  OpgegevenNaam: string = '';
-  Email: string = '';
-  ExtraInformatie: string = '';
+  OpgegevenNaam?: string = undefined;
+  Email?: string = undefined;
+  ExtraInformatie?: string = undefined;
 
   NaamLedenLijst: string = '';
   LeeftijdCategorieBond: string = '';
@@ -73,4 +65,11 @@ export class ReportItem {
   Licentie_Sen: string = '';
   Licentie_Jun: string = '';
 
+}
+
+export class ExportRatingFileRecord {
+  Lid = new LedenItemExt();
+  Naam = '';
+  Email = '';
+  ExtraInformatie = '';
 }

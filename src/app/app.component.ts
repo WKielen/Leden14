@@ -16,7 +16,7 @@ export class AppComponent {
     public swUpdate: SwUpdate,
     protected snackBar: MatSnackBar,
   ) {
-  
+
     if (swUpdate.isEnabled) {
       swUpdate.versionUpdates.pipe(
         filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
@@ -25,13 +25,13 @@ export class AppComponent {
           current: evt.currentVersion,
           available: evt.latestVersion,
         }))).subscribe({
-          next: ((evt:any)=>{
-            console.log('%cUPDATE AVAILABLE new version: ', evt, 'color: #ec6969; font-weight: bold;');
-              if (confirm('Update available, pagina opnieuw laden?'))
-                swUpdate.activateUpdate().then(() => document.location.reload());
+          next: ((evt: any) => {
+            console.log('%cUPDATE AVAILABLE new version: ', 'color: #ec6969; font-weight: bold;');
+            if (confirm('Update beschikbaar, pagina opnieuw laden?'))
+              swUpdate.activateUpdate().then(() => document.location.reload());
           })
         })
-     }
+    }
     /***************************************************************************************************
     / check out in what browser we are etc.
     /***************************************************************************************************/

@@ -51,10 +51,10 @@ export class InschrijvingService extends DataService {
 /
 /***************************************************************************************************/
 export class InschrijvingItem {
-  Id?: number = 0;
-  Agenda_Id?: number = 0;
-  LidNr?: number = 0;
-  Email?: string = '';
-  Naam?: string = '';
-  ExtraInformatie?: string = '';
+  Id: number = 0;
+  Agenda_Id: number = 0;
+  LidNr: number = 0;
+  Email: string = '';
+  Naam: string = '';
+  ExtraInformatie: string = '';
 }
