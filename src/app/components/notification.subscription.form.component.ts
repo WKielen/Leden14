@@ -27,11 +27,13 @@ import { ParentComponent } from 'src/app/shared/parent.component';
 
 export class NotificationSubscriptionFormComponent extends ParentComponent implements OnInit {
 
-  VAPID_PUBLIC_KEY: string = '';
   enableSubscribeButton = true;
   enableUnSubscribeButton = true;
   isEdgeVariant = false;
-  //VAPID_PUBLIC_KEY: string = 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw';
+
+  // De public key wordt gebruikt bij het toegang vragen aan de browser om berichten te mogen displaten
+  // De privite key staat op de server en wordt gebruikt tijdens het versturen van de berichten
+  readonly VAPID_PUBLIC_KEY  :  string = 'BOt664NuYQIuh7YimryuhtvZ41jcUva-87v1iOit_E1P4GwJt0GhPsSkDuGOqOfwm7t90euHkNnhFBxtrQDniyg';
 
 
   constructor(
@@ -84,7 +86,7 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
   onSubscribe(): void {
     this.swPush.requestSubscription({           // geeft een promise terug en geen obserable. Kan dus niet registereren
       // serverPublicKey: this.VAPID_PUBLIC_KEY
-      serverPublicKey: 'BL9GfIZqFPcIyOnFTOXsrORJg-BwMYG00s6VZyqQcJbXvvVFjsv-RfUI0dy8g14wyKORTPcw4-nKywaaOGCfSRw'
+      serverPublicKey: this.VAPID_PUBLIC_KEY
     })
       .then(subscription => {
         // console.log('subscription gelukt', subscription, 'nu opslaan');

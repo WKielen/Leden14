@@ -22,49 +22,21 @@ export class NotificationService extends DataService {
   }
 
   /***************************************************************************************************
-  / Deze method haalt de public key op van de raspberry pi via een proxy.
-  /***************************************************************************************************/
-  getPublicKey$(): Observable<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'X-Proxy-URL': environment.mailUrl + '/notification.php'
-      })
-    };
-
-    // return this.http.get(environment.proxyUrl, httpOptions)
-    return this.http.get(environment.baseUrl )
-      .pipe(
-        retry(1),
-        tap(
-          data => console.log('Notification: ', data),
-          error => console.log('Oeps: ', error)
-        ),
-        catchError(this.errorHandler)
-      );
-  }
-
-  /***************************************************************************************************
-  / Deze method haalt de public key op van de raspberry pi via een proxy.
-  /***************************************************************************************************/
-  // insertToken gebeurt via de parent create$
-
-
-  /***************************************************************************************************
   / Ik gooi alle records weg die van deze UserId. Dus alle subscriptions worden weggegooid.
   / Dit gebeurt dmv button op notification.dialog.ts
   /***************************************************************************************************/
   public Unsubscribe$(UserId: string): Observable<Object> {
-    return this.http.delete(this.url + '/deletefromuserid?userid=' + "'" + UserId + "'")
-      .pipe(
-        retry(3),
-        tap(
-          data => console.log('Deleted: ', data),
-          error => console.log('Oeps: ', error)
-        ),
+    return this.http.delete(environment.baseUrl + 'notification/deletefromuserid?userid=' + "'" + UserId + "'")
+    .pipe(
+      tap({ // Log the result or error
+        next: data => console.log('Deleted: ', data),
+          error: error => {
+            console.log('Oeps: ', error)
+          }
+        }),
         catchError(this.errorHandler)
       );
-  }
-
+      }
 
   /***************************************************************************************************
   / Na het versturen van de notification, de firebase notification server kan een error teruggeven.
@@ -72,14 +44,15 @@ export class NotificationService extends DataService {
   / subscription uit de DB worden verwijderd.
   /***************************************************************************************************/
   private deleteToken$(Token: string): Observable<Object> {
-    return this.http.delete(this.url + '/deletetoken?token=' + "'" + btoa(Token) + "'")
+    return this.http.delete(environment.baseUrl + 'notification/deletetoken?token=' + "'" + btoa(Token) + "'")
       .pipe(
-        retry(3),
-        tap(
-          data => console.log('Deleted: ', data),
-          error => console.log('Oeps: ', error)
-        ),
-        catchError(this.errorHandler)
+        tap({ // Log the result or error
+          next: data => console.log('Deleted: ', data),
+            error: error => {
+              console.log('Oeps: ', error)
+            }
+          }),
+      catchError(this.errorHandler)
       );
   }
 
@@ -91,19 +64,13 @@ export class NotificationService extends DataService {
  / Deze service stuurt het bericht naar de browser die het laten zien op het scherm.
  /***************************************************************************************************/
   notification$(token: any): Observable<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'X-Proxy-URL': environment.mailUrl + '/notification.php'
-      })
-    };
-
-    return this.http.post(environment.proxyUrl, token, httpOptions)
+    return this.http.post(environment.baseUrl + "/notification/sendnotification", token)
       .pipe(
         retry(1),
-        tap(
-          data => console.log('Notification: ', data),
-          error => console.log('Oeps: ', error)
-        ),
+        tap({
+          next: data => console.log('Notification: ', data),
+          error: error => console.log('Oeps: ', error)
+        }),
         catchError(this.errorHandler)
       );
   }
@@ -116,23 +83,29 @@ export class NotificationService extends DataService {
   public sendNotificationsForRole(audiance: string[], header: string, message: string): void {
     // console.log('sendNotificationsForRole', 'ik haal alle users op met rol' , audiance, header, message);
 
-    let sub = this.ledenService.getRol$()
-      .subscribe({
-        next: (data: Array<LedenItem>) => {
-          const ledenLijst: Array<LedenItem> = data;
-          // console.log('Dit heb ik opgehaald', ledenLijst, 'nu ga ik ze een voor een verzenden');
+    // let sub = this.ledenService.getRol$()
+    //   .subscribe({
+    //     next: (data: Array<LedenItem>) => {
+    //       const ledenLijst: Array<LedenItem> = data;
+    //       // console.log('Dit heb ik opgehaald', ledenLijst, 'nu ga ik ze een voor een verzenden');
 
-          ledenLijst.forEach(lid => {
-            this.processLid(lid, audiance, header, message);
-          })
-        },
-        error: (error: AppError) => {
-          console.log("error", error);
-        }
-      })
-    this.registerSubscription(sub);
+    //       ledenLijst.forEach(lid => {
+    //         this.processLid(lid, audiance, header, message);
+    //       })
+    //     },
+    //     error: (error: AppError) => {
+    //       console.log("error", error);
+    //     }
+    //   })
+    // this.registerSubscription(sub);
   }
 
+
+
+
+
+
+  
   /***************************************************************************************************
   / Per lid ga ik de rollen van het lid 'crossreferencen' met de opgegeven rollen. Als ik een overeenstemming
   / vind dan wordt er een notification gestuurd en ga ik door met het volgende lid.
@@ -194,7 +167,7 @@ export class NotificationService extends DataService {
   / Get alle registraties van een userid
   /***************************************************************************************************/
   private getSubscribtionsUserId$(UserId: string): Observable<Object> {
-    return this.http.get(this.url + '/getuserid?userid=' + "'" + UserId + "'")
+    return this.http.get(environment.baseUrl + 'notification/getuserid?userid=' + "'" + UserId + "'")
       .pipe(
         retry(3),
         tap({ // Log the result or error

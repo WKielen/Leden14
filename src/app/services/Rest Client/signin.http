@@ -5,10 +5,9 @@ Accept: application/json
 Database: ttest
 
 {
-  "database": "ttest",
-  "keepsignedin": "false",
-  "password": "3e84930f9e2769d6d71df43be7923c20",
-  "userid": "admin"
+    "userid": "3198048",
+    "password": "3e84930f9e2769d6d71df43be7923c20",
+    "database": "ttest",
+    "keepsignedin": "false"
 }
-
 

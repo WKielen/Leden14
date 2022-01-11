@@ -1,8 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { NotFoundError } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { LedenItemExt, LedenService } from "src/app/services/leden.service";
+import { NotificationService } from "src/app/services/notification.service";
 import { ParamService } from "src/app/services/param.service";
+import { AppError } from "src/app/shared/error-handling/app-error";
+import { DuplicateKeyError } from "src/app/shared/error-handling/duplicate-key-error";
+import { NoChangesMadeError } from "src/app/shared/error-handling/no-changes-made-error";
+import { SnackbarTexts } from "src/app/shared/error-handling/SnackbarTexts";
 import { ParentComponent } from "src/app/shared/parent.component";
 
 @Component({
@@ -18,7 +24,7 @@ export class TestComponent
     protected paramService: ParamService,
     protected ledenService: LedenService,
     protected authService: AuthService,
-
+    protected notificationService: NotificationService,
   ) {
     super(snackBar);
   }
@@ -34,6 +40,39 @@ export class TestComponent
           }
         }));
   }
+
+  onClick() {
+    let x = {
+      "Agenda_Id": "67",
+      "Naam": "Piet",
+      "Email": "wim_kielen@hotmail.com"
+    };
+
+
+    this.registerSubscription(
+      this.notificationService.notification$(x)
+        .subscribe({
+          next: (data) => {
+            this.showSnackBar(SnackbarTexts.SuccessDelete);
+          },
+          error: (error: AppError) => {
+            console.error(error);
+            if (error instanceof NoChangesMadeError) {
+              this.showSnackBar(SnackbarTexts.NoChanges);
+            } else if (error instanceof NotFoundError) {
+              this.showSnackBar(SnackbarTexts.NotFound);
+            } else if (error instanceof DuplicateKeyError) {
+              this.showSnackBar(SnackbarTexts.DuplicateKey);
+            } else {
+              throw error;
+            }
+          }
+        })
+    );
+
+  }
+
+
 
   public onAskPermission(): void {
     function askNotificationPermission() {
@@ -79,7 +118,5 @@ export class TestComponent
 
 
 
-  onClick() {
-  }
 
 }

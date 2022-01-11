@@ -1,0 +1,10 @@
+POST  https://www.ttvn.nl/api_test/notification/sendnotification HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDE2NzM2NDMsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY0MTc2MDA0MywidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.uxjPjCYA_5RlyFtgTtlQWPusNxqOAg8gLtGaf5askss
+
+{
+  "Agenda_Id": "67",
+  "Naam": "Piet",
+  "Email": "wim_kielen@hotmail.com"
+}

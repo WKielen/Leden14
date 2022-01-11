@@ -2,7 +2,11 @@ GET https://www.ttvn.nl/api/inschrijving/getAll HTTP/1.1
 content-type: application/json
 Accept: application/json
 Database: ttest
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzUyNjMzNDgsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYzNTM0OTc0OCwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.uveJEAs_dZ50uPSh35cnFvNqJKmRaMMwJy5wKbwYvEI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDE5MTE5ODIsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTY0MTk5ODM4MiwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.5G10NpkebcO_P35lUFFUnFkcM5YEuqytRwHSA0xMjbI
+
+
+
+
 ###
 POST  https://www.ttvn.nl/api/inschrijving/register HTTP/1.1
 content-type: application/json
@@ -14,6 +18,13 @@ Database: ttest
   "Naam": "Piet",
   "Email": "wim_kielen@hotmail.com"
 }
+
+
+
+
+
+
+
 ###
 http://localhost:4200/#/inschrijven?evenement=eyAiZXZlbmVtZW50IjogNjcsICJsaWRuciI6IDIzIH0=
 content-type: application/json

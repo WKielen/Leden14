@@ -31,15 +31,14 @@ export class TokenInterceptorService implements HttpInterceptor {
         // , 'Accept': 'application/json'
         // }
         headers: req.headers.set('Authorization', 'Bearer ' + this.authService.token)
-        // headers: req.headers.set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzQ3NDUsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTYxMDU2MTE0NSwidXNlcmlkIjoiMzE5ODA0OCIsImRhdGFiYXNlIjoidHRlc3QiLCJyb2xlIjoiQlMsVEUsQUQiLCJmaXJzdG5hbWUiOiJXaW0iLCJsYXN0bmFtZSI6IktpZWxlbiIsImxpZG5yIjoiMjMifQ.5QehXnPq8PW4bmD-b-yj1_Y9SWQJxMSiWcgQPxvJPgk')
-          .set('Content-Type', 'application/json')
-          .set('Accept', 'application/json')
+                            .set('Content-Type', 'application/json')
+                            .set('Accept', 'application/json')
       });
     } else { // Als we niet ingelogd zijn dan ook het token niet meesturen.
       tokenizedReq = req.clone({
         headers: req.headers.set('Content-Type', 'application/json')
-          .set('Accept', 'application/json')
-          .set('Database', environment.databaseName)
+                            .set('Accept', 'application/json')
+                            .set('Database', environment.databaseName)
       });
     }
     return next.handle(tokenizedReq)
