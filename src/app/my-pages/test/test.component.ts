@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import * as moment from "moment";
 import { NotFoundError } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { LedenItemExt, LedenService } from "src/app/services/leden.service";
@@ -39,7 +40,38 @@ export class TestComponent
             this.ledenLijst = data;
           }
         }));
-  }
+
+        // let date = new Date();
+        // console.log('in UTC format(date.toUTCString)', date.toUTCString() );
+        // console.log('in UTC format(date.toLocaleString)', date.toLocaleString() );
+        // console.log('in UTC format(date.toDateString)', date.toDateString() );
+        // console.log('in UTC format(date.toISOString', date.toISOString());
+        // console.log(moment.utc('2012-12-14T00:29:40.276Z'));
+        // console.log(moment.utc('2012-12-14T00:29:40.276Z').format());
+        // console.log(moment.utc('2012-12-14T00:29:40.276Z').toDate());
+        // var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        // var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+        // console.log('in UTC format(date.toLocaleString)', (new Date).toLocaleString() );
+
+
+        let now = new Date();
+        console.log('tostring', now.toString());
+        console.log('toISOstring', now.toISOString());
+        console.log('JSON', now.toJSON());
+        console.log('UTC', now.toUTCString());
+        console.log('locale string', now.toLocaleString() );
+        let nowmoment = moment();
+        console.log('moment format',nowmoment.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+
+
+        console.log("betere oplossing????", moment.utc(now).format("YYYY-MM-DDTHH:mm:ss") + moment().format("SSSZZ"));
+
+        // betere oplossing
+
+
+
+
+      }
 
   onClick() {
     let x = {

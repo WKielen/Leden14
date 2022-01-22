@@ -22,7 +22,7 @@ import { ParentComponent } from 'src/app/shared/parent.component';
       <button mat-raised-button color="primary" [disabled]="!enableUnSubscribeButton" type="button"
       (click)="onUnSubscribe()" >Afmelden</button>
 `,
-  styles: [ 'button { margin: 15px!important;}', 'p { margin: 15px!important;}' ]
+  styles: ['button { margin: 15px!important;}', 'p { margin: 15px!important;}']
 })
 
 export class NotificationSubscriptionFormComponent extends ParentComponent implements OnInit {
@@ -33,7 +33,7 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
 
   // De public key wordt gebruikt bij het toegang vragen aan de browser om berichten te mogen displaten
   // De privite key staat op de server en wordt gebruikt tijdens het versturen van de berichten
-  readonly VAPID_PUBLIC_KEY  :  string = 'BOt664NuYQIuh7YimryuhtvZ41jcUva-87v1iOit_E1P4GwJt0GhPsSkDuGOqOfwm7t90euHkNnhFBxtrQDniyg';
+  readonly VAPID_PUBLIC_KEY: string = 'BNvyhI1q0W7-9mWIjaRiymbn9s-OTeDjabD64Z4bfmi20Ptv2MfYNd8NHn5JAKdjb0bOH1Qqgr9wjt-BfbAgdeY';
 
 
   constructor(
@@ -85,11 +85,10 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
   /***************************************************************************************************/
   onSubscribe(): void {
     this.swPush.requestSubscription({           // geeft een promise terug en geen obserable. Kan dus niet registereren
-      // serverPublicKey: this.VAPID_PUBLIC_KEY
       serverPublicKey: this.VAPID_PUBLIC_KEY
     })
       .then(subscription => {
-        // console.log('subscription gelukt', subscription, 'nu opslaan');
+        console.log('subscription gelukt', subscription, 'nu opslaan', btoa(JSON.stringify(subscription)));
         // console.log('this.isEdgeVariant',this.isEdgeVariant);
 
         let notificationRecord = new NotificationRecord();
@@ -103,7 +102,7 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
           .subscribe({
             next: (data) => {
               // Dit werkt niet goed omdat als er meerdere registraties zijn van deze user de eerste browser een melding krijgt.
-              this.notificationService.sendNotification(JSON.stringify(subscription), 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser', (!this.isEdgeVariant).ToNumberString())
+              //this.notificationService.sendNotification(JSON.stringify(subscription), 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser', (!this.isEdgeVariant).ToNumberString())
               // this.notificationService.sendNotificationToUserId(notificationRecord.UserId, 'TTVN Nieuwegein', 'Je krijgt meldingen in deze browser');
               this.showSnackBar('Aanmelding geregistreerd');
             },
@@ -127,17 +126,21 @@ export class NotificationSubscriptionFormComponent extends ParentComponent imple
   / Gooi alle subscribtions weg
   /***************************************************************************************************/
   onUnSubscribe(): void {
-    let sub = this.notificationService.Unsubscribe$(this.authService.userId)
-      .subscribe({
-        next: (data) => {
-          this.showSnackBar('Ingeschakelde meldingen verwijderd');
-        },
-        error: (error: AppError) => {
-          if (error instanceof NotFoundError) {
-            this.showSnackBar('Je had geen meldingen ingeschakeld');
-          }
-        }
+    this.swPush.unsubscribe()
+      .then(subscription => {
+        console.log('unsubscribe gelukt', subscription, 'nu opslaan');
+        let sub = this.notificationService.Unsubscribe$(this.authService.userId)
+          .subscribe({
+            next: (data) => {
+              this.showSnackBar('Ingeschakelde meldingen verwijderd');
+            },
+            error: (error: AppError) => {
+              if (error instanceof NotFoundError) {
+                this.showSnackBar('Je had geen meldingen ingeschakeld');
+              }
+            }
+          })
+        this.registerSubscription(sub);
       })
-    this.registerSubscription(sub);
   }
 }

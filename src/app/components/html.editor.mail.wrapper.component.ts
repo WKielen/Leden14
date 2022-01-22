@@ -48,7 +48,7 @@ import { ParentComponent } from '../shared/parent.component';
                 </mat-form-field>
 
                 <mat-form-field id="EmailSubject">
-                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject">
+                  <input matInput type="text" placeholder="Onderwerp" formControlName="EmailSubject" (input)="onChangeSubject()">
                   <mat-error *ngIf="EmailSubject.hasError('required')">
                     Veld is verplicht
                   </mat-error>
@@ -326,6 +326,11 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
     this.fileToUpload = fileList.item(0)
     this.attachmentFile.emit(fileList.item(0));
   }
+
+  onChangeSubject() {
+    this.emailSubject.emit(this.EmailSubject.value);
+  }
+
 
   /***************************************************************************************************
   / Properties

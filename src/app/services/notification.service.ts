@@ -7,7 +7,6 @@ import { AppError } from '../shared/error-handling/app-error';
 import { Observable } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { LedenItem, LedenService } from './leden.service';
-import { HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
