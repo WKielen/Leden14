@@ -5,16 +5,24 @@ import { Injectable, Optional } from '@angular/core';
 })
 export class WimsLibService {
 
-  private _apiUrl = 'No value';
+  private config = undefined;
 
-  constructor(@Optional() config?: Configurations) {
+  constructor(@Optional() config?: Object) {
     if (config) {
-      this._apiUrl = config.apiUrl;
+      this.config = config['config'];
     }
   }
 
-  get apiUrl() {
-    return this._apiUrl;
+  get production():boolean {
+    return this.config.production;
+  }
+
+  get baseurl(): string {
+    return this.config.baseUrl;
+  }
+
+  get databaseName(): string {
+    return this.config.databaseName;
   }
 
 }
@@ -24,11 +32,3 @@ export class WimsLibService {
 / De parameters zitten in module.ts in de forRoot. 
 //* https://stackoverflow.com/questions/43529920/passing-environment-variables-to-angular-library
 /***************************************************************************************************/
-export class Configurations {
-  public apiUrl: string;
-
-  constructor() {
-    this.apiUrl = '';
-  }
-
-}

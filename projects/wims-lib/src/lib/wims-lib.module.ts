@@ -3,7 +3,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BaseComponent } from './components/base.component';
 import { CustomMaterialModule } from './material.module';
 import { WimsLibComponent } from './wims-lib.component';
-import { Configurations } from './wims-lib.service';
 
 const componentList = [
   WimsLibComponent, 
@@ -21,12 +20,12 @@ const componentList = [
 export class WimsLibModule { 
 
   // Create this static method in the library module.
-  public static forRoot(config: Configurations): ModuleWithProviders<WimsLibModule> {
+  public static forRoot(config: Object): ModuleWithProviders<WimsLibModule> {
 
     return {
       ngModule: WimsLibModule,
       providers: [
-        { provide: Configurations, useValue: config }
+        { provide: Object, useValue: config }
       ]
     };
   }
