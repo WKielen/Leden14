@@ -29,6 +29,7 @@ import { AppNavModule } from './app-nav/app-nav.module';
 import { MyPagesModule } from './my-pages/my-pages.module';
 import localeNl from '@angular/common/locales/nl';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { WimsLibModule } from 'wims-lib';
 
 registerLocaleData(localeNl);
 @NgModule({
@@ -42,6 +43,7 @@ registerLocaleData(localeNl);
     AppRoutingModule,
     AppNavModule,
     MyPagesModule,
+    WimsLibModule.forRoot({ apiUrl: environment.baseUrl }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
