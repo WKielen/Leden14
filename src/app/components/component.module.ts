@@ -4,7 +4,7 @@ import { CustomMaterialModule } from 'src/app/material.module';
 import { SelectLidDropdownComponent } from './select.lid.dropdown.component';
 import { WaitingButtonComponent } from './waiting-button.component';
 import { CheckboxListComponent } from './checkbox.list.component';
-import { DialogMessageBoxComponent } from './dialog.message.box';
+// import { DialogMessageBoxComponent } from './dialog.message.box';
 import { MemberSelectionBoxComponent } from './member.selectionbox.component';
 import { MemberSelectionBoxWrapperComponent } from './member.selectionbox.wrapper.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,7 +43,7 @@ const componentList = [
   DialogHeaderComponent,
   WaitingButtonComponent,
   CheckboxListComponent,
-  DialogMessageBoxComponent,
+  // DialogMessageBoxComponent,
   MemberSelectionBoxComponent,
   MemberSelectionBoxWrapperComponent,
   HtmlEditorComponent,

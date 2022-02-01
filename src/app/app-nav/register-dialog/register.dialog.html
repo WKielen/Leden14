@@ -46,7 +46,7 @@
         </mat-error>
     </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-message-box [message]="responseText" [error]="error"></mat-dialog-message-box>
+<lib-dialog-message-box [message]="responseText" [error]="error"></lib-dialog-message-box>
 <mat-dialog-actions>
     <button mat-raised-button color="primary" [disabled]='!registerForm.valid' (click)="onSubmit()">Registreer</button>
 </mat-dialog-actions>
