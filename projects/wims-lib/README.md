@@ -1,3 +1,6 @@
+
+ng build wims-lib --prod
+
 # WimsLib
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.

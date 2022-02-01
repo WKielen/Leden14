@@ -43,7 +43,7 @@ registerLocaleData(localeNl);
     AppRoutingModule,
     AppNavModule,
     MyPagesModule,
-    WimsLibModule.forRoot({ config: environment }),
+    WimsLibModule.forRoot({ config: environment }),   // Zie module (en service)  voor implementatie van forRoot
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
