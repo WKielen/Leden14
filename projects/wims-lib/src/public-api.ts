@@ -7,3 +7,4 @@ export * from './lib/wims-lib.component';
 export * from './lib/wims-lib.module';
 export * from './lib/components/base.component';
 export * from './lib/components/dialog.message.box';
+export * from './lib/components/dialog.header.detail';

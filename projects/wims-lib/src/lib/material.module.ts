@@ -30,13 +30,13 @@ import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
    exports: [
-    // MatToolbarModule,
+    MatToolbarModule,
     // MatButtonModule,
     // MatInputModule,
     // MatDialogModule,
     // MatFormFieldModule,
     // MatSidenavModule,
-    // MatIconModule,
+    MatIconModule,
     // MatListModule,
     // MatSliderModule,
     // MatCheckboxModule,

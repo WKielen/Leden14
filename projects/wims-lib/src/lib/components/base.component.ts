@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WimsLibService } from '../wims-lib.service';
 
 @Component({
   template: '',
@@ -12,9 +13,10 @@ export class BaseComponent {
 
   private observableSubscriptions = new Array<Subscription>();
   constructor(
+    private libservice: WimsLibService
   ) {
     this.me = this.constructor.name;
-    this.developmentMode = true
+    this.developmentMode = !this.libservice.production;
 
   }
 
