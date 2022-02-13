@@ -6,7 +6,6 @@ import { SubscribeEventPageComponent } from './subscribe-event.component';
 import { CustomMaterialModule } from 'src/app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from 'src/app/components/component.module';
-import { WimsLibModule } from 'wims-lib';
 import { environment } from 'src/environments/environment';
 
 
@@ -26,7 +25,6 @@ import { environment } from 'src/environments/environment';
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    WimsLibModule.forRoot({ config: environment }),   // Zie module (en service)  voor implementatie van forRoot
 
   ],
   exports: [

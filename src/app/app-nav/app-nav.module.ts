@@ -27,7 +27,6 @@ import { RegistrationDialogComponent } from './registration/registration.dialog'
 import { RolesDialogComponent } from './registration/roles.dialog';
 import { ResetPasswordDialogComponent } from './resetpassword-dialog/password.reset.dialog';
 import { ComponentsModule } from '../components/component.module';
-import { WimsLibModule } from 'wims-lib';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -62,8 +61,6 @@ import { environment } from 'src/environments/environment';
     CustomMaterialModule,
     HoldableModule,
     ComponentsModule,
-    WimsLibModule.forRoot({ config: environment }),   // Zie module (en service)  voor implementatie van forRoot
-
   ],
 })
 

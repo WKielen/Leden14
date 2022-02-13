@@ -20,10 +20,6 @@
       "dom"
     ],
     "paths": {
-      "wims-lib": [
-        "dist/wims-lib/wims-lib",
-        "dist/wims-lib"
-      ],
       "rxjs": [
         "node_modules/rxjs"
       ],

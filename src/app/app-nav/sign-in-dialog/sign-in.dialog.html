@@ -27,7 +27,7 @@
         Hou me ingelogd (max 30 dagen)
     </mat-checkbox>
 </mat-dialog-content>
-<lib-dialog-message-box [message]="responseText"></lib-dialog-message-box>
+<mat-dialog-message-box [message]="responseText"></mat-dialog-message-box>
 <mat-dialog-actions>
     <button mat-raised-button color="primary" [disabled]='!loginForm.valid' (click)="onSubmit()">Login</button>
 

@@ -32,7 +32,7 @@
       </div>
     </div>
   </mat-card-content>
-  <lib-dialog-message-box [error]="responseError" [message]="responseText"></lib-dialog-message-box>
+  <mat-dialog-message-box [error]="responseError" [message]="responseText"></mat-dialog-message-box>
   <mat-dialog-actions>
     <button mat-raised-button color="primary" [style.display]="showSubmitButton" [disabled]='!subscribeForm.valid'
       (click)="onSubmit()">Ik schrijf me in</button>

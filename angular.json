@@ -144,34 +144,6 @@
           }
         }
       }
-    },
-    "wims-lib": {
-      "projectType": "library",
-      "root": "projects/wims-lib",
-      "sourceRoot": "projects/wims-lib/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/wims-lib/tsconfig.lib.json",
-            "project": "projects/wims-lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/wims-lib/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/wims-lib/src/test.ts",
-            "tsConfig": "projects/wims-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/wims-lib/karma.conf.js"
-          }
-        }
-      }
     }
   },
   "defaultProject": "Leden14"

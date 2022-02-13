@@ -3,20 +3,22 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LedenItemExt } from 'src/app/services/leden.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ConvertToReadableDate } from 'src/app/shared/modules/DateRoutines';
-import { BaseComponent } from 'src/app/shared/base.component';
+import { ParentComponent } from 'src/app/shared/parent.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-send-inventation-dialog',
   templateUrl: './send-inventation.dialog.html',
   styles: []
 })
-export class SendInventationDialogComponent extends BaseComponent implements OnInit {
+export class SendInventationDialogComponent extends ParentComponent implements OnInit {
   constructor(
     private clipboard: Clipboard,
     public dialogRef: MatDialogRef<SendInventationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
+    protected snackBar: MatSnackBar
   ) {
-    super();
+    super(snackBar);
   }
 
   public itemsToMail: Array<LedenItemExt> = [];
@@ -71,26 +73,45 @@ export class SendInventationDialogComponent extends BaseComponent implements OnI
     this.emailSubject = $event;
 
   }
+
   onAttachmentFileChanged($event) {
     this.attachmentFile = $event;
   }
+
   onCreateLink() {
     let link: string = btoa(JSON.stringify({ 'evenement': this.data.data['Id'] }));
     let linkcontent = this.createLink(link);
     this.htmlContent = this.htmlContent + '<br>' + linkcontent;
     this.clipboard.copy(linkcontent);
+    this.showSnackBar('link gekopieerd naar clipboard');
+    
+  }
+
+  onCreateLinkHTML() {
+    let link: string = btoa(JSON.stringify({ 'evenement': this.data.data['Id'] }));
+    let linkcontent = this.createHTMLLink(link);
+    this.htmlContent = this.htmlContent + '<br>' + linkcontent;
+    this.clipboard.copy(linkcontent);
+    this.showSnackBar('link gekopieerd naar clipboard');
   }
 
   theCallback(lid: LedenItemExt) {
     let link: string = btoa(JSON.stringify({ 'evenement': this.data.data['Id'], 'lidnr': lid.LidNr }));
-    return this.createLink(link);
+    return this.createHTMLLink(link);
   }
 
   createLink(link: string): string {
     if (this.developmentMode)
-      return "<a href='" + "http://localhost:4200/#/inschrijven?evenement=" + link + "'>" + "Hier inschrijven voor " + this.data.data['EvenementNaam'] + "</a>"
+      return "http://localhost:4200/#/inschrijven?evenement=" + link;
     else
-      return "<a href='" + "https://www.ttvn.nl/app/#/inschrijven?evenement=" + link + "'>" + "Hier inschrijven voor " + this.data.data['EvenementNaam'] + "</a>"
+      return "https://www.ttvn.nl/app/#/inschrijven?evenement=" + link;
+  }
+
+  createHTMLLink(link: string): string {
+    if (this.developmentMode)
+      return "<a href='" + "http://localhost:4200/#/inschrijven?evenement=" + link + "'>" + "Hier inschrijven voor " + this.data.data['EvenementNaam'] + "</a>";
+    else
+      return "<a href='" + "https://www.ttvn.nl/app/#/inschrijven?evenement=" + link + "'>" + "Hier inschrijven voor " + this.data.data['EvenementNaam'] + "</a>";
   }
 
 }

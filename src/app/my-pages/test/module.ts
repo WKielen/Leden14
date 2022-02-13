@@ -10,8 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldCustomControlExample, MyTelInput } from './telephone/telephone.field.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ComponentsModule } from 'src/app/components/component.module';
-import { WimsLibModule } from 'wims-lib';
-import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -34,7 +32,6 @@ import { environment } from 'src/environments/environment';
     SharedComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    WimsLibModule,
   ],
   exports: [
     TestComponent,
