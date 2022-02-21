@@ -49,7 +49,7 @@ export class WebsiteService extends DataService {
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Masterz spelregels', 'DisplayOnRoles': PAGEROLES.masterzPageRoles.join(), 'Url': ROUTE.masterzPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Test', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.testPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Comp Admin', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.compadminPageRoute });
-    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Kennismaken', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.kennismakenPageRoute });
+    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Kennismaken', 'DisplayOnRoles': PAGEROLES.kennismakenPageRoles.join(), 'Url': ROUTE.kennismakenPageRoute });
       // pages.push({ 'Id': '0', 'MenuDisplayValue': 'Inschrijven Evenement', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.subscribeeventPageRoute });
 
     return pages;
