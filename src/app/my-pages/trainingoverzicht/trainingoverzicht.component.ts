@@ -180,8 +180,9 @@ export class TrainingOverzichtComponent extends ParentComponent implements OnIni
           this.deelNameTiles.push(tile);
         } else {
           // Er zijn datums maar zit de zoekdatum ertussen?
+          console.log('', datumsPerLid);
           for (let datumCounter = 0; datumCounter < datumsPerLid.length; datumCounter++) {
-            if (datumsPerLid[datumCounter].Date == this.columns[columnsCounter].to_YYYY_MM_DD()) {    // Gevonden, nu naar de state kijken.
+            if (datumsPerLid[datumCounter].Datum == this.columns[columnsCounter].to_YYYY_MM_DD()) {    // Gevonden, nu naar de state kijken.
               switch (datumsPerLid[datumCounter].State) {
                 case TrainingItem.AFWEZIG:
                   tile.color = Tile.GEEN_STATUS_COLOR;
