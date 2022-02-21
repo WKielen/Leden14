@@ -6,7 +6,7 @@ import { BaseComponent } from '../shared/base.component';
   selector: 'mat-checkbox-list',
   template: `
   <div *ngFor="let item; index as i of myDictionary">
-    <mat-checkbox (change)="onCheckBoxChanged($event)" id=i [checked]="item.Value" color="primary">
+    <mat-checkbox (change)="onCheckBoxChanged($event)" id="{{ i }}" [checked]="item.Value" color="primary">
       {{item.DisplayValue}}
     </mat-checkbox>
   </div>

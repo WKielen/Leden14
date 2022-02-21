@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { LedenItemExt } from 'src/app/services/leden.service';
 import { BaseComponent } from 'src/app/shared/base.component';
@@ -6,7 +7,11 @@ import { BaseComponent } from 'src/app/shared/base.component';
 @Component({
   selector: 'app-member-checkbox-table',
   templateUrl: './member.checkbox.table.component.html',
-  styleUrls: ['./member.checkbox.table.component.scss']
+  styleUrls: ['./member.checkbox.table.component.scss'],
+  providers: [
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
+  ],
+
 })
 export class MemberCheckboxTableComponent extends BaseComponent implements OnInit {
 

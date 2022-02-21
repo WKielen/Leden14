@@ -1,0 +1,24 @@
+<app-mat-dialog-header-detail title='Uitnodiging versturen'></app-mat-dialog-header-detail>
+<mat-dialog-content>
+
+  <div class="flexcontainer">
+    <div style="flex-basis: 65%;">
+      <app-html-editor-mail-wrapper [htmlOutput]='htmlContent' [subject]='emailSubject'
+        (htmlContent)='onHtmlContentChanged($event)' (emailSubject)='onEmailSubjectChanged($event)'
+        (attachmentFile)='onAttachmentFileChanged($event)'>
+      </app-html-editor-mail-wrapper>
+      <app-send-mail [itemsToMail]='itemsToMail' [htmlContent]='htmlContent' [emailSubject]='emailSubject'
+        [attachmentFile]='attachmentFile' [replaceLinkCallback]="theBoundCallback"></app-send-mail>
+    </div>
+    <div style="flex-basis: 30%;">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Kennismakers</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <app-member-checkbox-table [dataSource]='dataSource' checkboxHeader="Stuur mail" [columns]="columns" (memberChecked)="onMemberChecked($event)"></app-member-checkbox-table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-dialog-content>

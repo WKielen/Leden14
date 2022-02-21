@@ -46,6 +46,8 @@ import { TrainingGroupsComponent } from './trainingsgroep/trainingsgroep.compone
 import { SendInventationDialogComponent } from './evenementen/send-inventation-dialog/send-inventation.dialog';
 import { EventSubscriptionsDialogComponent } from './evenementen/event-subscriptions-dialog/event-subscribtions.dialog';
 import { ComponentsModule } from '../components/component.module';
+import { KennisMakenComponent } from './kennismaken/kennismaken.component';
+import { MailKennismakerDialogComponent } from './kennismaken/mail-kennismaker-dialog/mail-kennismaker.dialog';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -84,6 +86,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     KomendeWeekComponent,
     TodolistComponent,
     TrainingGroupsComponent,
+    KennisMakenComponent,
+    MailKennismakerDialogComponent,
   ],
   imports: [
     CommonModule,

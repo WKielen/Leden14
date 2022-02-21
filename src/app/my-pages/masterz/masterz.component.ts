@@ -15,9 +15,6 @@ import { catchError, forkJoin, map, of } from 'rxjs';
   selector: 'app-masterz',
   templateUrl: './masterz.component.html',
   styleUrls: ['./masterz.component.scss'],
-  providers: [
-    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } }   // veranderd het click gedrag van (alle) checkboxen. Zie material docs
-  ],
 })
 
 export class MasterzComponent extends ParentComponent implements OnInit {

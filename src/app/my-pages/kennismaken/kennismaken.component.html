@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Kennismakers</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <table mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef style="width:40%"> Naam </th>
+        <td mat-cell *matCellDef="let element">
+          <input matInput type="text" placeholder="Naam" [(ngModel)]='element.Name'>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Telnr">
+        <th mat-header-cell *matHeaderCellDef style="width:20%"> Telefoon </th>
+        <td mat-cell *matCellDef="let element">
+          <input matInput type="text" placeholder="Telefoon" [(ngModel)]='element.Telnr'>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef style="width:20%"> Email </th>
+        <td mat-cell *matCellDef="let element">
+          <input matInput type="email" placeholder="Email" [(ngModel)]='element.Email'>
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="DateFrom">
+      <th mat-header-cell *matHeaderCellDef style="width:20%"> Vanaf </th>
+        <td mat-cell *matCellDef="let element">
+          <input matInput type="text" placeholder="Vanaf" [(ngModel)]='element.Vanaf'>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+<div class="fab-container">
+  <div>
+    <button *ngFor="let btn of fabButtons; index as i" #fabs id='{{i}}' mat-fab (click)="onFabClick($event, i)"
+      color="primary" class="fab-secondary">
+      <i class="material-icons">{{ btn.icon }}</i>
+    </button>
+  </div>
+</div>

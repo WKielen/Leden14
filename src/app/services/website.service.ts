@@ -49,6 +49,7 @@ export class WebsiteService extends DataService {
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Masterz spelregels', 'DisplayOnRoles': PAGEROLES.masterzPageRoles.join(), 'Url': ROUTE.masterzPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Test', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.testPageRoute });
     pages.push({ 'Id': '0', 'MenuDisplayValue': 'Comp Admin', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.compadminPageRoute });
+    pages.push({ 'Id': '0', 'MenuDisplayValue': 'Kennismaken', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.kennismakenPageRoute });
       // pages.push({ 'Id': '0', 'MenuDisplayValue': 'Inschrijven Evenement', 'DisplayOnRoles': PAGEROLES.testPageRoles.join(), 'Url': ROUTE.subscribeeventPageRoute });
 
     return pages;
@@ -85,6 +86,7 @@ export const PAGEROLES = {
   ledenPageRoles:             [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   trainingdeelnamePageRoles:  [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   masterzPageRoles:           [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
+  kennismakenPageRoles:       [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   mailPageRoles:              [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
   agendaPageRoles:            [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
   websitePageRoles:           [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
@@ -125,4 +127,5 @@ export const ROUTE = {
   registrationPageRoute: 'registration',
   traininggroupPageRoute: 'traininggroups',
   subscribeeventPageRoute: 'inschrijven',
+  kennismakenPageRoute: 'kennismaken',
 };

@@ -1,0 +1,25 @@
+@use "src/mixins.scss" as mix;
+
+mat-card {
+    text-align: center;
+    @include mix.desktop {
+        width: 60%;
+        // display:block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
+
+
+input {
+  border: none;
+  background: none;
+}
+input:focus {
+  outline: none !important;
+}
+textarea:focus {
+  outline: none !important;
+}
+

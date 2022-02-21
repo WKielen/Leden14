@@ -24,6 +24,7 @@ import { TodolistComponent } from './my-pages/todolist/todolist.component';
 import { RegistrationComponent } from './app-nav/registration/registration.component';
 import { ROUTE, PAGEROLES } from './services/website.service';
 import { TrainingGroupsComponent } from './my-pages/trainingsgroep/trainingsgroep.component';
+import { KennisMakenComponent } from './my-pages/kennismaken/kennismaken.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: ROUTE.masterzPageRoute, component: MasterzComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.masterzPageRoles } },
       { path: ROUTE.todolistPageRoute, component: TodolistComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.todolistPageRoles } },
       { path: ROUTE.registrationPageRoute, component: RegistrationComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.registrationPageRoles } },
+      { path: ROUTE.kennismakenPageRoute, component: KennisMakenComponent, canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.kennismakenPageRoles } },
       { path: ROUTE.downloadPageRoute, loadChildren: () => import('./my-pages/download/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.downloadPageRoles } },
       { path: ROUTE.mailPageRoute, loadChildren: () => import('./my-pages/mail/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.mailPageRoles } },
       { path: ROUTE.testPageRoute, loadChildren: () => import('./my-pages/test/module').then(m => m.Module), canActivate: [AuthGuard, AdminAuthGuard], data: { roles: PAGEROLES.testPageRoles } },
