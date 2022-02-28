@@ -102,10 +102,10 @@ export class SubscribeEventPageComponent
 
   onSubmit() {
     let inschrijvingitem: InschrijvingItem = new InschrijvingItem();
-    inschrijvingitem.Email = this.email.value;
-    inschrijvingitem.Naam = this.naam.value;
-    inschrijvingitem.ExtraInformatie = this.extrainformatie.value;
-    inschrijvingitem.LidNr = this.lidnr;
+    inschrijvingitem.Email = this.email.value ?? "";
+    inschrijvingitem.Naam = this.naam.value ?? "" ;
+    inschrijvingitem.ExtraInformatie = this.extrainformatie.value ?? "";
+    inschrijvingitem.LidNr = this.lidnr ?? 0;
     inschrijvingitem.Agenda_Id = this.agenda_Id;
     this.showSubmitButton = 'none';
 

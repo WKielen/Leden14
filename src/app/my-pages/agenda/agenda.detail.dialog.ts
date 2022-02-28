@@ -28,12 +28,14 @@ export class AgendaDetailDialogComponent implements OnInit{
   public inschrijfGeld: string = Number(this.data.data.Inschrijfgeld).AmountFormat();
   public toelichting: string = this.data.data.Toelichting.replace(new RegExp('\n', 'g'), "<br>")
   public showExtraButtons: string = 'none';
+  public agendaId: string = this.data.data.Id;
 
 // Think for yourself, or
 // others will think for you
 // without thinking of you
 
   ngOnInit() {
+    console.log("AgendaDetailDialogComponent --> ngOnInit --> this.data.data", this.data.data);
     if (['T', 'V', 'H'].indexOf(this.data.data.Type) == -1) {
       this.showExtraButtons = 'none';
     }
@@ -103,7 +105,8 @@ export class AgendaDetailDialogComponent implements OnInit{
     });
   }
   onClickAddSubscription(): void {
-    this.router.navigate([ROUTE.subscribeeventPageRoute], { queryParams: { evenement:'eyJldmVuZW1lbnQiOiIyMTQ2IiwibGlkbnIiOiIxMzc4In0='} });
+    let subscription = { evenement: btoa(JSON.stringify({ 'evenement': this.agendaId }))};
+    this.router.navigate([ROUTE.subscribeeventPageRoute], { queryParams: subscription });
     this.dialogRef.close();
   }
 }
