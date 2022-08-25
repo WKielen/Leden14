@@ -67,6 +67,7 @@ export class LedenManagerComponent extends ParentComponent implements OnInit {
     toBeAdded.LidNr = Number(tmpJson['maxlidnr']) + 1;
     toBeAdded.LidType = 'N';  // default lidtype
     toBeAdded.BetaalWijze = 'I';  // defualt betaalwijze Incasso
+    toBeAdded.Woonplaats = 'NIEUWEGEIN';
     console.log("LedenManagerComponent --> onAdd --> toBeAdded", toBeAdded);
 
     // let tmp;
