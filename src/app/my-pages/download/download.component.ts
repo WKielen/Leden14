@@ -49,8 +49,10 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd'];
   ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
   ledenArray = new Array<LedenItemExt>();
+  retiredArray = new Array<LedenItemExt>();
   selectedLid = new LedenItemExt();
   vcard: string = '';
+  dateFrom: Date = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
   constructor(private ledenService: LedenService,
     private agendaService: AgendaService,
@@ -74,6 +76,19 @@ export class DownloadComponent extends ParentComponent implements OnInit {
           }
         })
     );
+
+    this.registerSubscription(
+      this.ledenService.getRetiredMembers$()
+        .subscribe({
+          next: (data: Array<LedenItemExt>) => {
+            this.retiredArray = data;
+          },
+          error: (error: AppError) => {
+            console.error(error);
+          }
+        })
+    );
+
 
     this.registerSubscription(
       this.readTextFileService.read('templates/template_vcard.txt')
@@ -141,6 +156,47 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'txt');
   }
 
+  /***************************************************************************************************
+  / Download a list with all updates since a data
+  /***************************************************************************************************/
+  onChangedDate($event): void {
+    this.dateFrom = new Date($event.value.format('YYYY-MM-DD'));
+  }
+
+  async onClickUpdates(): Promise<void> {
+    // let localList: Array<any> = this.selectLeden();
+    let localEmailString: string = 'Nieuwe leden\n\n';
+    this.csvOptions.filename = "In- en uitschrijvingen vanaf" + ' ' + this.dateFrom.to_YYYY_MM_DD();
+
+
+    this.ledenArray.forEach((lid: LedenItemExt) => {
+      const emailList = LedenItem.GetEmailList(lid);
+      if (new Date(lid.LidVanaf) < this.dateFrom )
+        return;
+
+      let singleLine = '';
+      emailList.forEach((element: MailItemTo) => {
+        singleLine += lid.Naam + ',' + lid.LidVanaf + ',' + element.ToName + '<' + element.To + '>' + ';\n';
+      });
+      localEmailString += singleLine;
+    });
+
+    localEmailString += '\nOpgezegd\n\n';
+    this.retiredArray.forEach((lid: LedenItemExt) => {
+      const emailList = LedenItem.GetEmailList(lid);
+      if (lid.Opgezegd == '1' && new Date(lid.LidTot) < this.dateFrom )
+        return;
+
+      let singleLine = '';
+      emailList.forEach((element: MailItemTo) => {
+        singleLine += lid.Naam + ',' + lid.LidTot + ',' + element.ToName + '<' + element.To + '>' + ';\n';
+      });
+      localEmailString += singleLine;
+    });
+
+    let dynamicDownload = new DynamicDownload();
+    dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'csv');
+  }
 
   /***************************************************************************************************
   / Create list with ratings

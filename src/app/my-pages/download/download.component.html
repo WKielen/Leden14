@@ -71,10 +71,29 @@
         <mat-card-title>Ratings</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        Met onderstaande knop kan je de ratings en licenties updaten in de database. De gegevens worden van de NTTB website gehaald.
+        Met onderstaande knop kan je de ratings en licenties updaten in de database. De gegevens worden van de NTTB
+        website gehaald.
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onClickUpdateRatings()">Update ratings in Database</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Download in- en uitschrijvingen sinds</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Met onder knop kan de in- en uitschrijvingen downloaden sinds de opgegeven datum.
+        <br><br>
+        <mat-form-field>
+          <input matInput placeholder="Kies een datum" [matDatepicker]="picker" [value]="dateFrom" (dateChange)="onChangedDate($event)" >
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onClickUpdates()">Download</button>
       </mat-card-actions>
     </mat-card>
   </div>
