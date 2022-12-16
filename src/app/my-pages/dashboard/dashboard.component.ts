@@ -27,10 +27,11 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   public pieChart1 = null;
   public pieChart2 = null;
   public pieChart3 = null;
+  public pieChart4 = null;
 
   private countMemberArray: number[] = [];
   private countJuniorMemberArray: number[] = [];
-  private countSeniorMemberArray: number[] = [];;
+  private countSeniorMemberArray: number[] = [];
 
   private countSenMale: number = 0;
   private countSenFemale: number = 0;
@@ -56,6 +57,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   private countMembershipLenght_20: number = 0;
   private countMembershipLenght_30: number = 0;
 
+  private countOldStarsMember: number = 0;
 
   constructor(
     public authService: AuthService,
@@ -75,7 +77,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.bigChart = this.GetDataForLineChart();
         this.pieChart1 = this.GetDataForMaleFemalePie();
         this.pieChart2 = this.GetDataForAgePie();
-        this.pieChart3 = this.GetDataForMemberschipPie();;
+        this.pieChart3 = this.GetDataForMemberschipPie();
+        this.pieChart4 = this.GetDataOldStarsPie();
       }
     });
     this.registerSubscription(sub);
@@ -103,6 +106,9 @@ export class DashboardComponent extends BaseComponent implements OnInit {
           this.countSenMale += 1;
         } else {
           this.countSenFemale += 1;
+        }
+        if (lid.OldStars == '1') {
+          this.countOldStarsMember += 1;
         }
       }
 
@@ -369,6 +375,27 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   /***************************************************************************************************
+  / PIE 4: Verdeling van Old Stars en reguliere senior leden
+  /***************************************************************************************************/
+  GetDataOldStarsPie(): GraphData {
+    let pieData = new GraphData();
+    pieData.Title = 'Verdeling Volwassenen';
+    pieData.yAxisTitle = 'leden';
+    pieData.LabelFormat = '<b>{point.name}</b>: {point.y} leden';
+    pieData.TooltipFormat = '{point.y} {series.name}: <b>{point.percentage:.1f}%</b>';
+    pieData.Data = [{
+      name: 'Regulier',
+      y: (this.countSenMale + this.countSenFemale) - this.countOldStarsMember
+    }, {
+      name: 'Old Stars',
+      y: this.countOldStarsMember,
+      sliced: true,
+    }];
+
+    return pieData;
+  }
+
+  /***************************************************************************************************
   /
   /***************************************************************************************************/
   public isSmallScreen: boolean = false;
@@ -391,3 +418,4 @@ export class GraphData {
 class localLid extends LedenItemExt {
   membershipYears: number = 0;
 }
+
