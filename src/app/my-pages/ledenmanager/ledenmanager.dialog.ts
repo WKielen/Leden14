@@ -37,6 +37,7 @@ export class LedenDialogComponent implements OnInit {
         lidtype: new FormControl('', [Validators.required]),
         korting: new FormControl(),
         vastbedrag: new FormControl(),
+        oldstars: new FormControl(),
         //-------------------------------------------------------
         bondsnr: new FormControl(),
         lidbond: new FormControl(),
@@ -91,6 +92,7 @@ export class LedenDialogComponent implements OnInit {
         this.lidtype.setValue(this.data.data.LidType);
         this.korting.setValue(this.data.data.Korting);
         this.vastbedrag.setValue(this.data.data.VastBedrag);
+        this.oldstars.setValue(String(this.data.data.OldStars).toBoolean());
         this.bondsnr.setValue(this.data.data.BondsNr);
         this.lidbond.setValue(String(this.data.data.LidBond).toBoolean());
         this.compgerechtigd.setValue(String(this.data.data.CompGerechtigd).toBoolean());
@@ -130,6 +132,7 @@ export class LedenDialogComponent implements OnInit {
         this.data.data.LidType = this.lidtype.value;
         this.data.data.Korting = this.korting.value;
         this.data.data.VastBedrag = this.vastbedrag.value;
+        this.data.data.OldStars = Boolean(this.oldstars.value).ToNumberString();
         this.data.data.BondsNr = this.bondsnr.value;
         this.data.data.LidBond = Boolean(this.lidbond.value).ToNumberString();
         this.data.data.CompGerechtigd = Boolean(this.compgerechtigd.value).ToNumberString();
@@ -227,9 +230,11 @@ export class LedenDialogComponent implements OnInit {
     get korting() {
         return this.ledenItemForm.get('korting');
     }
-
     get vastbedrag() {
         return this.ledenItemForm.get('vastbedrag');
+    }
+    get oldstars() {
+        return this.ledenItemForm.get('oldstars');
     }
     //-------------------------------------------------------
     get bondsnr() {

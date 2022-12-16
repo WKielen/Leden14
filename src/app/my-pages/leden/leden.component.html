@@ -220,6 +220,11 @@
                   <td class='cell'>Licentie Sen :</td>
                   <td class='cell'>{{ element.LicentieSen }}</td>
                 </tr>
+                <tr *ngIf='element.OldStars'>
+                  <td class='cell'>Old Stars:</td>
+                  <td class='cell'>{{ element.OldStars.toDutchTextString() }}</td>
+                </tr>
+
               </table>
             </div>
           </td>

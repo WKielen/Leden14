@@ -29,6 +29,15 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="OldStars">
+        <th mat-header-cell *matHeaderCellDef class="colCheckbox">Old Stars</th>
+        <td mat-cell *matCellDef="let element" class="colCheckbox">
+          <mat-checkbox color="primary" (change)="onCheckboxOldStarsChange($event, element)"
+            [checked]="element.OldStars">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;">
       </tr>

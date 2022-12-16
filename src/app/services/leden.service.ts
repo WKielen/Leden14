@@ -303,6 +303,7 @@ export class LedenItem {
   Rol: string = '';
   Rating: number = 0;
   MagNietOpFoto: string = '';
+  OldStars: string = '';
 
 
   /***************************************************************************************************

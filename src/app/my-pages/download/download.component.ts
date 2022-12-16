@@ -46,7 +46,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
   ledenLijstKeuzes: string[] = ['Volledig', 'E-Mail', 'Ratings'];
   ledenLijstKeuze: string = this.ledenLijstKeuzes[0];
-  ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd'];
+  ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd', 'Old Stars'];
   ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
   ledenArray = new Array<LedenItemExt>();
   retiredArray = new Array<LedenItemExt>();
@@ -171,7 +171,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
     this.ledenArray.forEach((lid: LedenItemExt) => {
       const emailList = LedenItem.GetEmailList(lid);
-      if (new Date(lid.LidVanaf) < this.dateFrom )
+      if (new Date(lid.LidVanaf) < this.dateFrom)
         return;
 
       let singleLine = '';
@@ -184,7 +184,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     localEmailString += '\nOpgezegd\n\n';
     this.retiredArray.forEach((lid: LedenItemExt) => {
       const emailList = LedenItem.GetEmailList(lid);
-      if (lid.Opgezegd == '1' && new Date(lid.LidTot) < this.dateFrom )
+      if (lid.Opgezegd == '1' && new Date(lid.LidTot) < this.dateFrom)
         return;
 
       let singleLine = '';
@@ -595,6 +595,15 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
           }
         });
         selectie = 'Jeugd';
+        break;
+      }
+      case this.ledenSelectieKeuzes[3]: {  // Old Stars
+        this.ledenArray.forEach((element: LedenItemExt) => {
+          if (element.OldStars == '1') {
+            localList.push(element);
+          }
+        });
+        selectie = 'Old Stars';
         break;
       }
     }

@@ -15,7 +15,7 @@ export class MultiUpdateComponent extends ParentComponent implements OnInit {
 
   @ViewChild(MatTable, {static: false}) table: MatTable<any>;
 
-  displayedColumns: string[] = ['Naam', 'LidBond', 'CompGerechtigd', ];
+  displayedColumns: string[] = ['Naam', 'LidBond', 'CompGerechtigd', 'OldStars' ];
   dataSource = new MatTableDataSource<LedenItemExt2>();
   selection = new SelectionModel<LedenItem>(true, []); //used for checkboxes
   fabButtons = [];  // dit zijn de buttons op het scherm
@@ -52,6 +52,10 @@ export class MultiUpdateComponent extends ParentComponent implements OnInit {
     row.Dirty = true;
   }
 
+  onCheckboxOldStarsChange(event, row): void {
+    row.OldStars = event.checked;
+    row.Dirty = true;
+  }
 
 
   onFabClick(event, buttonNbr): void {
@@ -63,6 +67,7 @@ export class MultiUpdateComponent extends ParentComponent implements OnInit {
             'LidNr': element.LidNr,
             'LidBond': element.LidBond,
             'CompGerechtigd': element.CompGerechtigd,
+            'OldStars': element.OldStars
           };
           let sub = this.ledenService.update$(updateRecord)
             .subscribe();
