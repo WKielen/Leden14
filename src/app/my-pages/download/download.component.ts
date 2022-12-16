@@ -176,7 +176,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
       let singleLine = '';
       emailList.forEach((element: MailItemTo) => {
-        singleLine += lid.Naam + ',' + lid.LidVanaf + ',' + element.ToName + '<' + element.To + '>' + ';\n';
+        singleLine += lid.Naam + ';' + lid.LidVanaf + ';' + element.ToName + '<' + element.To + '>' + ';\n';
       });
       localEmailString += singleLine;
     });
@@ -189,7 +189,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
       let singleLine = '';
       emailList.forEach((element: MailItemTo) => {
-        singleLine += lid.Naam + ',' + lid.LidTot + ',' + element.ToName + '<' + element.To + '>' + ';\n';
+        singleLine += lid.Naam + ';' + lid.LidTot + ';' + element.ToName + '<' + element.To + '>' + ';\n';
       });
       localEmailString += singleLine;
     });
