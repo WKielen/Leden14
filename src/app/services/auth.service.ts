@@ -1,9 +1,10 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { Md5 } from 'ts-md5';
-import { ROLES } from './website.service';
+// import { ROLES } from './website.service';
 import { ICredentials, IJwtToken, IToken } from '../shared/classes/Credentials';
 import { Observable } from 'rxjs';
 
@@ -27,7 +28,7 @@ export class AuthService {
     let localData;
     // return this.http.post<string>(environment.loginUrl, credentials)
     credentials.password = <string>Md5.hashStr(credentials.password);
-    return this.http.post('https://www.ttvn.nl/api/signin', credentials)
+    return this.http.post(environment.baseUrl + '/signin', credentials)
       .pipe(
         map(response => {
           localData = response as IToken
@@ -35,9 +36,9 @@ export class AuthService {
 
             // We kunnen alleen inloggen als er een rol is. Ingebouwd omdat ik andere rollen wil gebruiken voor de jeugdapp.
             const localRoles = this.jwtHelper.decodeToken(localData.Token).role;
-            if (localRoles.indexOf(ROLES.BESTUUR) === -1 && localRoles.indexOf(ROLES.JC) === -1 && localRoles.indexOf(ROLES.TRAINER) === -1 &&
-            localRoles.indexOf(ROLES.LEDENADMIN) === -1 && localRoles.indexOf(ROLES.PENNINGMEESTER) === -1 && localRoles.indexOf(ROLES.ADMIN) === -1 &&
-            localRoles.indexOf(ROLES.TEST) === -1 ) return false;
+            // if (localRoles.indexOf(ROLES.BESTUUR) === -1 && localRoles.indexOf(ROLES.JC) === -1 && localRoles.indexOf(ROLES.TRAINER) === -1 &&
+            // localRoles.indexOf(ROLES.LEDENADMIN) === -1 && localRoles.indexOf(ROLES.PENNINGMEESTER) === -1 && localRoles.indexOf(ROLES.ADMIN) === -1 &&
+            // localRoles.indexOf(ROLES.TEST) === -1 ) return false;
 
 
             localStorage.removeItem('token');

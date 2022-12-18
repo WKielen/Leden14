@@ -96,7 +96,7 @@ export const PAGEROLES = {
   todolistPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.TEST ],
   registrationPageRoles:      [ ROLES.ADMIN, ROLES.BESTUUR ],
   contrbedragenPageRoles:     [ ROLES.ADMIN, ROLES.PENNINGMEESTER ],
-  multiupdatePageRoles:       [ ROLES.ADMIN, ROLES.PENNINGMEESTER, ROLES.LEDENADMIN, ROLES.OLDSTARS ],
+  multiupdatePageRoles:       [ ROLES.ADMIN, ROLES.PENNINGMEESTER, ROLES.LEDENADMIN ],
   ladderPageRoles:            [ ROLES.ADMIN, ROLES.JC ],
   syncnttbPageRoles:          [ ROLES.ADMIN, ROLES.LEDENADMIN ],
   traininggroupsPageRoles:    [ ROLES.ADMIN, ROLES.TRAINER, ROLES.JC ],
