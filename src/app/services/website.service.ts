@@ -19,7 +19,8 @@ export class WebsiteService extends DataService {
     roles.push({ 'Id': '1', 'DisplayValue': 'Jeugdcommissie', 'Code': ROLES.JC });
     roles.push({ 'Id': '2', 'DisplayValue': 'Trainer', 'Code': ROLES.TRAINER });
     roles.push({ 'Id': '6', 'DisplayValue': 'Ledenadministratie', 'Code': ROLES.LEDENADMIN });
-    roles.push({ 'Id': '8', 'DisplayValue': 'Jeugd-app', 'Code': ROLES.JEUGD });
+    roles.push({ 'Id': '9', 'DisplayValue': 'Old Stars trainer', 'Code': ROLES.OLDSTARS });
+    // roles.push({ 'Id': '8', 'DisplayValue': 'Jeugd-app', 'Code': ROLES.JEUGD });
     roles.push({ 'Id': '7', 'DisplayValue': 'Penningmeester', 'Code': ROLES.PENNINGMEESTER });
     roles.push({ 'Id': '5', 'DisplayValue': 'Admin', 'Code': ROLES.ADMIN });
     roles.push({ 'Id': '4', 'DisplayValue': 'Test pagina\'s', 'Code': ROLES.TEST });
@@ -78,23 +79,24 @@ export const ROLES = {
   TEST: 'TE',
   SENIOR: 'SE',
   JEUGD: 'JE',
+  OLDSTARS: 'OS',
 };
 
 export const PAGEROLES = {
   ledenmanagerPageRoles:      [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN ],
   oudledenPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN ],
-  ledenPageRoles:             [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
+  ledenPageRoles:             [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.OLDSTARS ],
   trainingdeelnamePageRoles:  [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   masterzPageRoles:           [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
-  kennismakenPageRoles:       [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
+  kennismakenPageRoles:       [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.OLDSTARS ],
   mailPageRoles:              [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
-  agendaPageRoles:            [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
+  agendaPageRoles:            [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.OLDSTARS ],
   websitePageRoles:           [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
-  downloadPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC ],
+  downloadPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.OLDSTARS ],
   todolistPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.TEST ],
   registrationPageRoles:      [ ROLES.ADMIN, ROLES.BESTUUR ],
   contrbedragenPageRoles:     [ ROLES.ADMIN, ROLES.PENNINGMEESTER ],
-  multiupdatePageRoles:       [ ROLES.ADMIN, ROLES.PENNINGMEESTER, ROLES.LEDENADMIN ],
+  multiupdatePageRoles:       [ ROLES.ADMIN, ROLES.PENNINGMEESTER, ROLES.LEDENADMIN, ROLES.OLDSTARS ],
   ladderPageRoles:            [ ROLES.ADMIN, ROLES.JC ],
   syncnttbPageRoles:          [ ROLES.ADMIN, ROLES.LEDENADMIN ],
   traininggroupsPageRoles:    [ ROLES.ADMIN, ROLES.TRAINER, ROLES.JC ],
