@@ -1,13 +1,19 @@
 @use "src/mixins.scss" as s;
 
 .mat-column-Naam {
-  @include s.mat-text-column-wrap-stuff;
+  // @include s.mat-text-column-wrap-stuff;
 }
 
 .mat-column-Leeftijd {
   @include s.mat-text-column-wrap-stuff;
   flex: 0 0 80px !important;
   width: 80px !important;
+}
+
+.mat-column-Groep {
+  @include s.mat-text-column-wrap-stuff;
+  flex: 0 0 40px !important;
+  width: 40px !important;
 }
 
 .cell {
