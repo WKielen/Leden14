@@ -45,6 +45,15 @@
                   <td width="65%"></td>
                   <td width="5%"></td>
                 </tr>
+                <tr *ngIf='element.Naam'>
+                  <td class='cell'>Naam:</td>
+                  <td class='cell'>{{ element.Naam }}</td>
+                  <td>
+                    <button mat-icon-button (click)="onClickCopy(element.Naam)">
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </td>
+                </tr>
                 <tr *ngIf='element.LidNr'>
                   <td class='cell'>LidNr:</td>
                   <td class='cell'>{{ element.LidNr }}</td>
