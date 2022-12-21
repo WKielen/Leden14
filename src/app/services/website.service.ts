@@ -85,7 +85,7 @@ export const ROLES = {
 export const PAGEROLES = {
   ledenmanagerPageRoles:      [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN ],
   oudledenPageRoles:          [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.LEDENADMIN ],
-  ledenPageRoles:             [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.OLDSTARS ],
+  ledenPageRoles:             [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.OLDSTARS, ROLES.LEDENADMIN ],
   trainingdeelnamePageRoles:  [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   masterzPageRoles:           [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER ],
   kennismakenPageRoles:       [ ROLES.ADMIN, ROLES.BESTUUR, ROLES.JC, ROLES.TRAINER, ROLES.OLDSTARS ],
