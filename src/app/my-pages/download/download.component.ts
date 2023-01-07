@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LedenService, LedenItemExt, LedenItem, LidTypeValues } from '../../services/leden.service';
+import { LedenService, LedenItemExt, LedenItem, LidTypeValues, BetaalWijzeValues } from '../../services/leden.service';
 import { ExportToCsv } from 'export-to-csv';
 import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { AgendaService } from 'src/app/services/agenda.service';
@@ -46,7 +46,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
   ledenLijstKeuzes: string[] = ['Volledig', 'E-Mail', 'Ratings'];
   ledenLijstKeuze: string = this.ledenLijstKeuzes[0];
-  ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd', 'Old Stars'];
+  ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd', 'Old Stars', 'Nieuwegein-pas'];
   ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
   ledenArray = new Array<LedenItemExt>();
   retiredArray = new Array<LedenItemExt>();
@@ -604,6 +604,15 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
           }
         });
         selectie = 'Old Stars';
+        break;
+      }
+      case this.ledenSelectieKeuzes[4]: {  // Nieuwegein pas
+        this.ledenArray.forEach((element: LedenItemExt) => {
+          if (element.BetaalWijze == BetaalWijzeValues.UPAS) {
+            localList.push(element);
+          }
+        });
+        selectie = 'Nieuegein-pas';
         break;
       }
     }
