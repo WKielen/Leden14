@@ -107,9 +107,16 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   / Download button in Download Ledenlijst box
   /***************************************************************************************************/
   onClickLedenLijst(): void {
+    // console.log("DownloadComponent --> onClickLedenLijst --> ledenLijstKeuze", this.ledenLijstKeuze[0]);
+    // console.log("DownloadComponent --> onClickLedenLijst --> this.ledenSelectieKeuzes", this.ledenSelectieKeuzes[3]);
     switch (this.ledenLijstKeuze) {
       case this.ledenLijstKeuzes[0]: {
-        this.createLedenlijst('TTVN Ledenlijst');
+        if (this.ledenSelectieKeuze == 'Old Stars' ) {
+          this.createLijstjePerLidLedenlijst('TTVN Ledenlijst Old Stars');
+        } else {
+          this.createLedenlijst('TTVN Ledenlijst');
+        }
+
         break;
       }
       case this.ledenLijstKeuzes[1]: {
@@ -137,6 +144,36 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   }
 
   /***************************************************************************************************
+  / Download ledenlijst voor de Oldstars omdat zij niet om kunnen gaan met Excel
+  /***************************************************************************************************/
+  private async createLijstjePerLidLedenlijst(type: string): Promise<void> {
+    let localList: Array<any> = this.selectLeden();
+    let localEmailString: string = '';
+    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
+
+    localList[0].forEach((element: LedenItemExt) => {
+      localEmailString += element.VolledigeNaam + '\n';
+      localEmailString += element.Adres + ', ' + element.Postcode + ', ' + element.Woonplaats + '\n';
+      localEmailString += element.GeboorteDatum + '\n';
+      localEmailString += element.Email1 + '\n';
+      if (element.Mobiel != '' && element.Mobiel != null) {
+        localEmailString += element.Mobiel + '\n';
+      } else {
+        localEmailString += element.Telefoon + '\n';
+      }
+      localEmailString += '\n';
+
+    });
+
+    let dynamicDownload = new DynamicDownload();
+    this.csvOptions.filename += new Date().to_YYYY_MM_DD();
+    dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'txt');
+
+
+  }
+
+
+  /***************************************************************************************************
   / Download maillijst
   /***************************************************************************************************/
   async createMailLijst(type: string): Promise<void> {
@@ -152,7 +189,6 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     });
 
     let dynamicDownload = new DynamicDownload();
-    this.csvOptions.filename += new Date().to_YYYY_MM_DD();
     dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'txt');
   }
 
@@ -569,6 +605,7 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
 
   /***************************************************************************************************
   / Select alle leden voor de lijst
+  / Als eerste in de array komt een ledenlijst. De tweede is een string met een omschrijving
   /***************************************************************************************************/
   private selectLeden(): Array<any> {
     let localList: LedenItemExt[] = [];
