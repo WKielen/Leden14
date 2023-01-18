@@ -113,9 +113,9 @@ export class DownloadComponent extends ParentComponent implements OnInit {
       case this.ledenLijstKeuzes[0]: {
         if (this.ledenSelectieKeuze == 'Old Stars' ) {
           this.createLijstjePerLidLedenlijst('TTVN Ledenlijst Old Stars');
-        } else {
-          this.createLedenlijst('TTVN Ledenlijst');
-        }
+          // this.createLijstjePerLidLedenlijst2('TTVN Ledenlijst Old Stars');
+        } 
+        this.createLedenlijst('TTVN Ledenlijst');
 
         break;
       }
@@ -143,10 +143,56 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     csvExporter.generateCsv(localList[0]);
   }
 
+
   /***************************************************************************************************
   / Download ledenlijst voor de Oldstars omdat zij niet om kunnen gaan met Excel
   /***************************************************************************************************/
   private async createLijstjePerLidLedenlijst(type: string): Promise<void> {
+    let localList: Array<any> = this.selectLeden();
+    let localEmailString: string = '';
+    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
+
+    localEmailString += 'Naam'.padEnd(40, ' ');
+    localEmailString += 'Adres'.padEnd(50, ' ');
+    localEmailString += 'Geb.Datum'.padEnd(12, ' ');
+    localEmailString += 'Mail'.padEnd(40, ' ');
+    localEmailString += 'Telefoon'.padEnd(12, ' ');
+    localEmailString += '\n';
+
+    localEmailString += ''.padStart(40 -1, '-') + ' ';
+    localEmailString += ' '.padStart(50, '-');
+    localEmailString += ' '.padStart(12, '-');
+    localEmailString += ' '.padStart(40, '-');
+    localEmailString += ' '.padStart(12, '-');
+    localEmailString += '\n';
+
+    localList[0].forEach((element: LedenItemExt) => {
+      localEmailString += element.VolledigeNaam.padEnd(40, ' ');
+
+      localEmailString += (element.Adres + ', ' + element.Postcode + ', ' + element.Woonplaats).padEnd(50, ' ');
+      localEmailString += element.GeboorteDatum.padEnd(12, ' ');
+      localEmailString += element.Email1.padEnd(40, ' ');
+      if (element.Mobiel != '' && element.Mobiel != null) {
+        localEmailString += element.Mobiel.padEnd(12, ' ');
+      } else {
+        localEmailString += element.Telefoon.padEnd(12, ' ');
+      }
+
+      
+      localEmailString += '\n';
+    });
+
+    let dynamicDownload = new DynamicDownload();
+    this.csvOptions.filename += new Date().to_YYYY_MM_DD();
+    dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'txt');
+
+
+  }
+
+  /***************************************************************************************************
+  / Download ledenlijst voor de Oldstars omdat zij niet om kunnen gaan met Excel
+  /***************************************************************************************************/
+  private async createLijstjePerLidLedenlijst2(type: string): Promise<void> {
     let localList: Array<any> = this.selectLeden();
     let localEmailString: string = '';
     this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
