@@ -26,13 +26,14 @@
     "@angular/router": "^14.3.0",
     "@angular/service-worker": "^14.3.0",
     "@auth0/angular-jwt": "^5.0.2",
-    "@fullcalendar/angular": "^5.10.1",
-    "@fullcalendar/daygrid": "^5.10.1",
-    "@fullcalendar/interaction": "^5.10.1",
-    "@fullcalendar/list": "^5.10.1",
+    "@fullcalendar/angular": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/list": "^6.1.8",
     "@kolkov/angular-editor": "^1.2.0",
     "angular-iban": "^4.0.2",
     "export-to-csv": "^0.2.1",
+    "fullcalendar": "^6.1.8",
     "highcharts": "^9.3.2",
     "highcharts-angular": "^2.10.0",
     "iban": "0.0.14",
@@ -54,6 +55,8 @@
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "eslint": "^7.32.0",
+    "http-server": "^0.12.3",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.9",
@@ -64,8 +67,6 @@
     "ng-packagr": "^14.2.2",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.8.4",
-    "eslint": "^7.32.0",
-    "http-server": "^0.12.3"
+    "typescript": "~4.8.4"
   }
 }
