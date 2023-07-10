@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { BetaalWijzeValues, LidTypeValues } from 'src/app/services/leden.service';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 import { ValidatorService } from 'angular-iban';
@@ -12,46 +12,46 @@ import { SingleMail, SingleMailDialogComponent } from '../mail/singlemail.dialog
     styleUrls: ['./ledenmanager.dialog.scss'],
 })
 export class LedenDialogComponent implements OnInit {
-    ledenItemForm = new FormGroup({
-        voornaam: new FormControl('', [Validators.required]),
-        achternaam: new FormControl('', [Validators.required]),
-        tussenvoegsel: new FormControl(),
-        adres: new FormControl('', [Validators.required]),
-        woonplaats: new FormControl('', [Validators.required]),
-        postcode: new FormControl('', [Validators.required]),
-        mobiel: new FormControl(),
-        telefoon: new FormControl(),
-        geslacht: new FormControl('', [Validators.required]),
-        geboorteDatum: new FormControl('', [Validators.required]),
-        email1: new FormControl('', [Validators.email]),
-        email2: new FormControl('', [Validators.email]),
-        medisch: new FormControl(),
-        magnietopfoto: new FormControl(),
+    ledenItemForm = new UntypedFormGroup({
+        voornaam: new UntypedFormControl('', [Validators.required]),
+        achternaam: new UntypedFormControl('', [Validators.required]),
+        tussenvoegsel: new UntypedFormControl(),
+        adres: new UntypedFormControl('', [Validators.required]),
+        woonplaats: new UntypedFormControl('', [Validators.required]),
+        postcode: new UntypedFormControl('', [Validators.required]),
+        mobiel: new UntypedFormControl(),
+        telefoon: new UntypedFormControl(),
+        geslacht: new UntypedFormControl('', [Validators.required]),
+        geboorteDatum: new UntypedFormControl('', [Validators.required]),
+        email1: new UntypedFormControl('', [Validators.email]),
+        email2: new UntypedFormControl('', [Validators.email]),
+        medisch: new UntypedFormControl(),
+        magnietopfoto: new UntypedFormControl(),
         //-------------------------------------------------------
-        iban: new FormControl('',  [ValidatorService.validateIban] ),
-        bic: new FormControl(),
-        u_pasNr: new FormControl(),
-        lidvanaf: new FormControl('', [Validators.required]),
-        betaalwijze: new FormControl('', [Validators.required]),
-        lidnr: new FormControl(),
-        lidtype: new FormControl('', [Validators.required]),
-        korting: new FormControl(),
-        vastbedrag: new FormControl(),
-        oldstars: new FormControl(),
+        iban: new UntypedFormControl('',  [ValidatorService.validateIban] ),
+        bic: new UntypedFormControl(),
+        u_pasNr: new UntypedFormControl(),
+        lidvanaf: new UntypedFormControl('', [Validators.required]),
+        betaalwijze: new UntypedFormControl('', [Validators.required]),
+        lidnr: new UntypedFormControl(),
+        lidtype: new UntypedFormControl('', [Validators.required]),
+        korting: new UntypedFormControl(),
+        vastbedrag: new UntypedFormControl(),
+        oldstars: new UntypedFormControl(),
         //-------------------------------------------------------
-        bondsnr: new FormControl(),
-        lidbond: new FormControl(),
-        compgerechtigd: new FormControl(),
-        rating: new FormControl(),
-        licentiejun: new FormControl(),
-        licentiesen: new FormControl(),
+        bondsnr: new UntypedFormControl(),
+        lidbond: new UntypedFormControl(),
+        compgerechtigd: new UntypedFormControl(),
+        rating: new UntypedFormControl(),
+        licentiejun: new UntypedFormControl(),
+        licentiesen: new UntypedFormControl(),
         //-------------------------------------------------------
-        ouder1_naam: new FormControl(),
-        ouder1_email1: new FormControl(),
-        ouder1_email2: new FormControl(),
-        ouder1_mobiel: new FormControl(),
-        ouder1_mobiel2: new FormControl(),
-        ouder1_telefoon: new FormControl(),
+        ouder1_naam: new UntypedFormControl(),
+        ouder1_email1: new UntypedFormControl(),
+        ouder1_email2: new UntypedFormControl(),
+        ouder1_mobiel: new UntypedFormControl(),
+        ouder1_mobiel2: new UntypedFormControl(),
+        ouder1_telefoon: new UntypedFormControl(),
     });
 
     betaalWijzeValues = BetaalWijzeValues.table;

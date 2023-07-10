@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActionItem } from 'src/app/services/action.service';
 import { ROLES } from 'src/app/services/website.service';
 import { BaseComponent } from 'src/app/shared/base.component';
@@ -13,17 +13,17 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
 export class DecisionMutationFormComponent extends BaseComponent implements OnInit {
   // TODO: wat doen we nu met die bestuuronly flag????
 
-  actionItemForm = new FormGroup({
-    title: new FormControl(
+  actionItemForm = new UntypedFormGroup({
+    title: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    startdate: new FormControl(
+    startdate: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    bestuuronly: new FormControl(),
-    description: new FormControl(),
+    bestuuronly: new UntypedFormControl(),
+    description: new UntypedFormControl(),
   });
 
   @Input() actionItem: ActionItem = {};
