@@ -19,7 +19,7 @@ import { ParentComponent } from '../shared/parent.component';
   <small class="development" *ngIf="developmentMode">{{ me }}</small><div>
   <form [formGroup]="mailboxparamForm" novalidate>
 
-    Deze velden zijn nodig voor het inloggen in je mailbox<br><br>
+    Deze velden zijn nodig voor het versturen van mail<br><br>
 
     <mat-form-field>
         <input matInput type="text" placeholder="Email adres" formControlName="ElecPostAddress"

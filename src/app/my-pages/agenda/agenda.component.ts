@@ -2,7 +2,11 @@ import { Component, OnInit, OnDestroy, ViewChild, AfterViewChecked } from "@angu
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ParentComponent } from "src/app/shared/parent.component";
-import { Calendar, CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventDropArg, EventInput, FullCalendarComponent } from "@fullcalendar/angular";
+import { Calendar, CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventDropArg, EventInput } from "@fullcalendar/core";
+import { FullCalendarComponent } from "@fullcalendar/angular";
+import   dayGridPlugin from '@fullcalendar/daygrid';
+import   interactionPlugin  from '@fullcalendar/interaction';
+import   listPlugin from '@fullcalendar/list'
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AgendaDialogComponent } from "../agenda/agenda.dialog";
@@ -186,7 +190,11 @@ export class AgendaComponent
     weekNumbers: true,
     weekText: "",
     locale: "nl",
-
+    plugins: [
+      interactionPlugin,
+      dayGridPlugin,
+      listPlugin,
+    ],
     headerToolbar: {
       left: "prev,next today",
       center: "title",
