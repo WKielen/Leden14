@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { NotFoundError } from 'rxjs';
 import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';
 import { AuthService } from 'src/app/services/auth.service';

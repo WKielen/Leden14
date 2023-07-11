@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LedenService, LedenItemExt } from '../../services/leden.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTable as MatTable } from '@angular/material/legacy-table';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { TrainingstijdItem, TrainingstijdService } from 'src/app/services/trainingstijd.service';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewChecked } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ParentComponent } from "src/app/shared/parent.component";
 import { Calendar, CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventDropArg, EventInput } from "@fullcalendar/core";
@@ -8,7 +8,7 @@ import   dayGridPlugin from '@fullcalendar/daygrid';
 import   interactionPlugin  from '@fullcalendar/interaction';
 import   listPlugin from '@fullcalendar/list'
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { AgendaDialogComponent } from "../agenda/agenda.dialog";
 import { AgendaDetailDialogComponent } from "../agenda/agenda.detail.dialog";
 import { SnackbarTexts } from "src/app/shared/error-handling/SnackbarTexts";

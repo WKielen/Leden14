@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, VERSION } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';

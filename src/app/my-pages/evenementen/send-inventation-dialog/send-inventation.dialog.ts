@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { LedenItemExt } from 'src/app/services/leden.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ConvertToReadableDate } from 'src/app/shared/modules/DateRoutines';
 import { ParentComponent } from 'src/app/shared/parent.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-send-inventation-dialog',

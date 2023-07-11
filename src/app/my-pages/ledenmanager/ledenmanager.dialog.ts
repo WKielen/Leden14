@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { BetaalWijzeValues, LidTypeValues } from 'src/app/services/leden.service';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { LedenService, LedenItemExt, LedenItem } from '../../services/leden.service';
 import { AppError } from '../../shared/error-handling/app-error';
 import { DuplicateKeyError } from '../../shared/error-handling/duplicate-key-error';
@@ -10,9 +10,9 @@ import { ParamService } from 'src/app/services/param.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { LedenDialogComponent } from '../ledenmanager/ledenmanager.dialog';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-syncnttb-page',
