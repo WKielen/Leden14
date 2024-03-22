@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LedenItem, LedenItemExt } from 'src/app/services/leden.service';
 import { ReadTextFileService } from 'src/app/services/readtextfile.service';
 import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 import { MailDialogComponent } from './mail.dialog';
 import { MailItem, MailItemTo } from 'src/app/services/mail.service';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'singlemail-dialog',
@@ -16,12 +16,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SingleMailDialogComponent extends BaseComponent implements OnInit {
 
-  websiteItemForm = new FormGroup({
-    Subject: new FormControl(
+  websiteItemForm = new UntypedFormGroup({
+    Subject: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    HtmlControl: new FormControl(
+    HtmlControl: new UntypedFormControl(
       '',
       [Validators.required]
     ),

@@ -1,7 +1,7 @@
 import { Attribute, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { ActionItem, ActionService, ACTIONSTATUS } from 'src/app/services/action.service';
 import { ROLES } from 'src/app/services/website.service';
 import { IHoldableResponse } from 'src/app/shared/directives/holdable.directive';

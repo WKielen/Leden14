@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Role, WebsiteService } from 'src/app/services/website.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { RolesDialogComponent } from './roles.dialog';
@@ -17,19 +17,19 @@ import { ICheckboxDictionaryItem } from 'src/app/components/checkbox.list.compon
 })
 
 export class RegistrationDialogComponent extends BaseComponent implements OnInit {
-  actionItemForm = new FormGroup({
-    userid: new FormControl(
+  actionItemForm = new UntypedFormGroup({
+    userid: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    firstname: new FormControl(),
-    lastname: new FormControl(),
-    email: new FormControl(
+    firstname: new UntypedFormControl(),
+    lastname: new UntypedFormControl(),
+    email: new UntypedFormControl(
       '',
       [Validators.email]
     ),
-    password: new FormControl(),
-    role: new FormControl(),
+    password: new UntypedFormControl(),
+    role: new UntypedFormControl(),
   });
 
   public myCheckboxDictionairy: Array<ICheckboxDictionaryItem> = [];

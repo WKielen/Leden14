@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Self, EventEmitter, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NgControl } from '@angular/forms';
 import { BaseComponent } from '../shared/base.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { BaseComponent } from '../shared/base.component';
     <app-html-editor [htmlInputContent]="receivedHtmlInput" (htmlOutputContent)='onHtmlChanged($event)'></app-html-editor>
   `,
   providers: [{
-    provide: FormControl,
+    provide: UntypedFormControl,
     useExisting: HtmlEditorFormControlComponent
   }]
 })

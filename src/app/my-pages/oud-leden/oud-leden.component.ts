@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LedenItem, LedenService, LidTypeValues, BetaalWijzeValues } from 'src/app/services/leden.service';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { ParentComponent } from 'src/app/shared/parent.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 
 @Component({

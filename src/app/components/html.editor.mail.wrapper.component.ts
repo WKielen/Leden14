@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, TemplateRef } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { MailNameList, MailSaveItem } from "src/app/my-pages/mail/MailBoxParamClasses";
 import { AuthService } from 'src/app/services/auth.service';
 import { MailService } from 'src/app/services/mail.service';
@@ -111,17 +111,17 @@ export class HtmlEditorMailWrapperComponent extends ParentComponent implements O
   // attachmentcontent: string = '';
   savedMailNames = new MailNameList();
 
-  mailForm = new FormGroup({
-    EmailName: new FormControl(
+  mailForm = new UntypedFormGroup({
+    EmailName: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    EmailSubject: new FormControl(
+    EmailSubject: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    SavedMails: new FormControl(),
-    HtmlControl: new FormControl(
+    SavedMails: new UntypedFormControl(),
+    HtmlControl: new UntypedFormControl(
       '',
       [Validators.required]
     )

@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { LedenItem, LedenItemExt } from 'src/app/services/leden.service';
 import { MailBoxParam, MailItem, MailItemTo, MailService } from 'src/app/services/mail.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MailDialogComponent } from 'src/app/my-pages/mail/mail.dialog';
 import { ParentComponent } from '../shared/parent.component';
 import { Replace, ReplaceKeywords } from '../shared/modules/ReplaceKeywords';
@@ -10,7 +10,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { AppError } from '../shared/error-handling/app-error';
 import { AuthService } from 'src/app/services/auth.service';
 import { ParamService } from 'src/app/services/param.service';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-send-mail',
@@ -58,12 +58,12 @@ export class SendMailComponent extends ParentComponent implements OnInit, OnChan
   @Input()
   public replaceLinkCallback: Function;
 
-  extraMailForm = new FormGroup({
-    EmailExtra: new FormControl(
+  extraMailForm = new UntypedFormGroup({
+    EmailExtra: new UntypedFormControl(
       '',
       [Validators.email]
     ),
-    EigenMail: new FormControl(),
+    EigenMail: new UntypedFormControl(),
   });
 
   private attachmentContent: string = '';

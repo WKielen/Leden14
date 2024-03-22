@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ParamService } from 'src/app/services/param.service';
 import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen';
 import { AppError } from 'src/app/shared/error-handling/app-error';
@@ -10,7 +10,7 @@ import { LedenItemExt, LedenService, LidTypeValues } from 'src/app/services/lede
 import { MailItem } from 'src/app/services/mail.service';
 import { MailDialogComponent } from 'src/app/my-pages/mail/mail.dialog';
 import { formatDate } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-send-controbutie-mail',

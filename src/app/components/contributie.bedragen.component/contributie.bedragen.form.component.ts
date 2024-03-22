@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ParamService } from 'src/app/services/param.service';
 import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen';
 import { AppError } from 'src/app/shared/error-handling/app-error';
@@ -16,32 +16,32 @@ import { ParentComponent } from 'src/app/shared/parent.component';
 
 export class ContributieBedragenFormComponent extends ParentComponent implements OnInit {
 
-  contributieForm = new FormGroup({
-    HalfjaarVolwassenen: new FormControl(
+  contributieForm = new UntypedFormGroup({
+    HalfjaarVolwassenen: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    HalfjaarJeugd: new FormControl(
+    HalfjaarJeugd: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    CompetitieBijdrageVolwassenen: new FormControl(
+    CompetitieBijdrageVolwassenen: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    CompetitieBijdrageJeugd: new FormControl(
+    CompetitieBijdrageJeugd: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    ZwerflidPercentage: new FormControl(
+    ZwerflidPercentage: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    Donateur: new FormControl(
+    Donateur: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    Pakket: new FormControl(
+    Pakket: new UntypedFormControl(
       '',
       [Validators.required]
     ),

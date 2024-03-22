@@ -13,13 +13,13 @@ import {
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   NgControl,
   Validators
 } from '@angular/forms';
-import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
+import { MAT_LEGACY_FORM_FIELD as MAT_FORM_FIELD, MatLegacyFormField as MatFormField, MatLegacyFormFieldControl as MatFormFieldControl } from '@angular/material/legacy-form-field';
 import { Subject } from 'rxjs';
 
 /** @title Form field with custom telephone number input control. */
@@ -28,8 +28,8 @@ import { Subject } from 'rxjs';
   templateUrl: 'form-field-custom-control-example.html',
 })
 export class FormFieldCustomControlExample {
-  form: FormGroup = new FormGroup({
-    tel: new FormControl(new MyTel('', '', ''))
+  form: UntypedFormGroup = new UntypedFormGroup({
+    tel: new UntypedFormControl(new MyTel('', '', ''))
   });
 }
 
@@ -60,7 +60,7 @@ export class MyTelInput
   @ViewChild('exchange') exchangeInput: HTMLInputElement;
   @ViewChild('subscriber') subscriberInput: HTMLInputElement;
 
-  parts: FormGroup;
+  parts: UntypedFormGroup;
   stateChanges = new Subject<void>();
   focused = false;
   controlType = 'example-tel-input';
@@ -134,7 +134,7 @@ export class MyTelInput
   }
 
   constructor(
-    formBuilder: FormBuilder,
+    formBuilder: UntypedFormBuilder,
     private _focusMonitor: FocusMonitor,
     private _elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(MAT_FORM_FIELD) public _formField: MatFormField,

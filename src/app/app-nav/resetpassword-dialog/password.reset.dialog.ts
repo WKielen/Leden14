@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { UserItem, UserService } from 'src/app/services/user.service';
 import { MailService } from 'src/app/services/mail.service';
 import { passwordMatchValidator } from './passwordValidator';
@@ -28,16 +28,16 @@ export class ResetPasswordDialogComponent extends BaseComponent {
   responseText: string = '';
   error: boolean = false;
 
-  registerForm = new FormGroup({
-    userid: new FormControl(
+  registerForm = new UntypedFormGroup({
+    userid: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    password1: new FormControl(
+    password1: new UntypedFormControl(
       '',
       [Validators.required, Validators.minLength(6)]
     ),
-    password2: new FormControl(
+    password2: new UntypedFormControl(
       '',
       [Validators.required]
     )

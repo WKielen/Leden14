@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { ParentComponent } from "src/app/shared/parent.component";
 import { ActivatedRoute } from '@angular/router';
 import { AppError } from "src/app/shared/error-handling/app-error";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { InschrijvingItem, InschrijvingService } from "src/app/services/inschrijving.service";
 import { SnackbarTexts } from "src/app/shared/error-handling/SnackbarTexts";
 import { DuplicateKeyError } from "src/app/shared/error-handling/duplicate-key-error";
@@ -27,13 +27,13 @@ export class SubscribeEventPageComponent
   public responseError: boolean = false;
   public showSubmitButton: string = 'block';
 
-  subscribeForm = new FormGroup({
-    naam: new FormControl(
+  subscribeForm = new UntypedFormGroup({
+    naam: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    email: new FormControl(),
-    extrainformatie: new FormControl(),
+    email: new UntypedFormControl(),
+    extrainformatie: new UntypedFormControl(),
   });
 
   constructor(

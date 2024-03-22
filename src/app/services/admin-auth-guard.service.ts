@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { ROUTE } from './website.service';
 
@@ -7,7 +7,7 @@ import { ROUTE } from './website.service';
   providedIn: 'root'
 })
 
-export class AdminAuthGuard implements CanActivate {
+export class AdminAuthGuard  {
 
   constructor(
     private router: Router,
