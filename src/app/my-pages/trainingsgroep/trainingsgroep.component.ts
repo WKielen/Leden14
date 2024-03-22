@@ -17,7 +17,7 @@ export class TrainingGroupsComponent extends ParentComponent implements OnInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-  predefinedDisplayColumns: string[] = ['Naam', 'Ma1', 'Ma2', 'Di1', 'Di2', 'Wo1', 'Wo2', 'Do1', 'Do2', 'Vr1', 'Vr2', 'Za1', 'Za2', 'Zo1', 'Zo2'];
+  predefinedDisplayColumns: string[] = ['Naam', 'Ma1', 'Ma2', 'Di1', 'Di2', 'Wo1', 'Wo2', 'Wo3','Wo4','Do1', 'Do2', 'Vr1', 'Vr2', 'Za1', 'Za2', 'Zo1', 'Zo2'];
   displayedColumns: string[] = ['Naam'];
   dataSource = new MatTableDataSource<trainingsgroepLine>();
   fabButtons = [];  // dit zijn de buttons op het scherm
