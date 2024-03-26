@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LedenService, LedenItemExt, LedenItem, LidTypeValues, BetaalWijzeValues } from '../../services/leden.service';
 import { ExportToCsv } from 'export-to-csv';
 import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';

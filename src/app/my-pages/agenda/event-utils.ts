@@ -1,4 +1,4 @@
-import { EventApi, EventInput } from "@fullcalendar/core";
+import { EventApi, EventInput } from "@fullcalendar/angular";
 import { AgendaItem } from "src/app/services/agenda.service";
 
 let eventGuid = 0;

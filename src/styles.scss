@@ -10,16 +10,7 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -43,13 +34,13 @@ $custom-theme-accent: mat.define-palette(mat.$grey-palette);
 $custom-theme-warn: mat.define-palette(mat.$red-palette);
 $custom-theme: mat.define-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
-@include mat.all-legacy-component-themes($custom-theme);
+@include mat.all-component-themes($custom-theme);
 
 $alt-theme-primary: mat.define-palette(mat.$yellow-palette, 700);
 $alt-theme: mat.define-light-theme($alt-theme-primary, $custom-theme-accent, $custom-theme-warn);
 
 .alternative-theme {
-  @include mat.all-legacy-component-themes($alt-theme);
+  @include mat.all-component-themes($alt-theme);
 }
 
 $training-theme-primary: mat.define-palette(mat.$green-palette, 700);
@@ -57,7 +48,7 @@ $training-theme-accent: mat.define-palette(mat.$orange-palette, 700);
 $training-theme: mat.define-light-theme($training-theme-primary, $training-theme-accent, $custom-theme-warn);
 
 .trainings-theme {
-  @include mat.all-legacy-component-themes($training-theme);
+  @include mat.all-component-themes($training-theme);
 }
 
 /* You can add global styles to this file, and also import other style files */

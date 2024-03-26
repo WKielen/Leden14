@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LedenItemExt, LedenService } from 'src/app/services/leden.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatGridList } from '@angular/material/grid-list';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import { Observable, forkJoin, lastValueFrom } from 'rxjs';
 import { TrainingService, TrainingItem, TrainingDag, DateAndStateOfLid } from 'src/app/services/training.service';

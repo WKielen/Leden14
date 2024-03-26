@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParamService } from 'src/app/services/param.service';
 import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen';
 import { DirectDebit } from 'src/app/shared/classes/DirectDebit';
@@ -19,12 +19,12 @@ import { LedenItemExt, LedenService } from 'src/app/services/leden.service';
 
 export class AanmakenContributieCSVFormComponent extends ParentComponent implements OnInit {
 
-  incassoForm = new UntypedFormGroup({
-    Omschrijving: new UntypedFormControl(
+  incassoForm = new FormGroup({
+    Omschrijving: new FormControl(
       '',
       [Validators.required]
     ),
-    RequestedDirectDebitDate: new UntypedFormControl(
+    RequestedDirectDebitDate: new FormControl(
       '',
       [Validators.required]
 

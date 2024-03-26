@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotFoundError } from 'rxjs';
 import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,7 +19,7 @@ import { ParentComponent } from '../shared/parent.component';
   <small class="development" *ngIf="developmentMode">{{ me }}</small><div>
   <form [formGroup]="mailboxparamForm" novalidate>
 
-    Deze velden zijn nodig voor het versturen van mail<br><br>
+    Deze velden zijn nodig voor het inloggen in je mailbox<br><br>
 
     <mat-form-field>
         <input matInput type="text" placeholder="Email adres" formControlName="ElecPostAddress"
@@ -58,32 +58,32 @@ export class SendMailSettingsComponent extends ParentComponent {
   showPw: boolean = false;
   mailBoxParam = new MailBoxParam();
 
-  mailboxparamForm = new UntypedFormGroup({
-    ElecPostAddress: new UntypedFormControl(
+  mailboxparamForm = new FormGroup({
+    ElecPostAddress: new FormControl(
       '',
       [Validators.required, Validators.email]
     ),
-    EmailPassword: new UntypedFormControl(
+    EmailPassword: new FormControl(
       '',
       [Validators.required]
     ),
-    EmailSender: new UntypedFormControl()
+    EmailSender: new FormControl()
   });
 
-  mailForm = new UntypedFormGroup({
-    TypeYourMail: new UntypedFormControl(
+  mailForm = new FormGroup({
+    TypeYourMail: new FormControl(
       '',
       [Validators.required]
     ),
-    EmailName: new UntypedFormControl(
+    EmailName: new FormControl(
       '',
       [Validators.required]
     ),
-    EmailSubject: new UntypedFormControl(
+    EmailSubject: new FormControl(
       '',
       [Validators.required]
     ),
-    SavedMails: new UntypedFormControl(),
+    SavedMails: new FormControl(),
   });
 
   constructor(

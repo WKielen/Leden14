@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LedenService, LedenItem, LidTypeValues, LedenItemExt, DateRoutines } from '../../services/leden.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
-import { UntypedFormControl } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
@@ -40,8 +40,8 @@ export class LedenComponent extends ParentComponent implements OnInit {
   public expandedElement: LedenItemExt; // added on the angular 8 upgrade to suppres error message
 
 
-  nameFilter = new UntypedFormControl('');
-  ageFilter = new UntypedFormControl('');
+  nameFilter = new FormControl('');
+  ageFilter = new FormControl('');
   filterValues = {
     Naam: '',
     Leeftijd: '',

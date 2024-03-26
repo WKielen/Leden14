@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ActionItem } from 'src/app/services/action.service';
 import { ROLES } from 'src/app/services/website.service';
 import { BaseComponent } from 'src/app/shared/base.component';
@@ -12,16 +12,16 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
 })
 export class ActionMutationFormComponent extends BaseComponent implements OnInit {
 
-  actionItemForm = new UntypedFormGroup({
-    title: new UntypedFormControl(
+  actionItemForm = new FormGroup({
+    title: new FormControl(
       '',
       [Validators.required]
     ),
-    startdate: new UntypedFormControl(),
-    targetdate: new UntypedFormControl(),
-    description: new UntypedFormControl(),
-    holdername: new UntypedFormControl(),
-    bestuuronly: new UntypedFormControl(),
+    startdate: new FormControl(),
+    targetdate: new FormControl(),
+    description: new FormControl(),
+    holdername: new FormControl(),
+    bestuuronly: new FormControl(),
   });
 
   @Input() actionItem: ActionItem = {};

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LedenItem, LedenItemExt, LedenService } from 'src/app/services/leden.service';
 import { ParentComponent } from 'src/app/shared/parent.component';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 import { ParamService } from 'src/app/services/param.service';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { NotFoundError } from 'src/app/shared/error-handling/not-found-error';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
-import { MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS as MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/legacy-checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { catchError, forkJoin, map, of } from 'rxjs';
 
 @Component({

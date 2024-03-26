@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MailKennismakerDialogComponent } from './mail-kennismaker-dialog/mail-kennismaker.dialog';
 import { LedenItemExt } from 'src/app/services/leden.service';
-import { MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS as MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/legacy-checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-kennismaken',

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 
 
@@ -10,8 +10,8 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
     templateUrl: './ledendelete.dialog.html',
 })
 export class LedenDeleteDialogComponent implements OnInit {
-    ledenItemForm = new UntypedFormGroup({
-        opzegDatum: new UntypedFormControl ('', [Validators.required]),
+    ledenItemForm = new FormGroup({
+        opzegDatum: new FormControl ('', [Validators.required]),
     });
 
     constructor(

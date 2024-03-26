@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, UntypedFormControl, NgControl } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-demo-formcontrol',
@@ -7,7 +7,7 @@ import { ControlValueAccessor, UntypedFormControl, NgControl } from '@angular/fo
     <input [(ngModel)]="mijnTekst" type="text" (ngModelChange)="onTextChange($event)">
   `,
   providers: [{
-    provide: UntypedFormControl,
+    provide: FormControl,
     useExisting: DemoFormControlComponent
   }]
 })

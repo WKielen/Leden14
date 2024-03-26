@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { TypeValues, OrganisatieValues, DoelgroepValues, AgendaItem } from 'src/app/services/agenda.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
@@ -11,39 +11,39 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
 })
 export class AgendaMutationFormComponent extends BaseComponent implements OnInit {
 
-  agendaItemForm = new UntypedFormGroup({
-    datum: new UntypedFormControl(
+  agendaItemForm = new FormGroup({
+    datum: new FormControl(
       '',
       [Validators.required]
     ),
-    tijd: new UntypedFormControl(
+    tijd: new FormControl(
       '',
       [Validators.required]
     ),
-    evenementnaam: new UntypedFormControl(
+    evenementnaam: new FormControl(
       '',
       [Validators.required]
     ),
-    lokatie: new UntypedFormControl(
+    lokatie: new FormControl(
       '',
       [Validators.required]
     ),
-    type: new UntypedFormControl(
+    type: new FormControl(
       '',
       [Validators.required]
     ),
-    doelgroep: new UntypedFormControl(
+    doelgroep: new FormControl(
       '',
       [Validators.required]
     ),
-    toelichting: new UntypedFormControl(),
-    inschrijven: new UntypedFormControl(),
-    inschrijfgeld: new UntypedFormControl(),
-    betaalmethode: new UntypedFormControl(),
-    contactpersoon: new UntypedFormControl(),
-    vervoer: new UntypedFormControl(),
-    verzamelafspraak: new UntypedFormControl(),
-    organisatie: new UntypedFormControl(
+    toelichting: new FormControl(),
+    inschrijven: new FormControl(),
+    inschrijfgeld: new FormControl(),
+    betaalmethode: new FormControl(),
+    contactpersoon: new FormControl(),
+    vervoer: new FormControl(),
+    verzamelafspraak: new FormControl(),
+    organisatie: new FormControl(
       '',
       [Validators.required]
     ),
