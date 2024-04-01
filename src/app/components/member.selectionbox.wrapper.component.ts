@@ -19,8 +19,10 @@ import { BaseComponent } from '../shared/base.component';
         <mat-checkbox [(ngModel)]="ckbVolwassenen" (change)="onChangeckbVolwassenen($event)" color='primary'
           class='margin-right-20'>Volwassenen
         </mat-checkbox>
-        <mat-checkbox [(ngModel)]="ckbJeugd" (change)="onChangeckbJeugd($event)" color='primary'>
+        <mat-checkbox [(ngModel)]="ckbJeugd" (change)="onChangeckbJeugd($event)" color='primary' class='margin-right-20'>
           Jeugd</mat-checkbox>
+          <mat-checkbox [(ngModel)]="ckbOldStars" (change)="onChangeckbOldStars($event)" color='primary' class='margin-right-20'>
+          Old Stars</mat-checkbox>
       </mat-card-content>
     </mat-card>
   </ng-template>
@@ -37,12 +39,14 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
 
   ckbVolwassenen: boolean = true;
   ckbJeugd: boolean = true;
+  ckbOldStars: boolean = true;
   dataSource: MatTableDataSource<LedenItemExt> = new MatTableDataSource();
 
   filterValues = {
     LeeftijdCategorieJ: '',
     LeeftijdCategorieV: '',
     LeeftijdCategorieS1: '',
+    LeeftijdCategorieOS: '',
   };
 
   constructor(
@@ -66,6 +70,7 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
     this.filterValues.LeeftijdCategorieV = 'volwassenen';
     this.filterValues.LeeftijdCategorieJ = 'jeugd';
     this.filterValues.LeeftijdCategorieS1 = 'Senior1/O23';
+    this.filterValues.LeeftijdCategorieOS = '1';
 
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
@@ -82,6 +87,7 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
   /***************************************************************************************************/
   onChangeckbVolwassenen($event: any): void {
     this.filterValues.LeeftijdCategorieV = $event.checked ? 'volwassenen' : 'xxxxxxxxxxxxyz';
+    //this.filterValues.LeeftijdCategorieOS = $event.checked ? 'xxxxxxxxxxxxxxyz' : '1' ;
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
@@ -90,6 +96,16 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
   /***************************************************************************************************/
   onChangeckbJeugd($event: any): void {
     this.filterValues.LeeftijdCategorieJ = $event.checked ? 'jeugd' : 'xxxxxxxxxxxxxxyz';
+    this.filterValues.LeeftijdCategorieS1 = $event.checked ? 'Senior1/O23' : 'xxxxxxxxxxxxxxyz';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  /***************************************************************************************************
+  / 
+  /***************************************************************************************************/
+  onChangeckbOldStars($event: any): void {
+    //this.filterValues.LeeftijdCategorieV = $event.checked ? 'xxxxxxxxxxxxyz' : 'volwassenen';
+    this.filterValues.LeeftijdCategorieOS = $event.checked ? '1' : 'xxxxxxxxxxxxxxyz';
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
@@ -99,9 +115,33 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
   private createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter);
-      return data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieV) !== -1
-        || data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1
-        || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1  // deze is om Senior1 op beide lijsten te krijgen.
+
+      let volwassen: boolean = data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieV) !== -1;
+      let oldstars: boolean = data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS) !== -1;
+      let jeugd: boolean = data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 ;
+      let senior1: boolean = data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1;
+
+      if (data.Adres == 'Neptunusburg 6' || data.Adres == 'Jachthoornlaan 25') {
+        console.log('---', data);
+        console.log('V', volwassen);
+        console.log('J', jeugd);
+        console.log('S1', senior1);
+        console.log('O', oldstars, data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS));
+      }
+
+
+
+      return  volwassen || jeugd || oldstars || senior1;
+                
+                
+//        || (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
+  //      || (data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS) !== -1  && data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) == -1)
+
+
+
+      return (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieV) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
+        || (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
+        || (data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS) !== -1  && data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) == -1)
     }
     return filterFunction;
   }
