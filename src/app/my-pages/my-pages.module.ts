@@ -31,10 +31,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HighGraphsModule } from '../shared/widgets/graphs.module';
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
-import interactionPlugin from '@fullcalendar/interaction'; // a plugin
-import listPlugin from '@fullcalendar/list';
-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MasterzComponent } from './masterz/masterz.component';
 import { KomendeWeekComponent } from './komendeweek/komendeweek.component'; // the main connector. must go first
@@ -48,13 +44,6 @@ import { EventSubscriptionsDialogComponent } from './evenementen/event-subscript
 import { ComponentsModule } from '../components/component.module';
 import { KennisMakenComponent } from './kennismaken/kennismaken.component';
 import { MailKennismakerDialogComponent } from './kennismaken/mail-kennismaker-dialog/mail-kennismaker.dialog';
-
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
-  interactionPlugin,
-  listPlugin
-]);
-
 
 @NgModule({
   declarations: [

@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, AfterViewChecked } from "@angu
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ParentComponent } from "src/app/shared/parent.component";
-import { Calendar, CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventDropArg, EventInput, FullCalendarComponent } from "@fullcalendar/angular";
+import { FullCalendarComponent } from "@fullcalendar/angular";
+import { Calendar, CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventDropArg, EventInput } from "@fullcalendar/core";
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AgendaDialogComponent } from "../agenda/agenda.dialog";
@@ -17,7 +18,9 @@ import { ActionItem, ActionService, ACTIONSTATUS } from "src/app/services/action
 import { catchError } from "rxjs/operators";
 import { Observable, forkJoin, of } from "rxjs";
 import { DateRoutines, IBirthDay, LedenItemExt, LedenService } from "src/app/services/leden.service";
-
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+import listPlugin from '@fullcalendar/list';
 
 // TODO:Select Multiple dates into vakantie
 
@@ -180,6 +183,11 @@ export class AgendaComponent
   / De opties om de calendar te formatteren.
   /***************************************************************************************************/
   calendarOptions: CalendarOptions = {
+    plugins: [
+      dayGridPlugin,
+      interactionPlugin,
+      listPlugin
+    ],
     initialView: "dayGridMonth",
     firstDay: 1,
     height: "100%",
