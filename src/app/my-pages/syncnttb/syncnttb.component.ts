@@ -13,6 +13,7 @@ import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-mad
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { LedenDialogComponent } from '../ledenmanager/ledenmanager.dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { ReplaceCharacters } from 'src/app/shared/modules/ReplaceCharacters';
 
 @Component({
   selector: 'app-syncnttb-page',
@@ -97,7 +98,13 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
       var first_sheet_name = workbook.SheetNames[0];
       var worksheet = workbook.Sheets[first_sheet_name];
       this.nasLedenItems = utils.sheet_to_json(worksheet, { raw: true });
-      // console.log('this.nasLedenItems.NasLedenItems', this.nasLedenItems.NasLedenItems);
+      this.nasLedenItems.forEach(element => {
+        element.Naam = ReplaceCharacters(element.Naam);
+        element.Woonplaats = ReplaceCharacters(element.Woonplaats);
+        element.Adres = ReplaceCharacters(element.Adres);
+      });
+
+      console.log('this.nasLedenItems.NasLedenItems', this.nasLedenItems);
 
       if (this.nasLedenItems.length > 0) {
         this.addImportedNasLedenToDB();
