@@ -1,6 +1,6 @@
 {
   "name": "leden14",
-  "version": "0.0.0",
+  "version": "13.2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
