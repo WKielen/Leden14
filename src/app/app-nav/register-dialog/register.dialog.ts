@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { UserItem, UserService } from 'src/app/services/user.service';
 import { DuplicateKeyError } from 'src/app/shared/error-handling/duplicate-key-error';
 import { AppError } from 'src/app/shared/error-handling/app-error';
@@ -26,23 +26,23 @@ export class RegisterDialogComponent extends BaseComponent {
   responseText: string = '';
   error: boolean = false;
 
-  registerForm = new FormGroup({
-    firstname: new FormControl(
+  registerForm = new UntypedFormGroup({
+    firstname: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    lastname: new FormControl(
+    lastname: new UntypedFormControl(
       '',
       [Validators.required]
-    ), email: new FormControl(
+    ), email: new UntypedFormControl(
       '',
       [Validators.required, Validators.email]
     ),
-    userid: new FormControl(
+    userid: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    password: new FormControl(
+    password: new UntypedFormControl(
       '',
       [Validators.required, Validators.minLength(6)]
     ),

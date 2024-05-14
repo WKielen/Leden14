@@ -1,5 +1,5 @@
 import { Component, Inject, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotFoundError } from 'rxjs';
@@ -58,32 +58,32 @@ export class SendMailSettingsComponent extends ParentComponent {
   showPw: boolean = false;
   mailBoxParam = new MailBoxParam();
 
-  mailboxparamForm = new FormGroup({
-    ElecPostAddress: new FormControl(
+  mailboxparamForm = new UntypedFormGroup({
+    ElecPostAddress: new UntypedFormControl(
       '',
       [Validators.required, Validators.email]
     ),
-    EmailPassword: new FormControl(
+    EmailPassword: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    EmailSender: new FormControl()
+    EmailSender: new UntypedFormControl()
   });
 
-  mailForm = new FormGroup({
-    TypeYourMail: new FormControl(
+  mailForm = new UntypedFormGroup({
+    TypeYourMail: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    EmailName: new FormControl(
+    EmailName: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    EmailSubject: new FormControl(
+    EmailSubject: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    SavedMails: new FormControl(),
+    SavedMails: new UntypedFormControl(),
   });
 
   constructor(

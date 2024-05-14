@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
@@ -26,16 +26,16 @@ export class SignInDialogComponent extends BaseComponent {
   keepSignedIn: boolean;
   responseText: string = '';
 
-  loginForm = new FormGroup({
-    userid: new FormControl(
+  loginForm = new UntypedFormGroup({
+    userid: new UntypedFormControl(
       '',
       [Validators.required] //, Validators.minLength(7), Validators.maxLength(7)]
     ),
-    password: new FormControl(
+    password: new UntypedFormControl(
       '',
       [Validators.required, Validators.minLength(6)]
     ),
-    keepSignedIn: new FormControl()
+    keepSignedIn: new UntypedFormControl()
   });
 
   constructor(

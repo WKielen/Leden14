@@ -2,7 +2,7 @@ import { TypeValues, OrganisatieValues, DoelgroepValues } from '../../services/a
 import { Component, Inject, OnInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 
 @Component({
@@ -10,20 +10,20 @@ import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines'
   templateUrl:  './website.dialog.html',
 })
 export class WebsiteDialogComponent implements OnInit {
-  websiteItemForm = new FormGroup({
-    Header: new FormControl(
+  websiteItemForm = new UntypedFormGroup({
+    Header: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    HtmlContent: new FormControl(
+    HtmlContent: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    StartDate: new FormControl(
+    StartDate: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    EndDate: new FormControl(
+    EndDate: new UntypedFormControl(
       '',
       [Validators.required]
     ),

@@ -6,7 +6,7 @@ import { ReplaceKeywords } from 'src/app/shared/modules/ReplaceKeywords';
 import { MailDialogComponent } from './mail.dialog';
 import { MailItem, MailItemTo } from 'src/app/services/mail.service';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'singlemail-dialog',
@@ -16,12 +16,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SingleMailDialogComponent extends BaseComponent implements OnInit {
 
-  websiteItemForm = new FormGroup({
-    Subject: new FormControl(
+  websiteItemForm = new UntypedFormGroup({
+    Subject: new UntypedFormControl(
       '',
       [Validators.required]
     ),
-    HtmlControl: new FormControl(
+    HtmlControl: new UntypedFormControl(
       '',
       [Validators.required]
     ),
