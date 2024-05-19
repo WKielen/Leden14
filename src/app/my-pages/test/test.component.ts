@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import * as moment from "moment";
 import { NotFoundError } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";

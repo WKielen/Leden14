@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import { AgendaItem, AgendaService } from "src/app/services/agenda.service";
 import { ParentComponent } from "src/app/shared/parent.component";
 import { ActivatedRoute } from '@angular/router';
