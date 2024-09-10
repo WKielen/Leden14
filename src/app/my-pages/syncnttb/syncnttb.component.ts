@@ -94,7 +94,7 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
       var arr = new Array();
       for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
       var bstr = arr.join("");
-      var workbook = read(bstr, { type: "binary" });
+      var workbook = read(bstr, { type: "string" }); //type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string';
       var first_sheet_name = workbook.SheetNames[0];
       var worksheet = workbook.Sheets[first_sheet_name];
       this.nasLedenItems = utils.sheet_to_json(worksheet, { raw: true });
