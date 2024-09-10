@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter, map } from 'rxjs';
 import { AuthService } from './services/auth.service';

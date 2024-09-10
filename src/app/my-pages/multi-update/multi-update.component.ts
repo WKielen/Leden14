@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { LedenService, LedenItem, LedenItemExt } from './../../services/leden.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTable as MatTable } from '@angular/material/legacy-table';
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { ParentComponent } from 'src/app/shared/parent.component';
 

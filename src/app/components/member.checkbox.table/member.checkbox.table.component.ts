@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
-import { MatTableDataSource } from '@angular/material/table';
+import { MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS as MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/legacy-checkbox';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { LedenItemExt } from 'src/app/services/leden.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 

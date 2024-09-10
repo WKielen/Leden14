@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { FormValueToDutchDateString } from 'src/app/shared/modules/DateRoutines';
 

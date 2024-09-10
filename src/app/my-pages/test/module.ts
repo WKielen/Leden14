@@ -8,7 +8,7 @@ import { SharedComponentsModule } from 'src/app/shared/components/component.modu
 import { HoldableModule } from 'src/app/shared/directives/directives.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldCustomControlExample, MyTelInput } from './telephone/telephone.field.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { ComponentsModule } from 'src/app/components/component.module';
 
 

@@ -1,6 +1,6 @@
 //<mat-checkbox-list [checkboxDictionary]="myDictionairy" (click)="onRoleClicked($event)"></mat-checkbox-list>
 import { Component, Input, Output, EventEmitter, ViewChild, OnInit, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { LedenItemExt, LedenService } from 'src/app/services/leden.service';
 import { BaseComponent } from '../shared/base.component';
 

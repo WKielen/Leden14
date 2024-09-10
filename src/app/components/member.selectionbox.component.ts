@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, Output, EventEmitter, TemplateRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { DateRoutines, LedenItemExt } from 'src/app/services/leden.service';
 import { BaseComponent } from '../shared/base.component';
 
