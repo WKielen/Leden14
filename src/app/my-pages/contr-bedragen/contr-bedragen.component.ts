@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { ContributieBedragen } from "src/app/shared/classes/ContributieBedragen";
 import { ParentComponent } from 'src/app/shared/parent.component';

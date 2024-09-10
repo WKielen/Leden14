@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { UserItem, UserService } from 'src/app/services/user.service';
 import { DuplicateKeyError } from 'src/app/shared/error-handling/duplicate-key-error';

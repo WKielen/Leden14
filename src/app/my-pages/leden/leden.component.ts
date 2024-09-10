@@ -3,8 +3,8 @@ import { LedenService, LedenItem, LidTypeValues, LedenItemExt, DateRoutines } fr
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { UntypedFormControl } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 @Component({

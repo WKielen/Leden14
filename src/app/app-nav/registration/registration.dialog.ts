@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Role, WebsiteService } from 'src/app/services/website.service';
 import { BaseComponent } from 'src/app/shared/base.component';

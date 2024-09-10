@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { LedenItem, LedenItemExt } from 'src/app/services/leden.service';
 import { MailBoxParam, MailItem, MailItemTo, MailService } from 'src/app/services/mail.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { MailDialogComponent } from 'src/app/my-pages/mail/mail.dialog';
 import { ParentComponent } from '../shared/parent.component';
 import { Replace, ReplaceKeywords } from '../shared/modules/ReplaceKeywords';

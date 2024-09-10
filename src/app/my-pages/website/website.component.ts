@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTable as MatTable } from '@angular/material/legacy-table';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { AppError } from '../../shared/error-handling/app-error';
 import { ParamService, ParamItem } from 'src/app/services/param.service';
 import { WebsiteText } from 'src/app/shared/classes/WebsiteText';
