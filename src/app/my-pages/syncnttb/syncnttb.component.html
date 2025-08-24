@@ -14,6 +14,12 @@
       worden ingelezen met onderstaande knop.
 
       <br><br>
+      <mat-radio-group class="margin-right-20" placeholder="Welke administratie" [(ngModel)]="nasType" required value="N">
+          <mat-radio-button color="primary" class="margin-right-20" value="N">Oude NAS</mat-radio-button>
+          <mat-radio-button color="primary" value="P">Nieuwe FOYS Portaal</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
+
       <div>
         <button mat-raised-button color="primary" (click)="fileInput.click()">
           <span>Kies bestand</span>

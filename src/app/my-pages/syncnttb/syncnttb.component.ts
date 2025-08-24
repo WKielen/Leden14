@@ -41,10 +41,10 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   public dataSource = new MatTableDataSource<LidDifference>();
   public columnsToDisplay: string[] = ['Naam', 'Verschil', 'actions1'];
-
+  public nasType: string = 'N';
 
   ngOnInit(): void {
-    this.readNasLedenLijst();
+    // this.readNasLedenLijst();
     this.readLedenLijst();
   }
 
@@ -85,25 +85,39 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
   / Importeer de NAS ledenlijst
   /***************************************************************************************************/
   async onClickLedenLijstImport(): Promise<void> {
-
     let fileReader = new FileReader();
-    let arrayBuffer: any;
     fileReader.onload = (e) => {
-      arrayBuffer = fileReader.result;
-      var data = new Uint8Array(arrayBuffer);
-      var arr = new Array();
-      for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-      var bstr = arr.join("");
-      var workbook = read(bstr, { type: "string" }); //type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string';
-      var first_sheet_name = workbook.SheetNames[0];
-      var worksheet = workbook.Sheets[first_sheet_name];
-      this.nasLedenItems = utils.sheet_to_json(worksheet, { raw: true });
-      this.nasLedenItems.forEach(element => {
-        element.Naam = ReplaceCharacters(element.Naam);
-        element.Woonplaats = ReplaceCharacters(element.Woonplaats);
-        element.Adres = ReplaceCharacters(element.Adres);
-      });
+      if (this.nasType == 'N') {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        var data = new Uint8Array(arrayBuffer);
+        var arr = new Array();
+        
+        for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+        var workbook = read(bstr, { type: "string" }); //type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string';
+        console.log('3', workbook);
+        var first_sheet_name = workbook.SheetNames[0];
+        var worksheet = workbook.Sheets[first_sheet_name];
+        console.log('4', );
+        this.nasLedenItems = utils.sheet_to_json(worksheet, { raw: true });
+        console.log('5', );
+      } else {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        // Gebruik direct het arrayBuffer
+        const workbook = read(arrayBuffer, { type: "array" });
+        const first_sheet_name = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[first_sheet_name];
+        this.nasLedenItems = utils.sheet_to_json(worksheet, { raw: true });
+      }
 
+      if (this.nasType == 'N') {
+        this.nasLedenItems.forEach(element => {
+          element.Naam = ReplaceCharacters(element.Naam);
+          element.Woonplaats = ReplaceCharacters(element.Woonplaats);
+          element.Adres = ReplaceCharacters(element.Adres);
+        });
+      }
+      
       console.log('this.nasLedenItems.NasLedenItems', this.nasLedenItems);
 
       if (this.nasLedenItems.length > 0) {
@@ -121,6 +135,15 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
   / Vergelijk de ledenlijst van de bond met die van TTVN
   /***************************************************************************************************/
   onCompare(): void {
+    if (this.nasType == 'N') {
+      this.onCompareNAS();
+    }
+    else {
+      this.onCompareFOYS();
+    }
+  }
+
+  onCompareNAS(): void {
     this.dataSource = new MatTableDataSource<LidDifference>();
 
     for (let i_ttvn = 0; i_ttvn < this.ledenLijst.length; i_ttvn++) {
@@ -142,9 +165,9 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
         }
       }
       // Dit lid staat niet in NAS maar staat wel als zodanig in de administratie
-      if (String(lid_ttvn.LidBond).toBoolean() && !lid_ttvn_in_nas) {
-        this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'LB: Wel in ttvn maar niet NAS', lid_ttvn));
-      }
+      // if (String(lid_ttvn.LidBond).toBoolean() && !lid_ttvn_in_nas) {
+      //   this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'LB: Wel in ttvn maar niet NAS', lid_ttvn));
+      // }
     }
 
     for (let i_nas = 0; i_nas < this.nasLedenItems.length; i_nas++) {
@@ -160,13 +183,65 @@ export class SyncNttbComponent extends ParentComponent implements OnInit {
         }
       }
 
+      // if (!lid_nas_in_ttvn) {
+      //   this.dataSource.data.push(addToDifferenceList(lid_nas['Naam'], 'LB: Wel in NAS niet in TTVN', null));
+      // }
+    }
+    // console.log('ledenDif', this.ledenDifferences);
+    this.table.renderRows();
+  }
+
+  onCompareFOYS(): void {
+    this.dataSource = new MatTableDataSource<LidDifference>();
+
+    for (let i_ttvn = 0; i_ttvn < this.ledenLijst.length; i_ttvn++) {
+      let lid_ttvn = this.ledenLijst[i_ttvn];
+      let lid_ttvn_in_nas: boolean = false;
+      innerloop2:
+      for (let i_nas = 0; i_nas < this.nasLedenItems.length; i_nas++) {
+        let lid_nas = this.nasLedenItems[i_nas];
+
+        if (lid_ttvn.BondsNr == lid_nas['Bondsnummer']) {
+          lid_ttvn_in_nas = true;
+          // if (String(lid_ttvn.CompGerechtigd).toBoolean() && lid_nas['CG'] == 'N') {
+          //   this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'CG: Wel in ttvn maar niet in NAS', lid_ttvn));
+          // }
+          // if (!String(lid_ttvn.CompGerechtigd).toBoolean() && lid_nas['CG'] == 'J') {
+          //   this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'CG: Wel in NAS maar niet in ttvn', lid_ttvn));
+          // }
+          break innerloop2;
+        }
+      }
+      // Dit lid staat niet in NAS maar staat wel als zodanig in de administratie
+      if (String(lid_ttvn.LidBond).toBoolean() && !lid_ttvn_in_nas) {
+        this.dataSource.data.push(addToDifferenceList(lid_ttvn.Naam, 'LB: Wel in ttvn maar niet NAS', lid_ttvn));
+      }
+    }
+
+    for (let i_nas = 0; i_nas < this.nasLedenItems.length; i_nas++) {
+      let lid_nas = this.nasLedenItems[i_nas];
+      let lid_nas_in_ttvn: boolean = false;
+      innerloop2:
+      for (let i_ttvn = 0; i_ttvn < this.ledenLijst.length; i_ttvn++) {
+        let lid_ttvn = this.ledenLijst[i_ttvn];
+        if (lid_ttvn.BondsNr == lid_nas['Bondsnummer']) {
+
+          lid_nas_in_ttvn = true;
+          break innerloop2;
+        }
+      }
+
       if (!lid_nas_in_ttvn) {
-        this.dataSource.data.push(addToDifferenceList(lid_nas['Naam'], 'LB: Wel in NAS niet in TTVN', null));
+        let localNasName = lid_nas['Voornaam'] + ' ' + lid_nas['Achternaam'];
+        this.dataSource.data.push(addToDifferenceList(localNasName, 'LB: Wel in NAS niet in TTVN', null));
       }
     }
     // console.log('ledenDif', this.ledenDifferences);
     this.table.renderRows();
   }
+
+
+
 
   /***************************************************************************************************
   / Er is een verschil. Dit gaan we via een dialoog oplossen.
