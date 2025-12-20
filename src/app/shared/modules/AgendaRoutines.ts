@@ -22,7 +22,8 @@ export function CheckImportedAgenda(contents: string): AgendaItem[] {
   if (!CheckHeaderItemAgenda(11, columns[11], 'ContactPersoon')) { return null; }
   if (!CheckHeaderItemAgenda(12, columns[12], 'Vervoer')) { return null; }
   if (!CheckHeaderItemAgenda(13, columns[13], 'VerzamelAfspraak')) { return null; }
-  if (!CheckHeaderItemAgenda(14, columns[14], 'Extra1')) { return null; }
+  if (!CheckHeaderItemAgenda(14, columns[14], 'Organisatie')) { return null; }
+  if (!CheckHeaderItemAgenda(14, columns[15], 'UitersteInschrijfDatum')) { return null; }
 
   for (let i = 1; i < lines.length; i++) {
     columns = lines[i].split(';');
@@ -40,7 +41,8 @@ export function CheckImportedAgenda(contents: string): AgendaItem[] {
     agendaItem.ContactPersoon = CopyColumn(columns[11]);
     agendaItem.Vervoer = CopyColumn(columns[12]);
     agendaItem.VerzamelAfspraak = CopyColumn(columns[13]);
-    agendaItem.Extra1 = CopyColumn(columns[14]);
+    agendaItem.Organisatie = CopyColumn(columns[14]);
+    agendaItem.UitersteInschrijfDatum = CopyColumn(columns[15]);
 
     if (agendaItem.Type == '') {
       agendaItem.Type = "T";
@@ -48,8 +50,8 @@ export function CheckImportedAgenda(contents: string): AgendaItem[] {
     if (agendaItem.DoelGroep == '') {
       agendaItem.DoelGroep = "T";
     }
-    if (agendaItem.Extra1 == '') {
-      agendaItem.Extra1 = "2";
+    if (agendaItem.Organisatie == '') {
+      agendaItem.Organisatie = "2";
     }
     // console.log(agendaItem.Datum, moment(agendaItem.Datum, this.formats, true).isValid())
 

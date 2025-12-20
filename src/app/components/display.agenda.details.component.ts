@@ -38,6 +38,10 @@ import { AgendaItem, DoelgroepValues, OrganisatieValues, TypeValues } from "src/
       <td>Inschrijven:</td>
       <td>{{ agendaItem.Inschrijven }}</td>
     </tr>
+    <tr *ngIf="agendaItem.UitersteInschrijfDatum">
+      <td>Uiterste Inschrijfdatum:</td>
+      <td>{{ agendaItem.UitersteInschrijfDatum }}</td>
+    </tr>
     <tr *ngIf="agendaItem.Inschrijfgeld !== '0' && agendaItem.Inschrijfgeld !== ''">
       <td>Inschrijfgeld:</td>
       <td>{{ inschrijfGeld }}</td>
@@ -58,7 +62,7 @@ import { AgendaItem, DoelgroepValues, OrganisatieValues, TypeValues } from "src/
       <td>VerzamelAfspraak:</td>
       <td>{{ agendaItem.VerzamelAfspraak }}</td>
     </tr>
-    <tr *ngIf="agendaItem.Extra1">
+    <tr *ngIf="agendaItem.Organisatie">
       <td>Organisatie:</td>
       <td>{{ organisatie }}</td>
     </tr>
@@ -78,7 +82,7 @@ export class DisplayAgendaDetailsComponent extends BaseComponent implements OnCh
   public toelichting: string = '';
 
   ngOnChanges() {
-    this.organisatie = OrganisatieValues.GetLabel(this.agendaItem.Extra1);
+    this.organisatie = OrganisatieValues.GetLabel(this.agendaItem.Organisatie);
     this.doelGroep = DoelgroepValues.GetLabel(this.agendaItem.DoelGroep);
     this.type = TypeValues.GetLabel(this.agendaItem.Type);
     this.inschrijfGeld = Number(this.agendaItem.Inschrijfgeld).AmountFormat();

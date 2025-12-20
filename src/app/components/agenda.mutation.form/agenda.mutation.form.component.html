@@ -51,6 +51,11 @@
                     Veld is verplicht
                 </mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Uiterste inschrijfdatum" [matDatepicker]="picker2" formControlName="uitersteinschrijfdatum">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
             <mat-form-field class="mat-form-max-width">
                 <input matInput placeholder="Lokatie" formControlName="lokatie" required>
                 <mat-error *ngIf="lokatie.hasError('required')">

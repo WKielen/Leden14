@@ -43,6 +43,9 @@ export class SendInventationDialogComponent extends ParentComponent implements O
     if (this.data.data.Lokatie !== '')
       eventData += "Lokatie: " + this.data.data.Lokatie + "<br>";
 
+    if (this.data.data.UitersteInschrijfDatum !== '')
+      eventData += "Uiterste inschrijfdatum: " + ConvertToReadableDate(this.data.data.UitersteInschrijfDatum) + "<br>";
+
     if (this.data.data.Toelichting !== '')
       eventData += "Toelichting: " + this.data.data.Toelichting + "<br>";
 

@@ -47,6 +47,7 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
       '',
       [Validators.required]
     ),
+    uitersteinschrijfdatum: new UntypedFormControl(),
   });
 
   typeValues = TypeValues.table;
@@ -71,7 +72,8 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
     this.contactpersoon.setValue(this.evenement.ContactPersoon);
     this.vervoer.setValue(this.evenement.Vervoer);
     this.verzamelafspraak.setValue(this.evenement.VerzamelAfspraak);
-    this.organisatie.setValue(this.evenement.Extra1);
+    this.organisatie.setValue(this.evenement.Organisatie);
+    this.uitersteinschrijfdatum.setValue(this.evenement.UitersteInschrijfDatum);
   }
 
 
@@ -92,7 +94,8 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
     this.evenement.ContactPersoon = this.contactpersoon.value;
     this.evenement.Vervoer = this.vervoer.value;
     this.evenement.VerzamelAfspraak = this.verzamelafspraak.value;
-    this.evenement.Extra1 = this.organisatie.value;
+    this.evenement.Organisatie = this.organisatie.value;
+    this.evenement.UitersteInschrijfDatum = FormValueToDutchDateString(this.uitersteinschrijfdatum.value);
     this.changedEvenement.emit(this.evenement);
   }
 
@@ -143,5 +146,8 @@ export class AgendaMutationFormComponent extends BaseComponent implements OnInit
   get organisatie(): AbstractControl {
     return this.agendaItemForm.get('organisatie');
   }
+  get uitersteinschrijfdatum(): AbstractControl {
+    return this.agendaItemForm.get('uitersteinschrijfdatum');
+  } 
 
 }

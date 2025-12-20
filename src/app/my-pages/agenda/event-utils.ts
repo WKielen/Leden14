@@ -84,8 +84,8 @@ export function agendaToEvent(agendaItem: AgendaItem): any {
   // event.start = "10:00"
   event.id = agendaItem.Id;
   event.borderColor = setBorderColor(agendaItem.DoelGroep);
-  event.backgroundColor = setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[0];
-  event.textColor = setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[1];
+  event.backgroundColor = setBackgroundColor(agendaItem.Type, agendaItem.Organisatie)[0];
+  event.textColor = setBackgroundColor(agendaItem.Type, agendaItem.Organisatie)[1];
   event.extendedProps = { agendaItem: agendaItem };
   return event;
 }
@@ -105,8 +105,8 @@ export function setEventProps(eventApi: EventApi, agendaItem: AgendaItem): void 
   eventApi.setExtendedProp("agendaItem", agendaItem);
   eventApi.setProp("title", agendaItem.EvenementNaam);
   eventApi.setProp("id", agendaItem.Id);
-  eventApi.setProp("backgroundColor", setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[0]);
-  eventApi.setProp("textColor", setBackgroundColor(agendaItem.Type, agendaItem.Extra1)[1]);
+  eventApi.setProp("backgroundColor", setBackgroundColor(agendaItem.Type, agendaItem.Organisatie)[0]);
+  eventApi.setProp("textColor", setBackgroundColor(agendaItem.Type, agendaItem.Organisatie)[1]);
   eventApi.setProp("borderColor", setBorderColor(agendaItem.DoelGroep));
 }
 

@@ -31,8 +31,6 @@ export class AgendaService extends DataService {
           let localdata = value as Array<any>
           localdata.forEach(element => {
             // TODO:  uit de PHP select halen. 
-            delete element['ExtraA'];
-            delete element['ExtraB'];
             delete element['DatumWijziging'];
           });
           return localdata;
@@ -59,8 +57,6 @@ export class AgendaService extends DataService {
   /***************************************************************************************************/
   update$(element: any): Observable<Object> {
     // TODO:  uit de PHP select halen. en dan deze method verwijderen
-    delete element['ExtraA'];
-    delete element['ExtraB'];
     delete element['DatumWijziging'];
     return super.update$(element);
   }
@@ -99,8 +95,8 @@ export class AgendaItem {
   ContactPersoon?: string = '';
   Vervoer?: string = '';
   VerzamelAfspraak?: string = '';
-  Extra1?: string = '';
-  Extra2?: string = '';
+  Organisatie?: string = '';
+  UitersteInschrijfDatum?: string = '';
 }
 
 /***************************************************************************************************

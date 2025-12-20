@@ -108,7 +108,7 @@ export class AgendaComponent
       action.end = item.StartDate;
       action.id = action.title + action.start;
       let agendaItem: AgendaItem = new AgendaItem();
-      agendaItem.Extra1 = '1';
+      agendaItem.Organisatie = '1';
       agendaItem.Datum = item.StartDate;
       agendaItem.Tijd = '';
       agendaItem.EvenementNaam = item.Title;
@@ -122,7 +122,7 @@ export class AgendaComponent
       agendaItem.ContactPersoon = item.HolderName;
       agendaItem.Vervoer = '';
       agendaItem.VerzamelAfspraak = '';
-      agendaItem.Extra1 = '2';
+      agendaItem.Organisatie = '2';
       action.extendedProps = { agendaItem: agendaItem };
       this.events.push(action);
     });

@@ -22,7 +22,7 @@ export class AgendaDetailDialogComponent implements OnInit{
   ) {
   }
   public showButtons: boolean = this.data.data.Type != 'A' && this.data.data.Type != '';
-  public organisatie: string = OrganisatieValues.GetLabel(this.data.data.Extra1);
+  public organisatie: string = OrganisatieValues.GetLabel(this.data.data.Organisatie);
   public doelGroep: string = DoelgroepValues.GetLabel(this.data.data.DoelGroep);
   public type: string = TypeValues.GetLabel(this.data.data.Type);
   public inschrijfGeld: string = Number(this.data.data.Inschrijfgeld).AmountFormat();
