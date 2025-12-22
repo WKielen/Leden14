@@ -1,9 +1,8 @@
 <div class="flexcontainer">
   <div style="flex-basis: 30%;">
-
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Download Ledenlijst</mat-card-title>
+        <mat-card-title>Type Download Ledenlijst</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <label id="ledenlijst-label">Kies type lijst</label>
@@ -13,42 +12,32 @@
             {{ledenLijstKeuzeValue}}
           </mat-radio-button>
         </mat-radio-group>
-        <label id="ledenselectie-label">Kies type selectie</label>
+        <!--label id="ledenselectie-label">Kies type selectie</label>
         <mat-radio-group aria-labelledby="ledenselectie-label" class="radio-group" [(ngModel)]="ledenSelectieKeuze">
           <mat-radio-button class="radio-button" *ngFor="let ledenSelectieKeuzeValue of ledenSelectieKeuzes"
             color="primary" [value]="ledenSelectieKeuzeValue">
             {{ledenSelectieKeuzeValue}}
           </mat-radio-button>
-        </mat-radio-group>
+        </mat-radio-group-->
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Download</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <label id="ledenlijst-label">Maak eerst de selectie hieronder</label>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onClickLedenLijst()">Download</button>
       </mat-card-actions>
     </mat-card>
     <mat-card>
-      <mat-card-header>
-        <mat-card-title>Grijze Leden</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        Lijst van leden die geen lid zijn van de bond
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onGrijzeLeden()">Download</button>
-      </mat-card-actions>
+      <app-member-selection-box-wrapper (selectedMemberList)="onSelectionChanged($event)">
+      </app-member-selection-box-wrapper>
     </mat-card>
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Aanmaken Vcard</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <app-select-lid-dropdown [leden-array]="ledenArray" (valueSelected)="onUserSelected($event)">
-        </app-select-lid-dropdown>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onCreateVcard()">Maak
-          Vcard</button>
-      </mat-card-actions>
-    </mat-card>
+
+
 
   </div>
 
@@ -83,7 +72,7 @@
         <mat-card-title>Download in- en uitschrijvingen sinds</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        Met onder knop kan de in- en uitschrijvingen downloaden sinds de opgegeven datum.
+        In- en uitschrijvingen downloaden sinds de opgegeven datum.
         <br><br>
         <mat-form-field>
           <input matInput placeholder="Kies een datum" [matDatepicker]="picker" [value]="dateFrom" (dateChange)="onChangedDate($event)" >
@@ -94,6 +83,17 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onClickUpdates()">Download</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Grijze Leden</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Lijst van leden die geen lid zijn van de bond
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onGrijzeLeden()">Download</button>
       </mat-card-actions>
     </mat-card>
   </div>

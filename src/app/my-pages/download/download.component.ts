@@ -46,12 +46,13 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
   ledenLijstKeuzes: string[] = ['Volledig', 'E-Mail', 'Ratings'];
   ledenLijstKeuze: string = this.ledenLijstKeuzes[0];
-  ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd', 'Old Stars', 'Nieuwegein-pas'];
-  ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
+  // ledenSelectieKeuzes: string[] = ['Alle Leden', 'Volwassenen', 'Jeugd', 'Old Stars', 'Nieuwegein-pas'];
+  // ledenSelectieKeuze: string = this.ledenSelectieKeuzes[0];
   ledenArray = new Array<LedenItemExt>();
+  downloadArray = new Array<LedenItemExt>();
   retiredArray = new Array<LedenItemExt>();
-  selectedLid = new LedenItemExt();
-  vcard: string = '';
+  // selectedLid = new LedenItemExt();
+  // vcard: string = '';
   dateFrom: Date = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
   constructor(private ledenService: LedenService,
@@ -90,31 +91,35 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     );
 
 
-    this.registerSubscription(
-      this.readTextFileService.read('templates/template_vcard.txt')
-        .subscribe({
-          next: (data) => {
-            this.vcard = data;
-          },
-          error: (error: AppError) => {
-            console.error(error);
-          }
-        })
-    );
+    // this.registerSubscription(
+    //   this.readTextFileService.read('templates/template_vcard.txt')
+    //     .subscribe({
+    //       next: (data) => {
+    //         this.vcard = data;
+    //       },
+    //       error: (error: AppError) => {
+    //         console.error(error);
+    //       }
+    //     })
+    // );
   }
 
   /***************************************************************************************************
   / Download button in Download Ledenlijst box
   /***************************************************************************************************/
   onClickLedenLijst(): void {
-    // console.log("DownloadComponent --> onClickLedenLijst --> ledenLijstKeuze", this.ledenLijstKeuze[0]);
-    // console.log("DownloadComponent --> onClickLedenLijst --> this.ledenSelectieKeuzes", this.ledenSelectieKeuzes[3]);
+
+    if (!this.downloadArray || this.downloadArray.length == 0) {
+      this.showSnackBar('Er zijn geen leden geselecteerd.', '');
+      return;
+    }
+
     switch (this.ledenLijstKeuze) {
       case this.ledenLijstKeuzes[0]: {
-        if (this.ledenSelectieKeuze == 'Old Stars' ) {
-          this.createLijstjePerLidLedenlijst('TTVN Ledenlijst Old Stars');
-          // this.createLijstjePerLidLedenlijst2('TTVN Ledenlijst Old Stars');
-        } 
+        // if (this.ledenSelectieKeuze == 'Old Stars' ) {
+        // this.createLijstjePerLidLedenlijst('TTVN Ledenlijst Old Stars');
+        // this.createLijstjePerLidLedenlijst2('TTVN Ledenlijst Old Stars');
+        // } 
         this.createLedenlijst('TTVN Ledenlijst');
 
         break;
@@ -137,20 +142,23 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   / Download ledenlijst
   /***************************************************************************************************/
   private async createLedenlijst(type: string): Promise<void> {
-    let localList: Array<any> = this.selectLeden();
-    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
+    this.csvOptions.filename = type + ' ' + new Date().to_YYYY_MM_DD();
     let csvExporter = new ExportToCsv(this.csvOptions);
-    csvExporter.generateCsv(localList[0]);
+    csvExporter.generateCsv(this.downloadArray);
   }
 
+  onSelectionChanged($event) {
+    this.downloadArray = $event;
+  }
 
   /***************************************************************************************************
   / Download ledenlijst voor de Oldstars omdat zij niet om kunnen gaan met Excel
   /***************************************************************************************************/
   private async createLijstjePerLidLedenlijst(type: string): Promise<void> {
-    let localList: Array<any> = this.selectLeden();
+    let localList: Array<any> = this.downloadArray
+
     let localEmailString: string = '';
-    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
+    this.csvOptions.filename = type + ' ' + new Date().to_YYYY_MM_DD();
 
     localEmailString += 'Naam'.padEnd(40, ' ');
     localEmailString += 'Adres'.padEnd(50, ' ');
@@ -159,14 +167,14 @@ export class DownloadComponent extends ParentComponent implements OnInit {
     localEmailString += 'Telefoon'.padEnd(12, ' ');
     localEmailString += '\n';
 
-    localEmailString += ''.padStart(40 -1, '-') + ' ';
+    localEmailString += ''.padStart(40 - 1, '-') + ' ';
     localEmailString += ' '.padStart(50, '-');
     localEmailString += ' '.padStart(12, '-');
     localEmailString += ' '.padStart(40, '-');
     localEmailString += ' '.padStart(12, '-');
     localEmailString += '\n';
 
-    localList[0].forEach((element: LedenItemExt) => {
+    localList.forEach((element: LedenItemExt) => {
       localEmailString += element.VolledigeNaam.padEnd(40, ' ');
 
       localEmailString += (element.Adres + ', ' + element.Postcode + ', ' + element.Woonplaats).padEnd(50, ' ');
@@ -178,7 +186,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
         localEmailString += element.Telefoon.padEnd(12, ' ');
       }
 
-      
+
       localEmailString += '\n';
     });
 
@@ -188,49 +196,18 @@ export class DownloadComponent extends ParentComponent implements OnInit {
 
 
   }
-
-  /***************************************************************************************************
-  / Download ledenlijst voor de Oldstars omdat zij niet om kunnen gaan met Excel
-  /***************************************************************************************************/
-  private async createLijstjePerLidLedenlijst2(type: string): Promise<void> {
-    let localList: Array<any> = this.selectLeden();
-    let localEmailString: string = '';
-    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
-
-    localList[0].forEach((element: LedenItemExt) => {
-      localEmailString += element.VolledigeNaam + '\n';
-      localEmailString += element.Adres + ', ' + element.Postcode + ', ' + element.Woonplaats + '\n';
-      localEmailString += element.GeboorteDatum + '\n';
-      localEmailString += element.Email1 + '\n';
-      if (element.Mobiel != '' && element.Mobiel != null) {
-        localEmailString += element.Mobiel + '\n';
-      } else {
-        localEmailString += element.Telefoon + '\n';
-      }
-      localEmailString += '\n';
-
-    });
-
-    let dynamicDownload = new DynamicDownload();
-    this.csvOptions.filename += new Date().to_YYYY_MM_DD();
-    dynamicDownload.dynamicDownloadTxt(localEmailString, this.csvOptions.filename, 'txt');
-
-
-  }
-
 
   /***************************************************************************************************
   / Download maillijst
   /***************************************************************************************************/
   async createMailLijst(type: string): Promise<void> {
-    let localList: Array<any> = this.selectLeden();
     let localEmailString: string = '';
-    this.csvOptions.filename = type + ' ' + localList[1] + ' ' + new Date().to_YYYY_MM_DD();
+    this.csvOptions.filename = type + ' ' + new Date().to_YYYY_MM_DD();
 
-    localList[0].forEach((element: LedenItemExt) => {
+    this.downloadArray.forEach((element: LedenItemExt) => {
       const emailList = LedenItem.GetEmailList(element);
       emailList.forEach((element: MailItemTo) => {
-        localEmailString += element.ToName + '<' + element.To + '>' + ';';
+        localEmailString += element.ToName + '<' + element.To + '>' + ';\n';
       });
     });
 
@@ -246,7 +223,6 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   }
 
   async onClickUpdates(): Promise<void> {
-    // let localList: Array<any> = this.selectLeden();
     let localEmailString: string = 'Nieuwe leden\n\n';
     this.csvOptions.filename = "In- en uitschrijvingen vanaf" + ' ' + this.dateFrom.to_YYYY_MM_DD();
 
@@ -285,10 +261,8 @@ export class DownloadComponent extends ParentComponent implements OnInit {
   /***************************************************************************************************/
   async createRatingLijst(type: string): Promise<void> {
     let localList: Array<ExportRatingFileRecord> = [];
-    let getLedenSelectie = this.selectLeden();  // * Geeft array terug
 
-
-    getLedenSelectie[0].forEach((lid: LedenItemExt) => {
+    this.downloadArray.forEach((lid: LedenItemExt) => {
       if (lid.Rating == undefined || lid.Rating == 0) return;
       let record = new ExportRatingFileRecord();
       record.Lid = lid;
@@ -298,7 +272,7 @@ export class DownloadComponent extends ParentComponent implements OnInit {
       localList.push(record);
     })
 
-    this.csvOptions.filename = type + ' ' + getLedenSelectie[1] + ' ' + new Date().to_YYYY_MM_DD();
+    this.csvOptions.filename = type + ' ' + new Date().to_YYYY_MM_DD();
     ExportRatingFile(localList, this.csvOptions.filename);
   }
 
@@ -596,19 +570,19 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
   /***************************************************************************************************
   / Kies een lid voor het aanmaken van een VCard
   /***************************************************************************************************/
-  onUserSelected(lid): void {
-    this.selectedLid = lid;
-  }
+  // onUserSelected(lid): void {
+  //   this.selectedLid = lid;
+  // }
 
   /***************************************************************************************************
   / Creeer een bestand dat kan worden ingelezen als contact in android of apple
   /***************************************************************************************************/
-  onCreateVcard(): void {
-    let vcardt = ReplaceKeywords(this.selectedLid, this.vcard);
-    let dynamicDownload = new DynamicDownload();
-    let fileName = 'Vcard_' + this.selectedLid.VolledigeNaam.split(' ').join('_');
-    dynamicDownload.dynamicDownloadTxt(vcardt, fileName, 'vcf');
-  }
+  // onCreateVcard(): void {
+  //   let vcardt = ReplaceKeywords(this.selectedLid, this.vcard);
+  //   let dynamicDownload = new DynamicDownload();
+  //   let fileName = 'Vcard_' + this.selectedLid.VolledigeNaam.split(' ').join('_');
+  //   dynamicDownload.dynamicDownloadTxt(vcardt, fileName, 'vcf');
+  // }
   /**
    * Determines whether click update ratings on
    */
@@ -653,52 +627,52 @@ JN41vdmfsP3LCJ7yhbLSoYVNTXKmroKOPf7/URXfWGNKvb/xnKSrKHXiFYXKfSp1k/Pc/qpj5lnl0dV1
   / Select alle leden voor de lijst
   / Als eerste in de array komt een ledenlijst. De tweede is een string met een omschrijving
   /***************************************************************************************************/
-  private selectLeden(): Array<any> {
-    let localList: LedenItemExt[] = [];
-    let selectie = '';
+  // private selectLeden(): Array<any> {
+  //   let localList: LedenItemExt[] = [];
+  //   let selectie = '';
 
-    switch (this.ledenSelectieKeuze) {
-      case this.ledenSelectieKeuzes[0]: {  // Alle Leden
-        localList = this.ledenArray;
-        break;
-      }
-      case this.ledenSelectieKeuzes[1]: {   // Alleen volwassenen
-        this.ledenArray.forEach((element: LedenItemExt) => {
-          if (element.LeeftijdCategorieWithSex.charAt(0) == LidTypeValues.ADULT) {
-            localList.push(element);
-          }
-        });
-        selectie = 'Volwassenen';
-        break;
-      }
-      case this.ledenSelectieKeuzes[2]: {  // Alleen jeugd
-        this.ledenArray.forEach((element: LedenItemExt) => {
-          if (element.LeeftijdCategorieWithSex.charAt(0) == LidTypeValues.YOUTH || element.LeeftijdCategorieBond.startsWith('Senior1')) {
-            localList.push(element);
-          }
-        });
-        selectie = 'Jeugd';
-        break;
-      }
-      case this.ledenSelectieKeuzes[3]: {  // Old Stars
-        this.ledenArray.forEach((element: LedenItemExt) => {
-          if (element.OldStars == '1') {
-            localList.push(element);
-          }
-        });
-        selectie = 'Old Stars';
-        break;
-      }
-      case this.ledenSelectieKeuzes[4]: {  // Nieuwegein pas
-        this.ledenArray.forEach((element: LedenItemExt) => {
-          if (element.BetaalWijze == BetaalWijzeValues.UPAS) {
-            localList.push(element);
-          }
-        });
-        selectie = 'Nieuegein-pas';
-        break;
-      }
-    }
-    return [localList, selectie];
-  }
+  //   switch (this.ledenSelectieKeuze) {
+  //     case this.ledenSelectieKeuzes[0]: {  // Alle Leden
+  //       localList = this.ledenArray;
+  //       break;
+  //     }
+  //     case this.ledenSelectieKeuzes[1]: {   // Alleen volwassenen
+  //       this.ledenArray.forEach((element: LedenItemExt) => {
+  //         if (element.LeeftijdCategorieWithSex.charAt(0) == LidTypeValues.ADULT) {
+  //           localList.push(element);
+  //         }
+  //       });
+  //       selectie = 'Volwassenen';
+  //       break;
+  //     }
+  //     case this.ledenSelectieKeuzes[2]: {  // Alleen jeugd
+  //       this.ledenArray.forEach((element: LedenItemExt) => {
+  //         if (element.LeeftijdCategorieWithSex.charAt(0) == LidTypeValues.YOUTH || element.LeeftijdCategorieBond.startsWith('Senior1')) {
+  //           localList.push(element);
+  //         }
+  //       });
+  //       selectie = 'Jeugd';
+  //       break;
+  //     }
+  //     case this.ledenSelectieKeuzes[3]: {  // Old Stars
+  //       this.ledenArray.forEach((element: LedenItemExt) => {
+  //         if (element.OldStars == '1') {
+  //           localList.push(element);
+  //         }
+  //       });
+  //       selectie = 'Old Stars';
+  //       break;
+  //     }
+  //     case this.ledenSelectieKeuzes[4]: {  // Nieuwegein pas
+  //       this.ledenArray.forEach((element: LedenItemExt) => {
+  //         if (element.BetaalWijze == BetaalWijzeValues.UPAS) {
+  //           localList.push(element);
+  //         }
+  //       });
+  //       selectie = 'Nieuegein-pas';
+  //       break;
+  //     }
+  //   }
+  //   return [localList, selectie];
+  // }
 }
