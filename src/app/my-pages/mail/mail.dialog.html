@@ -6,7 +6,7 @@
     </mat-progress-bar>
     <br>
     <mat-checkbox [(ngModel)]="ckbTest" [ngModelOptions]="{standalone: true}" color='primary'>
-        Naar bestand ipv Verzenden</mat-checkbox>
+        Download verstuur verslag</mat-checkbox>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="onSendMail()" [disabled]='percentageComplete > 0'>Verzend

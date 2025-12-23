@@ -3,10 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 import { MailItem, MailService } from 'src/app/services/mail.service';
-import { AppError } from 'src/app/shared/error-handling/app-error';
 import { ParentComponent } from 'src/app/shared/parent.component';
-import { ServiceUnavailableError } from 'src/app/shared/error-handling/service-unavailable-error';
-import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
+import { catchError, concatMap, delay, from, map, Observable, of, tap, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-mail-dialog',
@@ -15,7 +13,7 @@ import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 
 export class MailDialogComponent extends ParentComponent {
 
-  ckbTest: boolean = false;
+  ckbTest: boolean = true;
   percentageComplete: number = 0;
   output: string = '';
 
@@ -24,7 +22,7 @@ export class MailDialogComponent extends ParentComponent {
     private mailService: MailService,
     protected snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA)
-    public MailItems,  // wordt gevuld vanuit het component. Letop: geen type toevoegen
+    public MailItems: MailItem[],
   ) {
     super(snackBar)
     console.log('data from caller', this.MailItems);
@@ -35,96 +33,86 @@ export class MailDialogComponent extends ParentComponent {
   / Na alle iteraties wordt er nog een functie uitgevoerd.
   /***************************************************************************************************/
   onSendMail(): void {
-    let mailWentOkay = true;
-    this.MailItems.delayedForEach(function (item, idx, lijst) {
-      // console.log(item, idx, lijst);
-      let result: boolean = this.processLid(item);
-      if (!result) {
-        mailWentOkay = false;
-        console.log('mail result', result);
+  const results: { email: string; ok: boolean; name:string }[] = [];
 
+  from(this.MailItems).pipe(
+    concatMap((item, idx) =>
+      this.processLid(item).pipe(
+        delay(1000),
+        tap(ok => {
+          results.push({ email: item.To, ok: ok, name: item.ToName });
+          this.percentageComplete = (idx + 1) * 100 / this.MailItems.length;
+        })
+      )
+    ),
+    toArray()
+  )
+  .subscribe({
+    next: () => {
+      // Build report
+      let report = "Mail Report\n\n";
+      results.forEach(r => {
+        report += `${r.ok ? "OK   " : "FAIL "} - ${r.name} <${r.email}>\n`;
+      });
+
+      // Download report if test mode
+      if (this.ckbTest) {
+        const dd = new DynamicDownload();
+        dd.dynamicDownloadTxt(report, 'MailReport', 'txt');
       }
-      this.percentageComplete = (idx + 1) * 100 / this.MailItems.length;
 
-    }, 1000, this,
-      // Onderstaande functie wordt uitgevoerd wanneer de array doorlopen is.
-      // lijst param wordt niet gebruikt maar staat er als voorbeeld.
-      function (context, lijst) {
-        if (context.ckbTest) {
-          let dynamicDownload = new DynamicDownload();
-          dynamicDownload.dynamicDownloadTxt(context.output, 'My mails', 'txt');
-        }
+      // Snackbar
+      const allOk = results.every(r => r.ok);
+      this.showSnackBar(allOk
+        ? 'Mail verstuurd.'
+        : 'Fout! Een of meerdere mails zijn niet verstuurd.'
+      );
 
-        if (mailWentOkay) {
-          context.showSnackBar('Mail verstuurd.');
-        } else {
-          context.showSnackBar('Fout! Een of meerdere mails zijn niet verstuurd.');
-        }
+      // Close dialog after 3 seconds
+      setTimeout(() => this.dialogRef.close(), 3000);
+    },
 
-        setTimeout(function () {// na 3 sec sluit dialog automatisch
-          context.MailItems.clearTimeout();
-          context.dialogRef.close();
-        }, 3000);
+    error: err => {
+      console.error("Unexpected error in mail pipeline", err);
+      this.showSnackBar('Er is een onverwachte fout opgetreden.');
+    }
+  });
+}
 
-        console.log("done!");
-      }
-    );
-  }
 
   /***************************************************************************************************
-  / Als de test checkbox true is dan worden de mails in een tekst bestand geschreven
-  / Anders worden de mails gewoon verstuurd.
   /***************************************************************************************************/
-  processLid(mailItem: MailItem): boolean {
-    let returnBoolean = true;
+  processLid(mailItem: MailItem): Observable<boolean> {
 
     if (this.developmentMode) {
       mailItem.To = "wim_kielen@hotmail.com";
     }
 
-    if (this.ckbTest) {
+    // // TEST MODE → no mail, only write to output
+    // if (this.ckbTest) {
+    //   this.output += 'To: ' + mailItem.ToName + " <" + mailItem.To + '>\r\n';
+    //   this.output += 'Subject: ' + mailItem.Subject + '\r\n\r\n';
+    //   this.output += mailItem.Message.replace('\n', '\r\n') + '\r\n';
+    //   this.output += "------------------------------------------------------------\r\n";
 
-      this.output += 'To: ' + mailItem.ToName + " <" + mailItem.To + '>\r\n';
+    //   return of(true); // always OK in test mode
+    // }
 
-      this.output += 'Subject: ' + mailItem.Subject + '\r\n';
-      this.output += '\r\n';
-
-      this.output += mailItem.Message.replace('\n', '\r\n') + '\r\n';
-      this.output += "-----------------------------------------------------------------------------------------\r\n";
-    }
-    else {
-
-      let mailItems = new Array<MailItem>();
-      mailItems.push(mailItem);
-
-      let sub = this.mailService.mail$(mailItems)
-        .subscribe({
-          next: (data) => {
-            let result = data as string;
-            console.log('result van mailService', result);
-          },
-          error: (error: AppError) => {
-            console.log("MailDialogComponent --> processLid --> error", error);
-            returnBoolean = false;
-            // console.log('error', error instanceof ServiceUnavailableError);
-
-            if (error instanceof ServiceUnavailableError) {
-              this.showSnackBar(SnackbarTexts.ServiceNotAvailable);
-            } else {
-              this.showSnackBar(SnackbarTexts.SevereError);
-            }
-          }
-        })
-      this.registerSubscription(sub);
-    }
-    return returnBoolean;
+    // REAL MAIL MODE
+    return this.mailService.mail$([mailItem]).pipe(
+      map(() => true),
+      catchError(err => {
+        return of(false);
+      })
+    );
   }
+
 
   /***************************************************************************************************
   / Cancel button pressed
   /***************************************************************************************************/
   onCancel(): void {
-    this.MailItems.clearTimeout();
+    // this.MailItems.clearTimeout();
     this.dialogRef.close();
   }
 }
