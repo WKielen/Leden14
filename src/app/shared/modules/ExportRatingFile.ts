@@ -23,7 +23,7 @@ export function ExportRatingFile(LedenLijst: Array<ExportRatingFileRecord>, file
   LedenLijst.forEach((lid: ExportRatingFileRecord) => {
     let reportItem = new ReportItem();
     // todo kijk of je lege velden uit de lijst kan halen als die vanuit download wordt aangeroepen
-    reportItem.OpgegevenNaam = lid.Lid.VolledigeNaam;
+    reportItem.OpgegevenNaam = lid.Naam;
     reportItem.Email = lid.Email;
     reportItem.ExtraInformatie = lid.ExtraInformatie;
     reportItem.NaamLedenLijst = lid.Lid.VolledigeNaam;
