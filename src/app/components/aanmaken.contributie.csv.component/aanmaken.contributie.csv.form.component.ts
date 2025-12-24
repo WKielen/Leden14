@@ -6,7 +6,7 @@ import { ContributieBedragen } from 'src/app/shared/classes/ContributieBedragen'
 import { DirectDebit } from 'src/app/shared/classes/DirectDebit';
 import { AppError } from 'src/app/shared/error-handling/app-error';
 import { NoChangesMadeError } from 'src/app/shared/error-handling/no-changes-made-error';
-import { CreateBerekenOverzicht, CreateDirectDebits } from 'src/app/shared/modules/ContributieCalcFunctions';
+import { CreateBerekenOverzicht, CreateDirectDebits, DirectDebitResult } from 'src/app/shared/modules/ContributieCalcFunctions';
 import { ParentComponent } from 'src/app/shared/parent.component';
 import { ExportToCsv } from 'export-to-csv';
 import { LedenItemExt, LedenService } from 'src/app/services/leden.service';
@@ -85,10 +85,14 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   / Maak een incasso bestand. Dit is een input bestand voor sepabestand.nl
   /***************************************************************************************************/
   onIncassoBestand(): void {
-    let directDebits: DirectDebit[] = CreateDirectDebits(this.ledenArray, this.contributieBedragen, this.Omschrijving.value)
+    let result: DirectDebitResult = CreateDirectDebits(this.ledenArray, this.contributieBedragen, this.Omschrijving.value);
     this.csvOptions.filename = "TTVN Incasso " + new Date().to_YYYY_MM_DD();
     let csvExporter = new ExportToCsv(this.csvOptions);
-    csvExporter.generateCsv(directDebits);
+    csvExporter.generateCsv(result.valid);
+
+    if (result.invalid.length > 0) {
+      this.downloadInvalidReport(result.invalid);
+    }
   }
 
   /***************************************************************************************************
@@ -126,8 +130,8 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   / Maak een PAIN.008.001.08.xml bestand voor SEPA direct debits
   /***************************************************************************************************/
   onIncassoXMLBestand(): void {
-    let directDebits: DirectDebit[] = CreateDirectDebits(this.ledenArray, this.contributieBedragen, this.Omschrijving.value);
-    const xmlString = this.generatePain008XML(directDebits);
+    let result: DirectDebitResult = CreateDirectDebits(this.ledenArray, this.contributieBedragen, this.Omschrijving.value);
+    const xmlString = this.generatePain008XML(result.valid);
     const filename = "TTVN_Incasso_" + new Date().to_YYYY_MM_DD() + ".xml";
     const blob = new Blob([xmlString], { type: 'application/xml' });
     const url = window.URL.createObjectURL(blob);
@@ -136,6 +140,10 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
     a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
+
+    if (result.invalid.length > 0) {
+      this.downloadInvalidReport(result.invalid);
+    }
   }
 
   /***************************************************************************************************
@@ -271,7 +279,6 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
     const controlSum = directDebits.reduce((sum, dd) => sum + dd.Bedrag, 0).toFixed(2);
     const requestedCollectionDate = this.RequestedDirectDebitDate.value;
 
-    console.log('iban', this.creditorIBAN);
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.08">
   <CstmrDrctDbtInitn>
@@ -385,6 +392,22 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
 </Document>
 `;
     return xml;
+  }
+
+  /***************************************************************************************************
+  / Download a report of invalid direct debits
+  /***************************************************************************************************/
+  private downloadInvalidReport(invalid: { lid: LedenItemExt, dd?: DirectDebit, reason: string }[]): void {
+    let invalidData = invalid.map(inv => ({
+      LidNr: inv.lid.LidNr,
+      Naam: inv.lid.VolledigeNaam,
+      IBAN: inv.dd ? inv.dd.IBAN : inv.lid.IBAN,
+      Bedrag: inv.dd ? inv.dd.Bedrag : 0,
+      Reden: inv.reason
+    }));
+    this.csvOptions.filename = "TTVN Ongeldige Incasso " + new Date().to_YYYY_MM_DD();
+    let csvExporter = new ExportToCsv(this.csvOptions);
+    csvExporter.generateCsv(invalidData);
   }
 
   /***************************************************************************************************

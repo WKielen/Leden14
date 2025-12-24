@@ -7,6 +7,11 @@ import { MailItem, MailItemTo } from "src/app/services/mail.service";
 import { BerekendeBedragen } from "../classes/BerekendeBedragen";
 import { ContributieBedragen } from "../classes/ContributieBedragen";
 
+export interface DirectDebitResult {
+    valid: DirectDebit[];
+    invalid: { lid: LedenItemExt, dd?: DirectDebit, reason: string }[];
+}
+
 /***************************************************************************************************
 / Contributie berekening nieuwe methode
 /***************************************************************************************************/
@@ -123,22 +128,36 @@ export function CreateDescriptionLine(description: string, name: string): string
 /***************************************************************************************************
 / Create a list of Direct Debits.
 /***************************************************************************************************/
-export function CreateDirectDebits(ledenArray: Array<LedenItemExt>, contributieBedragen: ContributieBedragen, description: string): Array<DirectDebit> {
+export function CreateDirectDebits(ledenArray: Array<LedenItemExt>, contributieBedragen: ContributieBedragen, description: string): DirectDebitResult {
 
-    let directDebits: DirectDebit[] = [];
+    let result: DirectDebitResult = { valid: [], invalid: [] };
 
     ledenArray.forEach((lid: LedenItemExt) => {
-        if (lid.BetaalWijze != BetaalWijzeValues.INCASSO)
+        if (lid.BetaalWijze != BetaalWijzeValues.INCASSO) {
+            // result.invalid.push({ lid, reason: 'Betaalwijze is niet INCASSO' });
             return;
+        }
+
+        if (lid.LidType == LidTypeValues.CONTRIBUTIEVRIJ) {
+            // result.invalid.push({ lid, reason: 'Lid is contributievrij' });
+            return;
+        }
 
         let dd = CreateOneDirectDebit(lid, contributieBedragen, description);
-        if (dd.Bedrag == 0)
+        if (dd.Bedrag <= 0) {
+            result.invalid.push({ lid, dd, reason: 'Bedrag is 0 of negatief' });
             return;
+        }
 
-        directDebits.push(dd);
+        if (!dd.IBAN || dd.IBAN.trim() === '') {
+            result.invalid.push({ lid, dd, reason: 'IBAN ontbreekt' });
+            return;
+        }
+
+        result.valid.push(dd);
     })
 
-    return directDebits;
+    return result;
 }
 
 /***************************************************************************************************
@@ -160,7 +179,7 @@ export function CreateOneDirectDebit(lid: LedenItemExt, contributieBedragen: Con
     }
 
     directDebit.BIC = '';
-    directDebit.IBAN = lid.IBAN;
+    directDebit.IBAN = lid.IBAN.replace(/\s/g, '');
     directDebit.NaamDebiteur = ReplaceCharacters(lid.VolledigeNaam)
     directDebit.AdresRegel1 = ReplaceCharacters(lid.Adres);
     directDebit.AdresRegel2 = ReplaceCharacters(lid.Postcode.substring(0, 4) + " " + lid.Postcode.substring(4, 6) + "  " + lid.Woonplaats);
