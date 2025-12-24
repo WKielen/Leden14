@@ -121,27 +121,9 @@ export class MemberSelectionBoxWrapperComponent extends BaseComponent implements
       let jeugd: boolean = data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 ;
       let senior1: boolean = data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1;
 
-      if (data.Adres == 'Neptunusburg 6' || data.Adres == 'Jachthoornlaan 25') {
-        console.log('---', data);
-        console.log('V', volwassen);
-        console.log('J', jeugd);
-        console.log('S1', senior1);
-        console.log('O', oldstars, data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS));
-      }
-
-
-
       return  volwassen || jeugd || oldstars || senior1;
                 
-                
-//        || (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
-  //      || (data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS) !== -1  && data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) == -1)
 
-
-
-      return (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieV) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
-        || (data.LeeftijdCategorie.toLowerCase().indexOf(searchTerms.LeeftijdCategorieJ) !== -1 || data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) !== -1 )
-        || (data.OldStars.indexOf(searchTerms.LeeftijdCategorieOS) !== -1  && data.LeeftijdCategorieBond.indexOf(searchTerms.LeeftijdCategorieS1) == -1)
     }
     return filterFunction;
   }

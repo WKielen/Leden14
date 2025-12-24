@@ -94,7 +94,7 @@ export function CreateDownloadReportDetailLine(lid: LedenItemExt, berekendeBedra
     berekeningOverzicht.GeboorteDatum = lid.GeboorteDatum;
     berekeningOverzicht.LidType = LidTypeValues.GetLabel(lid.LidType);
 
-    berekeningOverzicht.BetaalWijze = BetaalWijzeValues.GetLabel(lid.BetaalWijze);
+    berekeningOverzicht.BetaalWijze = lid.U_PasNr ? lid.U_PasNr : BetaalWijzeValues.GetLabel(lid.BetaalWijze);
     berekeningOverzicht.LidBond = lid.LidBond.toDutchTextString();
     berekeningOverzicht.CompGerechtigd = lid.CompGerechtigd.toDutchTextString();
     berekeningOverzicht.VastBedrag = lid.VastBedrag;
@@ -201,11 +201,11 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
     mailItem.To = myMail.To;
     mailItem.ToName = myMail.ToName;
 
-    mailItem.Subject = "Aankondiging contributie TTVN - " + lid.Voornaam;
+    mailItem.Subject = "Aankondiging contributie TTVN - " + ReplaceCharacters(lid.Voornaam);
     if (lid.LeeftijdCategorieWithSex.substring(0, 1) == 'J') {
-        string += ('Beste ouders/verzorgers van ' + lid.Voornaam + ',<br><br>');
+        string += ('Beste ouders/verzorgers van ' + ReplaceCharacters(lid.Voornaam) + ',<br><br>');
     } else {
-        string += ('Beste ' + lid.Voornaam + ',<br><br>');
+        string += ('Beste ' + ReplaceCharacters(lid.Voornaam) + ',<br><br>');
     }
     switch (lid.BetaalWijze) {
         case BetaalWijzeValues.INCASSO:
@@ -226,7 +226,7 @@ export function CreateContributieMail(lid: LedenItemExt, contributieBedragen: Co
     let berekendeBedragen = BerekenContributie(lid, contributieBedragen, description);
 
     string += '<br><table style="width:100%;text-align: left;">';
-    string += '<tr><td style="width: 1px;white-space: nowrap;">Omschrijving</td><td>: ' + ReplaceCharacters(CreateDescriptionLine(description, lid.Voornaam)) + '</td></tr>';
+    string += '<tr><td style="width: 1px;white-space: nowrap;width:20%;">Omschrijving</td><td>: ' + ReplaceCharacters(CreateDescriptionLine(description, lid.Voornaam)) + '</td></tr>';
     if (lid.BetaalWijze == BetaalWijzeValues.INCASSO) {
         string += '<tr><td style="width: 1px;white-space: nowrap;">IBAN</td><td>: ' + lid.IBAN + '</td></tr>';
         string += '<tr><td style="width: 1px;white-space: nowrap;">Verwachte incassodatum</td><td>: ' + requestedDirectDebitDate + '</td></tr>';

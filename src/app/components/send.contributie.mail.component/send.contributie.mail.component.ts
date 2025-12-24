@@ -26,6 +26,9 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
   @Input() datumIncasso: string = "2021-01-01";
   @Input() extraMailText: string = null;
 
+  ledenArraySelect: Array<LedenItemExt> = new Array<LedenItemExt>();
+
+
   constructor(
     protected ledenService: LedenService,
     protected paramService: ParamService,
@@ -36,12 +39,8 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
   }
 
   ngOnInit(): void {
-    
-    if (this.ledenArray == null) {
-      console.log('array = null', this.ledenArray);
-      // if (this.ledenArray.length == 0) 
+    if (this.ledenArray == null) 
       this.readActiveMembers();
-    }
     if (!this.contributieBedragen)
       this.readContributieBedragen();
     if (!this.tekstOpAfschrift)
@@ -66,6 +65,17 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
             console.error("error", error);
           }
         }))
+  }
+
+  /***************************************************************************************************
+  / Vanuit de selectie component krijgen we de geselecteerde leden ZONDER IBAN!!  (Dit vanwege privacy)
+  / De penningmeester heeft de IBAN wel nodig. Dus we moeten de IBAN's erbij zoeken.
+  /***************************************************************************************************/
+  onSelectionChanged($event) {
+    this.ledenArraySelect = $event;
+    this.ledenArraySelect.forEach(lid => {
+      lid.IBAN = this.ledenArray.find(lidIBAN => lidIBAN.LidNr == lid.LidNr).IBAN;
+    });
   }
 
   /***************************************************************************************************
@@ -159,7 +169,7 @@ export class SendContributieMailComponent extends ParentComponent implements OnI
 
     let date = new Date(this.datumIncasso);
 
-    this.ledenArray.forEach(lid => {
+    this.ledenArraySelect.forEach(lid => {
 
       if (lid.LidType == LidTypeValues.CONTRIBUTIEVRIJ) return; // Contributie vrij
       let mailItem = CreateContributieMail(lid, this.contributieBedragen, this.tekstOpAfschrift, formatDate(date, 'dd-MM-yyyy', 'nl-NL'));
