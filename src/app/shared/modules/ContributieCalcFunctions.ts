@@ -154,9 +154,9 @@ export function CreateOneDirectDebit(lid: LedenItemExt, contributieBedragen: Con
     const minMandateDate: Date = new Date('01 nov 2009');
 
     if (lidVanaf > minMandateDate) {
-        directDebit.DatumMachtiging = formatDate(lid.LidVanaf, 'dd-MM-yyyy', 'nl');
+        directDebit.DatumMachtiging = formatDate(lid.LidVanaf, 'yyyy-MM-dd', 'nl');
     } else {
-        directDebit.DatumMachtiging = formatDate(minMandateDate, 'dd-MM-yyyy', 'nl');
+        directDebit.DatumMachtiging = formatDate(minMandateDate, 'yyyy-MM-dd', 'nl');
     }
 
     directDebit.BIC = '';

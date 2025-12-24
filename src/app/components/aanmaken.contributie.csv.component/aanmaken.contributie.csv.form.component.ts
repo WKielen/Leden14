@@ -54,6 +54,9 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   @Output() changedDatumIncasso: EventEmitter<string> = new EventEmitter<string>();
   @Output() changedTekstOpAfschrift: EventEmitter<string> = new EventEmitter<string>();
 
+  creditorName: string = 'Tafeltennisvereniging Nieuwegein';
+  creditorIBAN: string = '';
+
   constructor(
     protected paramService: ParamService,
     protected ledenService: LedenService,
@@ -75,6 +78,7 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
       this.readDatumIncasso();
     else
       this.RequestedDirectDebitDate.setValue(this.datumIncasso);
+    this.readCreditorDetails();
   }
 
   /***************************************************************************************************
@@ -116,6 +120,22 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
     this.csvOptions.filename = "TTVN Overzicht berekeningen " + new Date().to_YYYY_MM_DD();
     let csvExporter = new ExportToCsv(this.csvOptions);
     csvExporter.generateCsv(berekeningOverzichten);
+  }
+
+  /***************************************************************************************************
+  / Maak een PAIN.008.001.08.xml bestand voor SEPA direct debits
+  /***************************************************************************************************/
+  onIncassoXMLBestand(): void {
+    let directDebits: DirectDebit[] = CreateDirectDebits(this.ledenArray, this.contributieBedragen, this.Omschrijving.value);
+    const xmlString = this.generatePain008XML(directDebits);
+    const filename = "TTVN_Incasso_" + new Date().to_YYYY_MM_DD() + ".xml";
+    const blob = new Blob([xmlString], { type: 'application/xml' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 
   /***************************************************************************************************
@@ -188,6 +208,24 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
   }
 
   /***************************************************************************************************
+  / Lees de crediteur details voor SEPA XML
+  /***************************************************************************************************/
+  readCreditorDetails(): void {
+
+    this.registerSubscription(
+      this.paramService.readParamData$("CreditorIBAN", 'NL84RABO0331065266', 'IBAN crediteur voor SEPA')
+        .subscribe({
+          next: (data) => {
+            this.creditorIBAN = data as string;
+          },
+          error: (error: AppError) => {
+            console.error("error", error);
+          }
+        })
+    );
+  }
+
+  /***************************************************************************************************
   / De tekst rekeningafschrift is gewijzigd
   /***************************************************************************************************/
   onSaveChangedFields(): void {
@@ -221,6 +259,132 @@ export class AanmakenContributieCSVFormComponent extends ParentComponent impleme
             } else { throw error; }
           }
         }))
+  }
+
+  /***************************************************************************************************
+  / Genereer PAIN.008.001.08 XML voor SEPA direct debits
+  /***************************************************************************************************/
+  private generatePain008XML(directDebits: DirectDebit[]): string {
+    const messageId = 'TTVN-' + new Date().toISOString().replace(/[:-]/g, '').split('.')[0];
+    const creationDateTime = new Date().toISOString();
+    const numberOfTransactions = directDebits.length;
+    const controlSum = directDebits.reduce((sum, dd) => sum + dd.Bedrag, 0).toFixed(2);
+    const requestedCollectionDate = this.RequestedDirectDebitDate.value;
+
+    console.log('iban', this.creditorIBAN);
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.08">
+  <CstmrDrctDbtInitn>
+    <GrpHdr>
+      <MsgId>${messageId}</MsgId>
+      <CreDtTm>${creationDateTime}</CreDtTm>
+      <NbOfTxs>${numberOfTransactions}</NbOfTxs>
+      <CtrlSum>${controlSum}</CtrlSum>
+      <InitgPty>
+        <Nm>${this.creditorName}</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>TTVN-PMT-001</PmtInfId>
+      <PmtMtd>DD</PmtMtd>
+      <BtchBookg>true</BtchBookg>
+      <NbOfTxs>${numberOfTransactions}</NbOfTxs>
+      <CtrlSum>${controlSum}</CtrlSum>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+        <LclInstrm>
+          <Cd>CORE</Cd>
+        </LclInstrm>
+        <SeqTp>RCUR</SeqTp>
+      </PmtTpInf>
+      <ReqdColltnDt>${requestedCollectionDate}</ReqdColltnDt>
+      <Cdtr>
+        <Nm>Tafeltennisvereniging Nieuwegein</Nm>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>${this.creditorIBAN}</IBAN>
+        </Id>
+      </CdtrAcct>
+      <CdtrAgt>
+        <FinInstnId>
+          <Othr>
+            <Id>NOTPROVIDED</Id>
+          </Othr>
+        </FinInstnId>
+      </CdtrAgt>
+      <ChrgBr>SLEV</ChrgBr>
+      <CdtrSchmeId>
+        <Id>
+          <PrvtId>
+            <Othr>
+              <Id>NL40ZZZ404785490000</Id>
+              <SchmeNm>
+                <Prtry>SEPA</Prtry>
+              </SchmeNm>
+            </Othr>
+          </PrvtId>
+        </Id>
+      </CdtrSchmeId>
+`;
+
+    directDebits.forEach((dd, index) => {
+      const endToEndId = `TTVN-${index + 1}`;
+      xml += `
+      <DrctDbtTxInf>
+        <PmtId>
+          <InstrId>${endToEndId}</InstrId>
+          <EndToEndId>${endToEndId}</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">${dd.Bedrag.toFixed(2)}</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>${dd.NrMachtiging}</MndtId>
+            <DtOfSgntr>${dd.DatumMachtiging}</DtOfSgntr>
+          </MndtRltdInf>
+          <CdtrSchmeId>
+            <Id>
+              <PrvtId>
+                <Othr>
+                  <Id>NL40ZZZ404785490000</Id>
+                  <SchmeNm>
+                    <Prtry>SEPA</Prtry>
+                  </SchmeNm>
+                </Othr>
+              </PrvtId>
+            </Id>
+          </CdtrSchmeId>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId>
+            <Othr>
+              <Id>NOTPROVIDED</Id>
+            </Othr>
+          </FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>${dd.NaamDebiteur}</Nm>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>${dd.IBAN}</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>${dd.Omschrijving}</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+`;
+    });
+
+    xml += `
+    </PmtInf>
+  </CstmrDrctDbtInitn>
+</Document>
+`;
+    return xml;
   }
 
   /***************************************************************************************************

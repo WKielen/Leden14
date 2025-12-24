@@ -27,6 +27,8 @@
             <div class='flexcontainer' style="justify-content: space-between">
                 <button mat-raised-button color="primary" (click)="onIncassoBestand()"
                     [disabled]='!incassoForm.valid'>Maak Incasso bestand</button>
+                <button mat-raised-button color="primary" (click)="onIncassoXMLBestand()"
+                    [disabled]='!incassoForm.valid'>Maak Incasso XML bestand</button>
                 <button mat-raised-button color="primary" (click)='onRekeningBestand()'
                     [disabled]='!incassoForm.valid'>Maak Rekening bestand</button>
                 <button mat-raised-button color="primary" (click)='onAndersBetalenden()'
