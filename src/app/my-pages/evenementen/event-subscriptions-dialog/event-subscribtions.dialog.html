@@ -1,7 +1,5 @@
 <app-mat-dialog-header-detail title='Ingeschreven leden'></app-mat-dialog-header-detail>
 <mat-dialog-content>
-  <app-display-subscriptions-details [inschrijvingsList]="subscriptions" ></app-display-subscriptions-details>
+  <app-display-subscriptions-details-wrapper [AgendaId]="event.Id" ></app-display-subscriptions-details-wrapper>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="onClickDownload()">Download inschrijvingen</button>
-</mat-dialog-actions>
+

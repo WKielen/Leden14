@@ -14,7 +14,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HtmlEditorMailWrapperComponent } from './html.editor.mail.wrapper.component';
 import { SendMailComponent } from './send.mail.component';
 import { DisplayAgendaDetailsComponent } from './display.agenda.details.component';
-import { DisplaySubscriptionsAgendaDetailsComponent } from './display.subscribtions.details.component';
 import { HtmlEditorFormControlComponent } from './html.editor.formcontrol.component';
 import { SendMailSettingsComponent } from './send.mail.setting.component';
 import { HoldableModule } from '../shared/directives/directives.module';
@@ -36,6 +35,8 @@ import { DisplayDecisionDetailsComponent } from './action.compoments/display.dec
 import { ActionMutationDialogComponent } from './action.compoments/action.mutation.dialog/action.mutation';
 import { DecisionMutationDialogComponent } from './action.compoments/decision.mutation.dialog/decision.mutation.dialog';
 import { NotificationSubscriptionFormComponent } from './notification.subscription.form.component';
+import { DisplaySubscriptionsAgendaDetailsComponent } from './display.subscribtions.details.component/display.subscribtions.details.component';
+import { DisplaySubscriptionsAgendaDetailsWrapperComponent } from './display.subscribtions.details.component/display.subscribtions.details.wrapper.component';
 
 const componentList = [
   CardHeaderSpinnerComponent,
@@ -50,6 +51,7 @@ const componentList = [
   HtmlEditorMailWrapperComponent,
   SendMailComponent,
   DisplaySubscriptionsAgendaDetailsComponent,
+  DisplaySubscriptionsAgendaDetailsWrapperComponent,
   DisplayAgendaDetailsComponent,
   HtmlEditorFormControlComponent,
   SendMailSettingsComponent,

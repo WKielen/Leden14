@@ -29,25 +29,23 @@ th.mat-header-cell {
   width: 10px;
 }
 
+
+
+.mat-row .mat-cell,
+.mat-header-row .mat-header-cell {
+  padding-left: 20px !important;
+  
+  @media (max-width: 767px) {
+    padding-left: 0 !important;
+  }
+}
+
 // omgekeerde kleuren ivm uitklap frame
 .mat-row:nth-child(even) {
   background-color: #f5f5f5;
 }
 .mat-row:nth-child(odd) {
   background-color: white;
-}
-
-// voor het linkse overzicht
-.cell-static {
-  padding: 10px 0px 10px 40px !important;
-  width:70%;
-}
-
-// voor het linkse overzicht
-.cell-header-static {
-  padding: 10px 0px 10px 25px !important;
-  width:70%;
-
 }
 
 // De kleine copy buttons op de detailpag

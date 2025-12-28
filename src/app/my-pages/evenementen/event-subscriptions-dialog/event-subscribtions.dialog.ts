@@ -58,14 +58,6 @@ export class EventSubscriptionsDialogComponent extends ParentComponent implement
               if (inschrijving.LidNr != 0 && index != -1) {
                 lid = ledenLijst[index];
               }
-
-              let reportLine = new ExportRatingFileRecord();
-              reportLine.Lid = lid;
-              reportLine.Naam = inschrijving.Naam;
-              reportLine.Email = inschrijving.Email;
-              reportLine.ExtraInformatie = inschrijving.ExtraInformatie;
-
-              this.reportList.push(reportLine);
             });
 
           },
@@ -74,10 +66,5 @@ export class EventSubscriptionsDialogComponent extends ParentComponent implement
           }
         })
     );
-  }
-
-  onClickDownload(): void {
-    console.log("EventSubscriptionsDialogComponent --> onClickDownload --> this.reportList", this.reportList);
-    ExportRatingFile(this.reportList, 'Inschrijvingen ' + this.event.EvenementNaam);
   }
 }
