@@ -81,14 +81,16 @@ export function agendaToEvent(agendaItem: AgendaItem): any {
   let event: any = new Object();
   event.title = agendaItem.EvenementNaam;
 
-  const valid = !isNaN(Date.parse(agendaItem.Datum + 'T'+ agendaItem.Tijd));
-  if (valid) {
-    event.allDay = false;
-    event.date = agendaItem.Datum + 'T'+ agendaItem.Tijd;
-  } else {
     event.allDay = true;
     event.date = agendaItem.Datum ;
-  }
+  // const valid = !isNaN(Date.parse(agendaItem.Datum + 'T'+ agendaItem.Tijd));
+  // if (valid) {
+  //   event.allDay = false;
+  //   event.date = agendaItem.Datum + 'T'+ agendaItem.Tijd;
+  // } else {
+  //   event.allDay = true;
+  //   event.date = agendaItem.Datum ;
+  // }
 
   // Als je start gebruikt dat krijg je een punt te zien met de begintijd. Als je het niet gebruikt dan
   // krijgen we een 'allDay' te zien. Dus een gekleurde achtergrond.
@@ -105,14 +107,16 @@ export function agendaToEvent(agendaItem: AgendaItem): any {
 export function setEventProps(eventApi: EventApi, agendaItem: AgendaItem): void {
 
   let newDate: Date;
-  const valid = !isNaN(Date.parse(agendaItem.Datum + 'T'+ agendaItem.Tijd));
-  if (valid) {
-    newDate = new Date(agendaItem.Datum + 'T'+ agendaItem.Tijd);
-    eventApi.setAllDay(false);
-  } else {
-    newDate = new Date(agendaItem.Datum);
-    eventApi.setAllDay(true);
-  }
+  newDate = new Date(agendaItem.Datum);
+  eventApi.setAllDay(true);
+  // const valid = !isNaN(Date.parse(agendaItem.Datum + 'T'+ agendaItem.Tijd));
+  // if (valid) {
+  //   newDate = new Date(agendaItem.Datum + 'T'+ agendaItem.Tijd);
+  //   eventApi.setAllDay(false);
+  // } else {
+  //   newDate = new Date(agendaItem.Datum);
+  //   eventApi.setAllDay(true);
+  // }
 
   eventApi.setExtendedProp("agendaItem", agendaItem);
   eventApi.setProp("title", agendaItem.EvenementNaam);
@@ -135,7 +139,7 @@ function setBackgroundColor(type: string, organiser: string): string[] {
   let boxcolor: string = "white";
   let textcolor: string = "black";
 
-  if (type == 'V') {
+  if (type == 'V') {  // Vergadering
     boxcolor = 'white';
     if (organiser == '0') textcolor = "orange";
     if (organiser == '1') textcolor = "blue";
@@ -144,7 +148,7 @@ function setBackgroundColor(type: string, organiser: string): string[] {
     return [boxcolor, textcolor];
   }
 
-  if (type == 'A') {
+  if (type == 'A') {   // Action
     boxcolor = '#ff0000';
     if (organiser == '0') textcolor = "orange";
     if (organiser == '1') textcolor = "blue";
@@ -153,7 +157,7 @@ function setBackgroundColor(type: string, organiser: string): string[] {
     return [boxcolor, textcolor];
   }
 
-  if (type == 'C') {
+  if (type == 'C') {  // Comptitie
     boxcolor = 'green';
     textcolor = 'white'
     return [boxcolor, textcolor];

@@ -87,5 +87,14 @@ export class DisplayAgendaDetailsComponent extends BaseComponent implements OnCh
     this.type = TypeValues.GetLabel(this.agendaItem.Type);
     this.inschrijfGeld = Number(this.agendaItem.Inschrijfgeld).AmountFormat();
     this.toelichting = this.agendaItem.Toelichting.replace(new RegExp('\n', 'g'), "<br>")
+
+    console.log("🚀 --> DisplayAgendaDetailsComponent --> ngOnChanges --> this.agendaItem.UitersteInschrijfDatum:", this.agendaItem.UitersteInschrijfDatum);
+    if (!isNaN(Date.parse(this.agendaItem.UitersteInschrijfDatum ))) {
+      const date = new Date(this.agendaItem.UitersteInschrijfDatum);
+      this.agendaItem.UitersteInschrijfDatum = date.toLocaleDateString('nl-NL');
+    } else {
+      this.agendaItem.UitersteInschrijfDatum = null;
+    }
+
   }
 }

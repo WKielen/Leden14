@@ -153,7 +153,7 @@ export class AgendaComponent
 
       this.events.push(birthdayEvent);
 
-      // check for anniversary
+      // check for anniversary 10, 25, 40, 50
       let anniversary: IBirthDay = DateRoutines.ComingAnniversary(new Date(item.LidVanaf));
       if (!anniversary) return; // er is geen jubileum
       let anniversaryEvent: EventInput = new Object();
