@@ -18,8 +18,8 @@ export interface TrainingstijdItem {
   Id: string;
   Code: string;
   Day: string;
-  StartDate: string;
-  EndDate: string;
+  StartTime: string;
+  EndTime: string;
   Trainer: string;
   Comment: string;
 }

@@ -7,6 +7,7 @@ import { TrainingstijdItem, TrainingstijdService } from 'src/app/services/traini
 import { SnackbarTexts } from 'src/app/shared/error-handling/SnackbarTexts';
 import { CountingValues } from 'src/app/shared/modules/CountingValues';
 import { AppError } from 'src/app/shared/error-handling/app-error';
+import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 
 @Component({
   selector: 'app-trainingsgroep',
@@ -17,7 +18,7 @@ export class TrainingGroupsComponent extends ParentComponent implements OnInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-  predefinedDisplayColumns: string[] = ['Naam', 'Ma1', 'Ma2', 'Di1', 'Di2', 'Wo1', 'Wo2', 'Wo3','Wo4','Do1', 'Do2', 'Vr1', 'Vr2', 'Za1', 'Za2', 'Zo1', 'Zo2'];
+  predefinedDisplayColumns: string[] = ['Naam', 'Ma1', 'Ma2', 'Di1', 'Di2', 'Wo1', 'Wo2', 'Wo3', 'Wo4', 'Do1', 'Do2', 'Vr1', 'Vr2', 'Za1', 'Za2', 'Zo1', 'Zo2'];
   displayedColumns: string[] = ['Naam'];
   dataSource = new MatTableDataSource<trainingsgroepLine>();
   fabButtons = [];  // dit zijn de buttons op het scherm
@@ -114,11 +115,11 @@ export class TrainingGroupsComponent extends ParentComponent implements OnInit {
             'TrainingsGroepen': JSON.stringify(geselecteerdeDagen),
           };
           let sub = this.ledenService.update$(updateRecord)
-          .subscribe({
-            error: (error: AppError) => {
-              console.log("error", error);
-            }
-          })
+            .subscribe({
+              error: (error: AppError) => {
+                console.log("error", error);
+              }
+            })
           this.registerSubscription(sub);
         }
       });
@@ -130,7 +131,42 @@ export class TrainingGroupsComponent extends ParentComponent implements OnInit {
   }
 
   onFabClickDownload(event): void {
-    this.showSnackBar('Nog niet gedaan', '');
+    let localList: string = '';
+    let fileName: string = 'Trainingsgroepen_';
+
+    // Build headers
+    this.trainingsTijden.forEach(tijdstip => {
+      localList += `${tijdstip.Code};`;
+    });
+    localList += '\n';
+    this.trainingsTijden.forEach(tijdstip => {
+      localList += `${tijdstip.Day} (${tijdstip.StartTime}-${tijdstip.EndTime});`;
+    });
+    localList += '\n';
+
+    // Create compacted matrix: each column has non-empty names moved up
+    const compactedMatrix: string[][] = [];
+    this.trainingsTijden.forEach((tijdstip, colIdx) => {
+      const column = this.dataSource.data
+        .map(member => member[tijdstip.Code] ? member.Naam : '')
+        .filter(name => name !== '');
+      column.forEach((name, rowIdx) => {
+        if (!compactedMatrix[rowIdx]) {
+          compactedMatrix[rowIdx] = Array(this.trainingsTijden.length).fill('');
+        }
+        compactedMatrix[rowIdx][colIdx] = name;
+      });
+    });
+
+    // Append matrix to CSV
+    compactedMatrix.forEach(row => {
+      localList += row.join(';') + ';\n';
+    });
+
+    // Download
+    let dynamicDownload = new DynamicDownload();
+    fileName += new Date().to_YYYY_MM_DD();
+    dynamicDownload.dynamicDownloadTxt(localList, fileName, 'csv');
   }
 }
 
