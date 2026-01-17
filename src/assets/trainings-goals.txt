@@ -1,5 +1,56 @@
-2; FH.C
-3; BH.C
-4; Smash
-5; Flip FH
-6; Vastheid
+1; Vakantie
+2; Vastheid
+3; Vastheid
+4; FH.TS
+5; BH.TS
+6; FH.Flip
+7; BH.Flip
+8; Service + Wedstrijdjes met opdracht bijv feedback of tactisch
+9; Dubbel
+10; FH.TS
+11; BH.TS
+12; Voetenwerk / Vastheid
+13; BH.TS
+14; FH.Flip
+15; BH.Flip
+16; FH.TS
+17; Voetenwerk / Vastheid
+18; Meerballen
+19; Service + Wedstrijdjes met opdracht bijv feedback of tactisch
+20; FH & BH Smash
+21; FH.TS
+22; Serveren
+23; FH.TS
+24; Voetenwerk / Vastheid
+25; Service + Wedstrijdjes met opdracht bijv feedback of tactisch
+26; BH.TS
+27; Meerballen door eigen spelers
+28; Spel/vrij
+29; 4-Tisch
+31; Vakantie
+32; Vakantie
+33; Vakantie
+34; Vakantie
+35; Vakantie
+36; Vakantie
+37; FH.TS service + openen
+38; FH.TS service + openen
+39; FH Flip + korte BH service
+40; FH Flip + korte BH service
+41; Voetenwerk + Vastheid
+42; BH.TS
+43; Dubbelen
+44; Service + Wedstrijdjes met opdracht bijv feedback of tactisch
+45; FH.TS service + openen
+46; BH.TS
+47; FH Flip + korte BH service
+48; FH Flip + korte BH service
+49; Voetenwerk + Vastheid
+50; Meerballen door eigen spelers
+51; FH & BH Smash
+52; 4-Tisch
+53; Spel/vrij
+
+
+
+

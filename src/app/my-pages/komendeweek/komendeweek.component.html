@@ -19,13 +19,41 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="showForm">
+<mat-card>
   <mat-card-header>
     <mat-card-title>Trainingsdoel jeugd</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-      <div class="internalcard" *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
-        <div id="datum">{{ trainingGoals[getWeekNumber(dagen.keys()[i])] }}</div>
+    <div class="internalcard">
+      <div id="datum">{{ getWeekRange() }}  (Week {{ getWeekNumber() }})</div>
+      <div class="internalcardcontent">
+        <div id="evenementnaam">{{ trainingGoals[getWeekNumber()] }}</div>
       </div>
+    </div>
+    <div class="internalcard">
+      <div id="datum">{{ getNextWeekRange() }}   (Week {{ getNextWeekNumber() }})</div>
+      <div class="internalcardcontent">
+        <div id="evenementnaam">{{ trainingGoals[getNextWeekNumber()] }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Aankomende verjaardagen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="groupedBirthdays.length > 0">
+      <div class="internalcard" *ngFor="let birthdayGroup of groupedBirthdays">
+        <div id="datum">{{ birthdayGroup.date | date:'EEEE dd-MM-yyyy' }}</div>
+        <div class="internalcardcontent" *ngFor="let member of birthdayGroup.members">
+          <div id="evenementnaam">{{ member.VolledigeNaam }} ({{ member.Leeftijd }})</div>
+        </div>
+      </div>
+    </div>
+    <div class="internalcard" *ngIf="groupedBirthdays.length == 0">
+      <div id="datum">Geen verjaardagen</div>
+    </div>
   </mat-card-content>
 </mat-card>

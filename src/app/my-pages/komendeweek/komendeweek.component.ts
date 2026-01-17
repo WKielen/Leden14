@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 import { AgendaItem, AgendaService, TypeValues } from 'src/app/services/agenda.service';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import * as moment from 'moment';
-import { ActionItem, ActionService, ACTIONSTATUS } from 'src/app/services/action.service';
 import { BaseComponent } from 'src/app/shared/base.component';
+import { LedenService, LedenItemExt } from 'src/app/services/leden.service';
 
 @Component({
   selector: 'app-komendeweek',
@@ -16,16 +16,22 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
 
   constructor(
     private agendaService: AgendaService,
-    private actionService: ActionService,
-    private http: HttpClient
+    private http: HttpClient,
+    private ledenService: LedenService
   ) {
     super();
   }
   dagen: Dictionary = new Dictionary([]);
   trainingGoals: { [key: string]: string } = {};
   showForm: boolean = false;
+  birthdays: LedenItemExt[] = [];
+  groupedBirthdays: { date: string; members: LedenItemExt[] }[] = [];
+  now = moment();
+  startOfNextWeek = moment();
+  endOfNextWeek = moment().add(1, 'week');
 
   ngOnInit(): void {
+
     // First load training goals
     this.registerSubscription(
       this.http.get('/assets/trainings-goals.txt', { responseType: 'text' })
@@ -33,6 +39,7 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
           next: (data) => {
             this.parseTrainingGoals(data);
             this.loadAgendaData();
+            this.loadBirthdays();
           },
           error: (e) => {
             console.error('Error loading training goals:', e);
@@ -40,6 +47,8 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
           }
         })
     );
+
+
   }
 
   private loadAgendaData(): void {
@@ -70,41 +79,6 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
 
     );
 
-    this.registerSubscription(
-      this.actionService
-        .nextWeek$()
-        .pipe(
-          map(function (value: ActionItem[]) {
-            let localdata: Array<AgendaItem> = value ? value : [];
-            return localdata;
-          })
-        )
-        .subscribe({
-          next: (actionLijst: Array<ActionItem>) => {
-            actionLijst.forEach(element => {
-              if (element.Status != ACTIONSTATUS.OPEN && element.Status != ACTIONSTATUS.REPEATING)
-                return;
-              let ai: AgendaItem = new AgendaItem();
-              ai.Datum = element.StartDate
-              ai.EvenementNaam = element.Title;
-              ai.Toelichting = element.Description;
-              ai.ContactPersoon = element.HolderName;
-              ai.Type = "S";
-              this.addtoDagListIfThisWeek(ai);
-
-              ai = new AgendaItem();
-              ai.Datum = element.TargetDate
-              ai.EvenementNaam = element.Title;
-              ai.Toelichting = element.Description;
-              ai.ContactPersoon = element.HolderName;
-              ai.Type = "E";
-              this.addtoDagListIfThisWeek(ai);
-
-            });
-            this.showForm = true; // Ensure form is shown after actions too
-          }
-        })
-    );
   }
 
   addtoDagListIfThisWeek(agendaItem: AgendaItem): void {
@@ -122,9 +96,51 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
     dag.push(agendaItem);
   }
 
-  getWeekNumber(dateString: string): string {
-    const date = moment(dateString);
-    return date.isoWeek().toString();
+  public getWeekNumber(date?: Date): number {
+    const currentDate = date || new Date();
+    // const date = new Date();
+    const d = new Date(Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
+
+    // ISO week date weeks start on Monday, so correct the day number
+    const dayNum = d.getUTCDay() || 7; // Sunday = 7
+
+    // Set the target date to Thursday of this week (ISO magic)
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+
+    // Calculate week number
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+
+    return weekNo;
+  }
+
+  public getNextWeekNumber(): number {
+    const nextWeekDate = new Date();
+    nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+
+    return this.getWeekNumber(nextWeekDate);
+  }
+
+  public getWeekRange(): string {
+    const today = new Date();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - today.getDay() + 1); // Monday of current week
+    
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6); // Sunday of current week
+    
+    return `${monday.toLocaleDateString('nl-NL')} - ${sunday.toLocaleDateString('nl-NL')}`;
+  }
+
+  public getNextWeekRange(): string {
+    const today = new Date();
+    const nextWeekMonday = new Date(today);
+    nextWeekMonday.setDate(today.getDate() - today.getDay() + 8); // Monday of next week
+    
+    const nextWeekSunday = new Date(nextWeekMonday);
+    nextWeekSunday.setDate(nextWeekMonday.getDate() + 6); // Sunday of next week
+    
+    return `${nextWeekMonday.toLocaleDateString('nl-NL')} - ${nextWeekSunday.toLocaleDateString('nl-NL')}`;
   }
 
   private parseTrainingGoals(data: string): void {
@@ -138,6 +154,71 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
         this.trainingGoals[week] = goal;
       }
     });
+  }
+
+  private loadBirthdays(): void {
+    this.registerSubscription(
+      this.ledenService.getActiveMembers$()
+        .subscribe({
+          next: (members: LedenItemExt[]) => {
+            const filteredBirthdays = members.filter(member => this.isBirthdayNextWeek(member.GeboorteDatum));
+            
+            // Group birthdays by date
+            const grouped = filteredBirthdays.reduce((acc, member) => {
+              const birthDate = moment(member.GeboorteDatum);
+              const thisYearBirthday = moment({
+                year: this.now.year(),
+                month: birthDate.month(),
+                day: birthDate.date()
+              });
+              
+              // If this year's birthday has passed, use next year
+              if (thisYearBirthday.isBefore(this.now)) {
+                thisYearBirthday.add(1, 'year');
+              }
+              
+              const dateKey = thisYearBirthday.format('YYYY-MM-DD');
+              
+              if (!acc[dateKey]) {
+                acc[dateKey] = [];
+              }
+              acc[dateKey].push(member);
+              return acc;
+            }, {} as { [key: string]: LedenItemExt[] });
+            
+            // Convert to array and sort by date, then sort members within each date by name
+            this.groupedBirthdays = Object.keys(grouped)
+              .sort()
+              .map(date => ({
+                date,
+                members: grouped[date].sort((a, b) => a.VolledigeNaam.localeCompare(b.VolledigeNaam))
+              }));
+          },
+          error: (e) => {
+            console.error('Error loading members:', e);
+          }
+        })
+    );
+  }
+
+  private isBirthdayNextWeek(birthDate: string): boolean {
+    if (!birthDate) return false;
+
+    const birth = moment(birthDate);
+
+    // Create this year's birthday
+    const thisYearBirthday = moment({
+      year: this.now.year(),
+      month: birth.month(),
+      day: birth.date()
+    });
+
+    // If this year's birthday has passed, check next year's
+    if (thisYearBirthday.isBefore(this.now)) {
+      thisYearBirthday.add(1, 'year');
+    }
+
+    return thisYearBirthday.isBetween(this.startOfNextWeek, this.endOfNextWeek, null, '[]');
   }
 }
 
