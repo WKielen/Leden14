@@ -18,3 +18,14 @@
     </div>
   </mat-card-content>
 </mat-card>
+
+<mat-card *ngIf="showForm">
+  <mat-card-header>
+    <mat-card-title>Trainingsdoel jeugd</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <div class="internalcard" *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
+        <div id="datum">{{ trainingGoals[getWeekNumber(dagen.keys()[i])] }}</div>
+      </div>
+  </mat-card-content>
+</mat-card>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AgendaItem, AgendaService, TypeValues } from 'src/app/services/agenda.service';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
@@ -16,12 +17,32 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
   constructor(
     private agendaService: AgendaService,
     private actionService: ActionService,
+    private http: HttpClient
   ) {
     super();
   }
   dagen: Dictionary = new Dictionary([]);
+  trainingGoals: { [key: string]: string } = {};
+  showForm: boolean = false;
 
   ngOnInit(): void {
+    // First load training goals
+    this.registerSubscription(
+      this.http.get('/assets/trainings-goals.txt', { responseType: 'text' })
+        .subscribe({
+          next: (data) => {
+            this.parseTrainingGoals(data);
+            this.loadAgendaData();
+          },
+          error: (e) => {
+            console.error('Error loading training goals:', e);
+            this.loadAgendaData(); // Load agenda even if goals fail
+          }
+        })
+    );
+  }
+
+  private loadAgendaData(): void {
     this.registerSubscription(
       this.agendaService.nextWeek$()
         .pipe(
@@ -80,6 +101,7 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
               this.addtoDagListIfThisWeek(ai);
 
             });
+            this.showForm = true; // Ensure form is shown after actions too
           }
         })
     );
@@ -93,20 +115,29 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
 
     agendaItem.Type = TypeValues.GetLabel(agendaItem.Type);
 
-
-    // switch (agendaItem.Type) {
-    //   case 'T': agendaItem.Type = 'Toernooi'; break;
-    //   case 'C': agendaItem.Type = 'Competitie'; break;
-    //   case 'V': agendaItem.Type = 'Vergadering'; break;
-    //   case 'S': agendaItem.Type = 'Actie start datum'; break;
-    //   case 'E': agendaItem.Type = 'Actie uiterste datum'; break;
-    // }
-
     if (!this.dagen.containsKey(dagnaam)) {
       this.dagen.addSorted(dagnaam, [])
     }
     let dag: Array<AgendaItem> = this.dagen.get(dagnaam);
     dag.push(agendaItem);
+  }
+
+  getWeekNumber(dateString: string): string {
+    const date = moment(dateString);
+    return date.isoWeek().toString();
+  }
+
+  private parseTrainingGoals(data: string): void {
+    this.trainingGoals = {};
+    const lines = data.split('\n');
+    lines.forEach(line => {
+      const parts = line.split(';');
+      if (parts.length === 2) {
+        const week = parts[0].trim();
+        const goal = parts[1].trim();
+        this.trainingGoals[week] = goal;
+      }
+    });
   }
 }
 
