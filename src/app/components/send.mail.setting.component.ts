@@ -1,9 +1,7 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotFoundError } from 'rxjs';
-import { ConfigDialogComponent } from 'src/app/app-nav/headerconfigdialog/config.dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { MailBoxParam } from 'src/app/services/mail.service';
 import { ParamService } from 'src/app/services/param.service';

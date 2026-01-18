@@ -37,6 +37,7 @@ import { DecisionMutationDialogComponent } from './action.compoments/decision.mu
 import { NotificationSubscriptionFormComponent } from './notification.subscription.form.component';
 import { DisplaySubscriptionsAgendaDetailsComponent } from './display.subscribtions.details.component/display.subscribtions.details.component';
 import { DisplaySubscriptionsAgendaDetailsWrapperComponent } from './display.subscribtions.details.component/display.subscribtions.details.wrapper.component';
+import { DisplayBirthdayComponent } from './display.birthday.component/display.birthday.component';
 
 const componentList = [
   CardHeaderSpinnerComponent,
@@ -53,6 +54,7 @@ const componentList = [
   DisplaySubscriptionsAgendaDetailsComponent,
   DisplaySubscriptionsAgendaDetailsWrapperComponent,
   DisplayAgendaDetailsComponent,
+  DisplayBirthdayComponent,
   HtmlEditorFormControlComponent,
   SendMailSettingsComponent,
   AgendaMutationFormComponent,

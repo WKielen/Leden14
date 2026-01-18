@@ -39,21 +39,4 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Aankomende verjaardagen</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div *ngIf="groupedBirthdays.length > 0">
-      <div class="internalcard" *ngFor="let birthdayGroup of groupedBirthdays">
-        <div id="datum">{{ birthdayGroup.date | date:'EEEE dd-MM-yyyy' }}</div>
-        <div class="internalcardcontent" *ngFor="let member of birthdayGroup.members">
-          <div id="evenementnaam">{{ member.VolledigeNaam }} ({{ member.Leeftijd }})</div>
-        </div>
-      </div>
-    </div>
-    <div class="internalcard" *ngIf="groupedBirthdays.length == 0">
-      <div id="datum">Geen verjaardagen</div>
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-display-birthdays-details></app-display-birthdays-details>

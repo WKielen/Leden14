@@ -5,7 +5,6 @@ import { AgendaItem, AgendaService, TypeValues } from 'src/app/services/agenda.s
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import * as moment from 'moment';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { LedenService, LedenItemExt } from 'src/app/services/leden.service';
 
 @Component({
   selector: 'app-komendeweek',
@@ -17,15 +16,13 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
   constructor(
     private agendaService: AgendaService,
     private http: HttpClient,
-    private ledenService: LedenService
   ) {
     super();
   }
   dagen: Dictionary = new Dictionary([]);
   trainingGoals: { [key: string]: string } = {};
   showForm: boolean = false;
-  birthdays: LedenItemExt[] = [];
-  groupedBirthdays: { date: string; members: LedenItemExt[] }[] = [];
+
   now = moment();
   startOfNextWeek = moment();
   endOfNextWeek = moment().add(1, 'week');
@@ -39,7 +36,6 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
           next: (data) => {
             this.parseTrainingGoals(data);
             this.loadAgendaData();
-            this.loadBirthdays();
           },
           error: (e) => {
             console.error('Error loading training goals:', e);
@@ -156,69 +152,5 @@ export class KomendeWeekComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private loadBirthdays(): void {
-    this.registerSubscription(
-      this.ledenService.getActiveMembers$()
-        .subscribe({
-          next: (members: LedenItemExt[]) => {
-            const filteredBirthdays = members.filter(member => this.isBirthdayNextWeek(member.GeboorteDatum));
-            
-            // Group birthdays by date
-            const grouped = filteredBirthdays.reduce((acc, member) => {
-              const birthDate = moment(member.GeboorteDatum);
-              const thisYearBirthday = moment({
-                year: this.now.year(),
-                month: birthDate.month(),
-                day: birthDate.date()
-              });
-              
-              // If this year's birthday has passed, use next year
-              if (thisYearBirthday.isBefore(this.now)) {
-                thisYearBirthday.add(1, 'year');
-              }
-              
-              const dateKey = thisYearBirthday.format('YYYY-MM-DD');
-              
-              if (!acc[dateKey]) {
-                acc[dateKey] = [];
-              }
-              acc[dateKey].push(member);
-              return acc;
-            }, {} as { [key: string]: LedenItemExt[] });
-            
-            // Convert to array and sort by date, then sort members within each date by name
-            this.groupedBirthdays = Object.keys(grouped)
-              .sort()
-              .map(date => ({
-                date,
-                members: grouped[date].sort((a, b) => a.VolledigeNaam.localeCompare(b.VolledigeNaam))
-              }));
-          },
-          error: (e) => {
-            console.error('Error loading members:', e);
-          }
-        })
-    );
-  }
-
-  private isBirthdayNextWeek(birthDate: string): boolean {
-    if (!birthDate) return false;
-
-    const birth = moment(birthDate);
-
-    // Create this year's birthday
-    const thisYearBirthday = moment({
-      year: this.now.year(),
-      month: birth.month(),
-      day: birth.date()
-    });
-
-    // If this year's birthday has passed, check next year's
-    if (thisYearBirthday.isBefore(this.now)) {
-      thisYearBirthday.add(1, 'year');
-    }
-
-    return thisYearBirthday.isBetween(this.startOfNextWeek, this.endOfNextWeek, null, '[]');
-  }
 }
 
