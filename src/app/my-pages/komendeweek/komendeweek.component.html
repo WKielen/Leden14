@@ -1,42 +1,7 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Programma komende week</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div *ngIf="dagen.length() > 0">
-      <div class="internalcard" *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
-        <div id="datum">{{ dagen.keys()[i] | date:'EEEE dd-MM-yyyy' }}</div>
-        <div class="internalcardcontent" *ngFor="let item of dagen.getIndex(i); index as j" id='id{{j}}'>
-          <div id="evenementnaam">{{ dagen.getIndex(i)[j].EvenementNaam }} ({{ dagen.getIndex(i)[j].Type }})</div>
-          <div id="aanvang" *ngIf="dagen.getIndex(i)[j].Tijd">Aanvang: {{dagen.getIndex(i)[j].Tijd }}</div>
-          <div id="toelichting" [innerHTML]="dagen.getIndex(i)[j].Toelichting"></div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="dagen.length() == 0">
-      <h1>Geen activiteiten</h1>
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-display-program-next-week></app-display-program-next-week>
 
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Trainingsdoel jeugd</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="internalcard">
-      <div id="datum">{{ getWeekRange() }}  (Week {{ getWeekNumber() }})</div>
-      <div class="internalcardcontent">
-        <div id="evenementnaam">{{ trainingGoals[getWeekNumber()] }}</div>
-      </div>
-    </div>
-    <div class="internalcard">
-      <div id="datum">{{ getNextWeekRange() }}   (Week {{ getNextWeekNumber() }})</div>
-      <div class="internalcardcontent">
-        <div id="evenementnaam">{{ trainingGoals[getNextWeekNumber()] }}</div>
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+<app-display-trainingsgoals></app-display-trainingsgoals>  
 
-<app-display-birthdays-details></app-display-birthdays-details>
+<app-display-birthdays></app-display-birthdays>
+
+<app-display-subscriptions-details></app-display-subscriptions-details>

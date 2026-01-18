@@ -5,7 +5,7 @@ import { LedenItemExt, LedenService } from '../../services/leden.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-display-birthdays-details',
+  selector: 'app-display-birthdays',
   styleUrls: ['./display.birthday.component.scss'],
   template: `
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
