@@ -2,7 +2,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, OnInit, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 import { AgendaItem } from 'src/app/services/agenda.service';
 import { InschrijvingItem } from 'src/app/services/inschrijving.service';
-import { LedenItemExt } from 'src/app/services/leden.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
 
@@ -15,7 +14,7 @@ import { DynamicDownload } from 'src/app/shared/modules/DynamicDownload';
   <app-display-subscriptions-details [AgendaId]="AgendaId" (inschrijvingenList)="onInschrijvingen($event)"></app-display-subscriptions-details>
   <button mat-raised-button color="primary" (click)="onClickDownload()">Download inschrijvingen</button>
 `,
-  styles: []
+  styles: ['button { display: block; margin: 0 auto; }']
 })
 
 export class DisplaySubscriptionsAgendaDetailsWrapperComponent extends BaseComponent implements OnInit {

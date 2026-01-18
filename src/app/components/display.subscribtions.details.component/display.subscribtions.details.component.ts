@@ -13,7 +13,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: "app-display-subscriptions-details",
   templateUrl: "./display.subscribtions.details.component.html",
-  styleUrls: ["./display.subscribtions.details.component.scss"],
+  styleUrls: ["./display.subscribtions.details.component.scss",
+              "display.trainingsgoals.card.component.scss"  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
