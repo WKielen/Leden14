@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BaseComponent } from '../../shared/base.component';
-import { LedenItemExt, LedenService } from '../../services/leden.service';
 import * as moment from 'moment';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
-import { HttpClient } from '@angular/common/http';
+import { ReadTextFileService } from 'src/app/services/readtextfile.service';
+import { Observable, forkJoin, of } from "rxjs";
+import { AppError } from 'src/app/shared/error-handling/app-error';
 
 @Component({
   selector: 'app-display-trainingsgoals',
@@ -13,19 +14,22 @@ import { HttpClient } from '@angular/common/http';
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Trainingsdoel jeugd</mat-card-title>
+      <mat-card-title>Trainingsdoel</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="internalcard">
-        <div id="datum">{{ getWeekRange() }}  (Week {{ getWeekNumber() }})</div>
+        <div id="datum">Week {{ getWeekNumber() }}</div>
         <div class="internalcardcontent">
-          <div id="evenementnaam">{{ trainingGoals[getWeekNumber()] }}</div>
+          <!-- <div id="evenementnaam">{{ getWeekRange() }}</div> -->
+          <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getWeekNumber()] }}</div>
+          <div id="evenementnaam">Sen. Recr.: {{ trainingGoalsSen[getWeekNumber()] }}</div>
         </div>
       </div>
       <div class="internalcard">
-        <div id="datum">{{ getNextWeekRange() }}   (Week {{ getNextWeekNumber() }})</div>
+        <div id="datum">Week {{ getNextWeekNumber() }}</div>
         <div class="internalcardcontent">
-          <div id="evenementnaam">{{ trainingGoals[getNextWeekNumber()] }}</div>
+          <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getNextWeekNumber()] }}</div>
+          <div id="evenementnaam">Sen. Recr.: {{ trainingGoalsSen[getNextWeekNumber()] }}</div>
         </div>
       </div>
     </mat-card-content>
@@ -36,13 +40,14 @@ import { HttpClient } from '@angular/common/http';
 export class DisplayTrainingGoalsComponent extends BaseComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
+    private readTextFileService: ReadTextFileService,
   ) {
     super();
   }
   
   dagen: Dictionary = new Dictionary([]);
-  trainingGoals: { [key: string]: string } = {};
+  trainingGoalsJun: { [key: string]: string } = {};
+  trainingGoalsSen: { [key: string]: string } = {};
   showForm: boolean = false;
 
   now = moment();
@@ -50,17 +55,30 @@ export class DisplayTrainingGoalsComponent extends BaseComponent implements OnIn
   endOfNextWeek = moment().add(1, 'week');
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  private subJunGoals: Observable<Object>;
+  private subSenGoals: Observable<Object>;
+
+  private loadData() {
+    this.subJunGoals = this.readTextFileService.read('jun-trainings-goals.txt');
+    this.subSenGoals = this.readTextFileService.read('sen-trainings-goals.txt');
+
+
     this.registerSubscription(
-      this.http.get('/assets/trainings-goals.txt', { responseType: 'text' })
+      forkJoin([this.subJunGoals, this.subSenGoals])
         .subscribe({
           next: (data) => {
-            this.parseTrainingGoals(data);
+            this.trainingGoalsJun = this.parseTrainingGoals(data[0] as string);
+            this.trainingGoalsSen = this.parseTrainingGoals(data[1] as string);
           },
-          error: (e) => {
-            console.error('Error loading training goals:', e);
+          error: (error: AppError) => {
+            console.error("TrainingDeelnameComponent --> loadData --> error", error);
           }
         })
     );
+
   }
 
   public getWeekNumber(date?: Date): number {
@@ -111,17 +129,18 @@ export class DisplayTrainingGoalsComponent extends BaseComponent implements OnIn
   }
 
 
-  private parseTrainingGoals(data: string): void {
-    this.trainingGoals = {};
+  private parseTrainingGoals(data: string): { [key: string]: string } {
+    let trainingGoals = {};
     const lines = data.split('\n');
     lines.forEach(line => {
       const parts = line.split(';');
       if (parts.length === 2) {
         const week = parts[0].trim();
         const goal = parts[1].trim();
-        this.trainingGoals[week] = goal;
+        trainingGoals[week] = goal;
       }
     });
+    return trainingGoals; 
   }
 
 }

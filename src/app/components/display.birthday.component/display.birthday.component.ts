@@ -42,8 +42,8 @@ export class DisplayBirthdayComponent extends BaseComponent implements OnInit {
   showForm: boolean = false;
   birthdays: LedenItemExt[] = [];
   groupedBirthdays: { date: string; members: LedenItemExt[] }[] = [];
-  now = moment();
-  startOfNextWeek = moment();
+  now = moment().startOf('day');
+  startOfNextWeek = moment().startOf('day');
   endOfNextWeek = moment().add(1, 'week');
 
   ngOnInit(): void {
