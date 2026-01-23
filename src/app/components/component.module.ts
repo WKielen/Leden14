@@ -37,9 +37,9 @@ import { DecisionMutationDialogComponent } from './action.compoments/decision.mu
 import { NotificationSubscriptionFormComponent } from './notification.subscription.form.component';
 import { DisplaySubscriptionsAgendaDetailsComponent } from './display.subscribtions.details.component/display.subscribtions.details.component';
 import { DisplaySubscriptionsAgendaDetailsWrapperComponent } from './display.subscribtions.details.component/display.subscribtions.details.wrapper.component';
-import { DisplayBirthdayComponent } from './display.birthday.component/display.birthday.component';
-import { DisplayTrainingGoalsComponent } from './display.trainingsgoals.component/display.trainingsgoals.component';
-import { DisplayProgramNextWeekComponent } from './display.program.next.week.component/display.program.next.week.component';
+import { DisplayBirthdayComponent } from './display.birthday.component';
+import { DisplayTrainingGoalsComponent } from './display.trainingsgoals.component';
+import { DisplayProgramNextWeekComponent } from './display.program.next.week.component';
 import { DisplaySubscriptionsComponent } from './display.subscriptions.component/display.subscribtions.component';
 
 const componentList = [

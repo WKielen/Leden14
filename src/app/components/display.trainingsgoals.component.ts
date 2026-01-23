@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseComponent } from '../../shared/base.component';
+import { BaseComponent } from '../shared/base.component';
 import * as moment from 'moment';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import { ReadTextFileService } from 'src/app/services/readtextfile.service';
@@ -9,7 +9,7 @@ import { AppError } from 'src/app/shared/error-handling/app-error';
 
 @Component({
   selector: 'app-display-trainingsgoals',
-  styleUrls: ['./display.trainingsgoals.component.scss'],
+  styleUrls: [ "./generic.card.list.display.scss" ],
   template: `
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
   <mat-card>
@@ -18,18 +18,17 @@ import { AppError } from 'src/app/shared/error-handling/app-error';
     </mat-card-header>
     <mat-card-content>
       <div class="internalcard">
-        <div id="datum">Week {{ getWeekNumber() }}</div>
+        <div class="cardheader">Week {{ getWeekNumber() }}</div>
         <div class="internalcardcontent">
-          <!-- <div id="evenementnaam">{{ getWeekRange() }}</div> -->
-          <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getWeekNumber()] }}</div>
-          <div id="evenementnaam">Sen. Recr: {{ trainingGoalsSen[getWeekNumber()] }}</div>
+          <div class="internalcardcontent">Jeugd: {{ trainingGoalsJun[getWeekNumber()] }}</div>
+          <div class="internalcardcontent">Sen. Recr: {{ trainingGoalsSen[getWeekNumber()] }}</div>
         </div>
       </div>
       <div class="internalcard">
-        <div id="datum">Week {{ getNextWeekNumber() }}</div>
+        <div class="cardheader">Week {{ getNextWeekNumber() }}</div>
         <div class="internalcardcontent">
-          <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getNextWeekNumber()] }}</div>
-          <div id="evenementnaam">Sen. Recr: {{ trainingGoalsSen[getNextWeekNumber()] }}</div>
+          <div class="internalcardcontent">Jeugd: {{ trainingGoalsJun[getNextWeekNumber()] }}</div>
+          <div class="internalcardcontent">Sen. Recr: {{ trainingGoalsSen[getNextWeekNumber()] }}</div>
         </div>
       </div>
     </mat-card-content>

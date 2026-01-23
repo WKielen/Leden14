@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseComponent } from '../../shared/base.component';
+import { BaseComponent } from '../shared/base.component';
 import * as moment from 'moment';
 import { Dictionary } from 'src/app/shared/modules/Dictionary';
 import { AgendaItem, AgendaService, TypeValues } from 'src/app/services/agenda.service';
@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-display-program-next-week',
-  styleUrls: ['./display.program.next.week.component.scss'],
+  styleUrls: [ "./generic.card.list.display.scss"  ],
   template: `
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
   <mat-card>
@@ -18,11 +18,13 @@ import { map } from 'rxjs/operators';
     <mat-card-content>
       <div *ngIf="dagen.length() > 0">
         <div class="internalcard" *ngFor="let dag of dagen.keys(); index as i" id='id{{i}}'>
-          <div id="datum">{{ dagen.keys()[i] | date:'EEEE dd-MM-yyyy' }}</div>
+          <div class="cardheader"> {{ dagen.keys()[i] | date:'EEEE dd-MM-yyyy' }}</div>
           <div class="internalcardcontent" *ngFor="let item of dagen.getIndex(i); index as j" id='id{{j}}'>
-            <div id="evenementnaam">{{ dagen.getIndex(i)[j].EvenementNaam }} ({{ dagen.getIndex(i)[j].Type }})</div>
-            <div id="aanvang" *ngIf="dagen.getIndex(i)[j].Tijd">Aanvang: {{dagen.getIndex(i)[j].Tijd }}</div>
-            <div id="toelichting" [innerHTML]="dagen.getIndex(i)[j].Toelichting"></div>
+            <div class="cardsubheader">{{ dagen.getIndex(i)[j].EvenementNaam }} ({{ dagen.getIndex(i)[j].Type }})</div>
+            <div *ngIf="dagen.getIndex(i)[j].Tijd || dagen.getIndex(i)[j].Toelichting" class="internalcardcontent">
+              <div *ngIf="dagen.getIndex(i)[j].Tijd">Aanvang: {{dagen.getIndex(i)[j].Tijd }}</div>
+              <div *ngIf="dagen.getIndex(i)[j].Toelichting">Toelichting: {{dagen.getIndex(i)[j].Toelichting }}</div>
+            </div>
           </div>
         </div>
       </div>

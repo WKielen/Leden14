@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseComponent } from '../../shared/base.component';
-import { DateRoutines, IBirthDay, LedenItemExt, LedenService } from '../../services/leden.service';
+import { BaseComponent } from '../shared/base.component';
+import { DateRoutines, IBirthDay, LedenItemExt, LedenService } from '../services/leden.service';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-display-birthdays',
-  styleUrls: ['./display.birthday.component.scss'],
+  styleUrls: [ "./generic.card.list.display.scss"  ],
   template: `
   <small class="development" *ngIf="developmentMode">{{ me }}</small>
 <mat-card>
@@ -16,14 +16,14 @@ import * as moment from 'moment';
   <mat-card-content>
     <div *ngIf="groupedBirthdays.length > 0">
       <div class="internalcard" *ngFor="let birthdayGroup of groupedBirthdays">
-        <div id="datum">{{ birthdayGroup.date | date:'EEEE dd-MM-yyyy' }}</div>
+        <div class="cardheader">{{ birthdayGroup.date | date:'EEEE dd-MM-yyyy' }}</div>
         <div class="internalcardcontent" *ngFor="let member of birthdayGroup.members">
-          <div id="evenementnaam">{{ member.VolledigeNaam }} ({{ member.Leeftijd }})</div>
+          <div>{{ member.VolledigeNaam }} ({{ member.Leeftijd }})</div>
         </div>
       </div>
     </div>
     <div class="internalcard" *ngIf="groupedBirthdays.length == 0">
-      <div id="datum">Geen verjaardagen</div>
+      <div class="cardheader">Geen verjaardagen</div>
     </div>
   </mat-card-content>
 </mat-card>

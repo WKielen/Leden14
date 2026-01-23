@@ -11,8 +11,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: "app-display-subscriptions",
   templateUrl: "./display.subscribtions.component.html",
-  styleUrls: ["./display.subscribtions.component.scss",
-              "./../generic.card.list.display.scss"  ],
+  styleUrls: [  "./display.subscribtions.component.scss",
+                "./../generic.card.list.display.scss"  ],
 })
 
 export class DisplaySubscriptionsComponent extends ParentComponent
