@@ -1,0 +1,34 @@
+@use "src/mixins.scss" as mix;
+
+// De kleine copy buttons op de detailpag
+.mat-icon-button {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  .mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+}
+
+
+// Remove card appearance from expansion panels
+.mat-expansion-panel {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.mat-expansion-panel-header {
+  background: transparent !important;
+  padding: 0 !important;
+  max-height: 24px !important; // Reduce height to half
+}
+
+.mat-expansion-panel-body {
+  background: transparent !important;
+}
+
+

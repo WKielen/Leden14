@@ -1,0 +1,168 @@
+<small class="development" *ngIf="developmentMode">{{ me }}</small>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Inschrijvingen toernooien</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="agendaWithInschrijvingen.length > 0">
+      <div class="internalcard" *ngFor="let itemWithInschrijvingen of agendaWithInschrijvingen">
+        <div class="cardheader">{{ itemWithInschrijvingen.agenda.EvenementNaam }}</div>
+        <div class="cardsubheader">{{ itemWithInschrijvingen.agenda.Datum | date:'EEEE dd-MM-yyyy' }}</div>
+        <div *ngFor="let element of itemWithInschrijvingen.inschrijvingen">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="internalcardcontent"> {{ element.Naam }}</div>
+              </mat-panel-title>
+              <!--mat-panel-description>
+                  <div id="toelichting"> {{ element.Lid.LeeftijdCategorieBond }} </div>
+                </mat-panel-description-->
+            </mat-expansion-panel-header>
+            <table>
+              <tr>
+                <td width="30%"></td>
+                <td width="5%"></td>
+                <td width="65%"></td>
+              </tr>
+              <tr *ngIf='element.Lid.VolledigeNaam'>
+                <td class='cell'>Naam:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.VolledigeNaam)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.VolledigeNaam }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Naam'>
+                <td class='cell'>Naam:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Naam)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Naam }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Voornaam'>
+                <td class='cell'>Voornaam:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Voornaam)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Voornaam }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Tussenvoegsel'>
+                <td class='cell'>Tussenvoegsel:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Tussenvoegsel)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Tussenvoegsel }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Achternaam'>
+                <td class='cell'>Achternaam:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Achternaam)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Achternaam }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.BondsNr'>
+                <td class='cell'>BondsNr:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.BondsNr)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.BondsNr }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.GeboorteDatum'>
+                <td class='cell'>Geboortedatum:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.GeboorteDatum)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.GeboorteDatum }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.GeboorteDatum2'>
+                <td class='cell'>Geboortedatum:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.GeboorteDatum2)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.GeboorteDatum2 }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Leeftijd'>
+                <td class='cell'>Leeftijd:</td>
+                <td class='cell'></td>
+                <td class='cell'>{{ element.Lid.Leeftijd }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Geslacht'>
+                <td class='cell'>Geslacht:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Geslacht)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Geslacht }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.Rating > 0'>
+                <td class='cell'>Rating :</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Lid.Rating)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Lid.Rating }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.LicentieJun'>
+                <td class='cell'>Licentie Jun :</td>
+                <td class='cell'></td>
+                <td class='cell'>{{ element.Lid.LicentieJun }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.LicentieSen'>
+                <td class='cell'>Licentie Sen :</td>
+                <td class='cell'></td>
+                <td class='cell'>{{ element.Lid.LicentieSen }}</td>
+              </tr>
+              <tr *ngIf='element.Lid.LeeftijdCategorieBond'>
+                <td class='cell'>Categorie:</td>
+                <td class='cell'></td>
+                <td class='cell'>
+                  <div [innerHTML]="InnerHtmlLabelLeeftijdsCategorie(element.Lid.LeeftijdCategorieBond)"></div>
+                </td>
+              </tr>
+              <tr *ngIf='element.Lid.LidBond'>
+                <td class='cell'>Lid NTTB:</td>
+                <td class='cell'></td>
+                <td class='cell'>{{ element.Lid.LidBond.toDutchTextString() }}</td>
+              </tr>
+              <tr *ngIf='element.ExtraInformatie'>
+                <td class='cell'>Extra info:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.ExtraInformatie)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.ExtraInformatie }}</td>
+              </tr>
+              <tr *ngIf='element.Email'>
+                <td class='cell'>Email:</td>
+                <td>
+                  <button mat-icon-button (click)="onClickCopy(element.Email)">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+                <td class='cell'>{{ element.Email }}</td>
+              </tr>
+            </table>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

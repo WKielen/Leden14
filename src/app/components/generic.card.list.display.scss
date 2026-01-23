@@ -1,0 +1,60 @@
+@use "src/mixins.scss" as mix;
+
+mat-card {
+    text-align: center;
+    @include mix.desktop {
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
+
+.internalcard {
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 2px 5px 5px lightgrey;
+    margin: 0px 0px 15px 0px;
+    background: white;
+    border-radius: 5px;
+    padding: 10px 10px 0px 20px;
+
+}
+
+.cardheader {
+    font-size: 25px;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+.cardsubheader {
+    font-size: 19px;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.internalcardcontent {
+    font-size: 17px;
+    font-weight: 500;
+    padding-bottom: 5px;
+    width: 100%;
+    text-align: center;
+    @include mix.desktop {
+
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+}
+
+// De kleine copy buttons op de detailpag
+.mat-icon-button {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  .mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+}

@@ -57,4 +57,5 @@ export class InschrijvingItem {
   Email: string = '';
   Naam: string = '';
   ExtraInformatie: string = '';
+  Lid: any = null;
 }

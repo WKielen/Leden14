@@ -22,14 +22,14 @@ import { AppError } from 'src/app/shared/error-handling/app-error';
         <div class="internalcardcontent">
           <!-- <div id="evenementnaam">{{ getWeekRange() }}</div> -->
           <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getWeekNumber()] }}</div>
-          <div id="evenementnaam">Sen. Recr.: {{ trainingGoalsSen[getWeekNumber()] }}</div>
+          <div id="evenementnaam">Sen. Recr: {{ trainingGoalsSen[getWeekNumber()] }}</div>
         </div>
       </div>
       <div class="internalcard">
         <div id="datum">Week {{ getNextWeekNumber() }}</div>
         <div class="internalcardcontent">
           <div id="evenementnaam">Jeugd: {{ trainingGoalsJun[getNextWeekNumber()] }}</div>
-          <div id="evenementnaam">Sen. Recr.: {{ trainingGoalsSen[getNextWeekNumber()] }}</div>
+          <div id="evenementnaam">Sen. Recr: {{ trainingGoalsSen[getNextWeekNumber()] }}</div>
         </div>
       </div>
     </mat-card-content>

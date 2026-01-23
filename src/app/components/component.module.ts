@@ -40,6 +40,7 @@ import { DisplaySubscriptionsAgendaDetailsWrapperComponent } from './display.sub
 import { DisplayBirthdayComponent } from './display.birthday.component/display.birthday.component';
 import { DisplayTrainingGoalsComponent } from './display.trainingsgoals.component/display.trainingsgoals.component';
 import { DisplayProgramNextWeekComponent } from './display.program.next.week.component/display.program.next.week.component';
+import { DisplaySubscriptionsComponent } from './display.subscriptions.component/display.subscribtions.component';
 
 const componentList = [
   CardHeaderSpinnerComponent,
@@ -54,6 +55,7 @@ const componentList = [
   HtmlEditorMailWrapperComponent,
   SendMailComponent,
   DisplaySubscriptionsAgendaDetailsComponent,
+  DisplaySubscriptionsComponent,
   DisplaySubscriptionsAgendaDetailsWrapperComponent,
   DisplayAgendaDetailsComponent,
   DisplayBirthdayComponent,
