@@ -22,9 +22,9 @@ import * as moment from 'moment';
         </div>
       </div>
     </div>
-    <div class="internalcard" *ngIf="groupedBirthdays.length == 0">
-      <div class="cardheader">Geen verjaardagen</div>
-    </div>
+      <div *ngIf="groupedBirthdays.length == 0">
+        <h1>Geen verjaardagen</h1>
+      </div>
   </mat-card-content>
 </mat-card>
 `

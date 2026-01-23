@@ -33,8 +33,8 @@ export class DisplaySubscriptionsComponent extends ParentComponent
   public inschrijvingItems: Array<InschrijvingItem> = [];
   public agendaWithInschrijvingen: { agenda: AgendaItem, inschrijvingen: InschrijvingItem[] }[] = [];
   public columnsToDisplay: string[] = ['InschrijvingNaam'];
-  public panelOpenState = false;
-
+  public panelOpenState:boolean = false;
+  public showForm:boolean = false;
 
   ngOnInit() {
 
@@ -88,6 +88,9 @@ export class DisplaySubscriptionsComponent extends ParentComponent
               const inschrijvingen = this.inschrijvingItems.filter(item => item.Agenda_Id.toString() === agenda.Id);
               return { agenda, inschrijvingen };
             }).filter(item => item.inschrijvingen.length > 0); // Only show agendas with inschrijvingen
+            if (this.agendaWithInschrijvingen.length > 0) {
+              this.showForm = true;
+            }
           },
           error: (error: AppError) => {
             console.error("🚀 --> TestComponent --> ngOnInit --> error:", error);
